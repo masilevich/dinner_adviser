@@ -5,6 +5,30 @@
       <nav>
         <ul class="nav pull-right">
           <li><%= link_to "Главная", root_path %></li>
+          <% if user_signed_in? %>
+
+            <li id="fat-menu" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Аккаунт <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Профиль", edit_user_registration_path(current_user) %></li>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to "Выход", destroy_user_session_path, method: "delete" %>
+                </li>
+              </ul>
+            </li>
+
+            
+          <% else %>
+            <%if controller_name != 'registrations' %>
+            <li><%= link_to "Регистрация", new_user_registration_path %></li>
+            <% end%>
+            <%if controller_name != 'sessions' %>
+            <li><%= link_to "Войти", new_user_session_path %></li>
+            <% end%>
+          <% end %>
         </ul>
       </nav>
     </div>

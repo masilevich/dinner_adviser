@@ -1,9 +1,11 @@
 	<div class="center hero-unit">
-	<h1>Добро пожаловать к обеденному советнику</h1>
+		<h1>Добро пожаловать к обеденному советнику</h1>
 
 		<h2>
 			Это главная страница
 		</h2>
-
-		<%= link_to "Регистрация", "", class: "btn btn-large btn-primary" %>
+		<%if controller_name != 'registrations' && !user_signed_in? %>
+			<%= link_to "Регистрация", new_user_registration_path, 
+				class: "btn btn-large btn-primary" %>
+		<% end%>
 	</div>

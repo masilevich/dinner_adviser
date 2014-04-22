@@ -1,0 +1,15 @@
+<% provide(:title, 'Регистрация') %>
+
+<h2>Регистрация</h2>
+
+<div class="row">
+	<div class="span6 offset3">
+		<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+		<%= render 'fields', f: f %>
+		<%= f.submit "Регистрация", class: "btn btn-large btn-primary" %>
+		<% end %>
+
+		<%= render "devise/shared/links" %>
+
+	</div>
+</div>

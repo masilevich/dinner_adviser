@@ -1,10 +1,12 @@
 class StaticPagesController < ApplicationController
+	#before_filter :authenticate_user!, only: [:about]
+
   def home
   end
 
   def about
   end
 
-  def contacts
+  def contact
   end
 end

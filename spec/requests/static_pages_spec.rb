@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe "Static pages" do
+  include Warden::Test::Helpers
+  Warden.test_mode!
 
   subject { page }
 
@@ -17,9 +19,22 @@ describe "Static pages" do
     it_should_behave_like "all static pages"
     it { should_not have_title(full_title('Home'))  }
 
+    describe "for not signed-in users" do
+      before {visit root_path}
+      it { should have_link("Регистрация", href: new_user_registration_path) }
+    end
 
     describe "for signed-in users" do
-      
+      let(:user) { FactoryGirl.create(:user) }
+      before do
+        user.confirmed_at = Time.now
+        user.save
+        login_as(user, :scope => :user)
+        visit root_path
+      end
+      after {Warden.test_reset! }
+
+      it { should_not have_link("Регистрация", href: new_user_registration_path) }
     end
     
   end
@@ -48,8 +63,9 @@ describe "Static pages" do
     click_link "Контакты"
     expect(page).to have_title(full_title('Контакты'))
     click_link "Главная"
+    page.first(:link, "Регистрация").click
     #click_link "Регистрация"
-    #expect(page).to have_title( full_title('Регистрация'))
+    expect(page).to have_title( full_title('Регистрация'))
     click_link "Обеденный советник"
     expect(page).to have_title( full_title(''))
   end

@@ -28,6 +28,7 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
+  config.use_transactional_examples = true
 
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
@@ -41,4 +42,10 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.include Capybara::DSL
+
+  config.include Devise::TestHelpers, :type => :controller
+  config.include HelperMethods, :type => :request
+
 end
+
+Capybara.javascript_driver = :webkit
