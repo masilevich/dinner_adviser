@@ -49,6 +49,11 @@ describe "User pages" do
         it { should_not have_link("Войти", href: new_user_session_path) }
         it { should have_link("Профиль", href: edit_user_registration_path(user)) }
         it { should have_link("Выход", href: destroy_user_session_path) }
+
+        describe "followed by signout" do
+          before { click_link "Выход" }
+          it { should have_link('Войти') }
+        end
       end
 
       describe "login as username" do
