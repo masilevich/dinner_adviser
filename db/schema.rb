@@ -11,7 +11,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140421075658) do
+ActiveRecord::Schema.define(version: 20140423053423) do
+
+  create_table "course_kinds", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "courses", force: true do |t|
+    t.string   "name"
+    t.integer  "course_kind_id"
+    t.boolean  "common"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "courses", ["name", "user_id"], name: "index_courses_on_name_and_user_id", unique: true
+  add_index "courses", ["user_id"], name: "index_courses_on_user_id"
+
+  create_table "ingridients", force: true do |t|
+    t.integer  "course_id"
+    t.integer  "product_id"
+    t.integer  "weight"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "products", force: true do |t|
+    t.string   "name"
+    t.boolean  "common"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "products", ["name", "user_id"], name: "index_products_on_name_and_user_id", unique: true
+  add_index "products", ["user_id"], name: "index_products_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
