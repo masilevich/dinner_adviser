@@ -1,5 +1,15 @@
 DinnerAdviser::Application.routes.draw do
+
   devise_for :users
+
+  resources :products do
+    member do
+      put :set_availability
+    end
+  end
+  
+  resources :courses 
+  
   root 'static_pages#home'
 
   match '/about',    to: 'static_pages#about', via: 'get'

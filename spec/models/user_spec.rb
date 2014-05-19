@@ -24,6 +24,7 @@ describe User do
   it { should respond_to(:username) }
   it { should respond_to(:email) }
   it { should respond_to(:products) }
+  it { should respond_to(:available_products) }
   it { should respond_to(:courses) }
 
   it { should be_valid }
@@ -111,6 +112,41 @@ describe User do
     describe "with a password that's too short" do
       before { @user.password = @user.password_confirmation = "a" * 5 }
       it { should be_invalid }
+    end
+  end
+
+  describe "products" do
+    describe "available" do
+      describe "create" do
+        describe "through product" do
+          before do
+            @user.save
+            @p = Product.create(name: "Огурец", user_id: @user.id, available: true)            
+          end
+          its(:available_products) { should include(@p)}
+        end
+        describe "through available_products" do
+          before do
+            @user.save
+            @p = @user.available_products.create(name: "Огурец")
+          end
+          it "product should be available" do
+            expect(@p).to be_available
+          end
+        end
+      end
+    end
+
+    describe "associations" do
+      before { @user.save }
+
+      let!(:p3) { FactoryGirl.create(:product, user: @user, name: 'Картошка') }
+      let!(:p2) { FactoryGirl.create(:product, user: @user, name: 'Банан') }
+      let!(:p1) { FactoryGirl.create(:product, user: @user, name: 'Ананас') }
+
+      it "should have rights products in right order" do
+        expect(@user.products.to_a).to eq [p1, p2, p3]
+      end
     end
   end
 

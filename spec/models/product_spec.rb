@@ -14,6 +14,7 @@ describe Product do
 	it { should respond_to(:user) }
 	it { should respond_to(:courses) }
 	it { should respond_to(:ingridients) }
+	it { should respond_to(:available) }
 	its(:user) { should eq user }
 
 	it { should be_valid }

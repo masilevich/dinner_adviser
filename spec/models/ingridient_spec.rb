@@ -15,16 +15,4 @@ describe Ingridient do
 
 	it { should be_valid }
 
-	describe "validation" do
-
-		describe "when product is not present" do
-			before {ingridient.product_id = nil}
-			it { should_not be_valid }
-		end
-
-		describe "when course is not present" do
-			before {ingridient.course_id = nil}
-			it { should_not be_valid }
-		end
-	end
 end

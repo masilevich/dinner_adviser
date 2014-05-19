@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   has_many :courses,  dependent: :destroy
   has_many :products,  dependent: :destroy
+  has_many :available_products, -> { where available: true },
+    class_name: "Product",  dependent: :destroy
 
   valid_user_name = Regexp.new(/\A/.source + ApplicationHelper::USER_NAME_REGEX.source + /\z/.source, Regexp::IGNORECASE)
 	validates :username, uniqueness: {case_sensitive: false},

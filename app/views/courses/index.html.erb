@@ -1,0 +1,9 @@
+<% provide(:title, 'Блюда') %>
+
+		<section>
+			<%= link_to "Добавить", new_course_path, class: "btn btn-large btn-primary"%>
+		</section>
+
+		<section id="courses_lists">
+			<%= render 'courses/current_user_courses_lists' %>
+		</section>

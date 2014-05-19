@@ -25,16 +25,19 @@ describe "Static pages" do
     end
 
     describe "for signed-in users" do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:confirmed_user) }
       before do
-        user.confirmed_at = Time.now
-        user.save
         login_as(user, :scope => :user)
         visit root_path
       end
       after {Warden.test_reset! }
 
       it { should_not have_link("Регистрация", href: new_user_registration_path) }
+
+      describe "food links" do
+        it { should have_link("Продукты", href: products_path) }
+        it { should have_link("Блюда", href: courses_path) }
+      end
     end
     
   end

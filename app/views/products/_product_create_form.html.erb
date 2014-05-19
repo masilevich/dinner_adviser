@@ -1,0 +1,4 @@
+<%=form_tag('/products', method: :post, remote: true) do %>
+    <%= text_field_tag("product[name]", nil, placeholder: 'Новый продукт') %>
+    <%= submit_tag("Добавить", class: "btn btn-large btn-primary", remote: true) %>
+<% end %>

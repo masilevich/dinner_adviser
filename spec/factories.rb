@@ -13,4 +13,14 @@ FactoryGirl.define do
       confirmed_at Time.now
     end
   end
+
+  factory :product do
+    name "Огурец"
+    user
+  end
+
+  factory :course do
+    name "Рыба жареная"
+    user
+  end
 end

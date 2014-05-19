@@ -1,0 +1,18 @@
+<% provide(:title, 'Изменить блюдо') %>
+
+<div class="row">
+	<div class="span6 offset2">
+		<%= form_for(@course) do |f| %>
+		<%= render 'shared/error_messages', object: f.object %>
+
+		<%= f.label :name, "Название" %>
+		<%= f.text_field :name %>
+
+		Состав:
+
+		<%= f.collection_select :product_ids, current_user.available_products, :id, :name, {selected: @course.product_ids}, :multiple => true %>
+
+		<%= f.submit "Сохранить", class: "btn btn-large btn-primary" %>
+		<% end %>
+	</div>
+</div>

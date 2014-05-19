@@ -1,0 +1,23 @@
+<div class="row">
+	<div class="span5">
+		<section>
+			<% if current_user.available_products && current_user.available_products.any? %>
+			<h2>В наличии (<%= current_user.available_products.count %>)</h2>
+			<ol class="available_products">
+				<%= render current_user.available_products %>
+			</ol>
+			<% end %>
+		</section>
+	</div>
+
+	<div class="span5">
+		<section>
+			<% if current_user.products && current_user.products.any? %>
+			<h2>Все (<%= current_user.products.count %>)</h2>
+			<ol class="products">
+				<%= render current_user.products %>
+			</ol>
+			<% end %>
+		</section>
+	</div>
+</div>
