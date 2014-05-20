@@ -1,5 +1,8 @@
 class CoursesController < ApplicationController
   layout "food_links_menu"
+
+  before_filter :authenticate_user!
+  before_action :correct_user, only: [:edit, :update, :destroy]
   
   def index
   	@courses = current_user.courses
@@ -51,5 +54,10 @@ class CoursesController < ApplicationController
 
   def course_params
     params.require(:course).permit(:name, product_ids: [])
+  end
+
+  def correct_user
+    @course = current_user.courses.find_by(id: params[:id])
+    redirect_to root_url if @course.nil?
   end
 end

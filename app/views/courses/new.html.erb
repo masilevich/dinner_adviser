@@ -10,7 +10,7 @@
 
 		Состав:
 
-		<%= f.collection_select :product_ids, current_user.available_products, :id, :name, {}, :multiple => true %>
+		<%= f.collection_select :product_ids, current_user.products, :id, :name, {}, :multiple => true %>
 
 		<%= f.submit "Добавить", class: "btn btn-large btn-primary" %>
 		<% end %>

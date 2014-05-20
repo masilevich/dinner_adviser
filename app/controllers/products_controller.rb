@@ -1,6 +1,9 @@
 class ProductsController < ApplicationController
 	layout "food_links_menu"
 
+	before_filter :authenticate_user!
+	before_action :correct_user, only: [:edit, :update, :destroy, :set_availability]
+
 	def index
 	end
 
@@ -68,5 +71,10 @@ class ProductsController < ApplicationController
 
 	def product_params
 		params.require(:product).permit(:name, :available)
+	end
+
+	def correct_user
+		@product = current_user.products.find_by(id: params[:id])
+		redirect_to root_url if @product.nil?
 	end
 end

@@ -8,10 +8,11 @@ DinnerAdviser::Application.routes.draw do
     end
   end
   
-  resources :courses 
+  resources :courses
   
   root 'static_pages#home'
 
+  match '/advice',    to: 'advices#new', via: 'get'
   match '/about',    to: 'static_pages#about', via: 'get'
   match '/contact',    to: 'static_pages#contact', via: 'get'
 

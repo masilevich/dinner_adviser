@@ -31,11 +31,12 @@ describe "CoursesPages" do
 
 	describe "creation" do
 		let!(:p1) { FactoryGirl.create(:product, user: user, name: 'Картошка', available: true) }
+		let!(:p2) { FactoryGirl.create(:product, user: user, name: 'Огурец') }
 		before do
 			visit new_course_path
 		end
 
-		it { should have_select('course_product_ids', :options => [p1.name]) }
+		it { should have_select('course_product_ids', :options => [p1.name, p2.name]) }
 		it { should have_title(full_title('Новое блюдо')) }
 
 		describe "with invalid information" do
@@ -79,23 +80,30 @@ describe "CoursesPages" do
 	describe "edit" do
 		let!(:course) {FactoryGirl.create(:course,user: user, name: "Пюре")}
 		let!(:p1) { FactoryGirl.create(:product, user: user, name: 'Картошка', available: true) }
-		before do
-		  visit edit_course_path(course)
-		  fill_in "course_name", with: "Картошка"
-		  select p1.name, :from => "course_product_ids"
-		  click_button "Сохранить"
-		  course.reload
-		end 
-		it "should update a course" do
-			expect(course.name).to eq "Картошка"
-		end
+		let!(:p2) { FactoryGirl.create(:product, user: user, name: 'Огурец') }
+		before {visit edit_course_path(course)}
 
-		it { should have_content("Картошка") }
+		it { should have_select('course_product_ids', :options => [p1.name, p2.name]) }
+		it { should have_title(full_title('Изменить блюдо')) }
 
-		it { should have_content("Блюдо изменено") }
+		describe "after save" do
+			before do
+				fill_in "course_name", with: "Картошка"
+				select p1.name, :from => "course_product_ids"
+				click_button "Сохранить"
+				course.reload
+			end
+			it "should update a course" do
+				expect(course.name).to eq "Картошка"
+			end
 
-		it "course should contain product" do
-			expect(course.products).to include(p1)
+			it { should have_content("Картошка") }
+
+			it { should have_content("Блюдо изменено") }
+
+			it "course should contain product" do
+				expect(course.products).to include(p1)
+			end
 		end
 	end
 end

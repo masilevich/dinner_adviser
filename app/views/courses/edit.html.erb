@@ -10,7 +10,7 @@
 
 		Состав:
 
-		<%= f.collection_select :product_ids, current_user.available_products, :id, :name, {selected: @course.product_ids}, :multiple => true %>
+		<%= f.collection_select :product_ids, current_user.products, :id, :name, {selected: @course.product_ids}, :multiple => true %>
 
 		<%= f.submit "Сохранить", class: "btn btn-large btn-primary" %>
 		<% end %>
