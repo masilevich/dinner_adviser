@@ -16,6 +16,9 @@ describe Course do
 	it { should respond_to(:course_kind) }
 	it { should respond_to(:products) }
 	it { should respond_to(:ingridients) }
+	it "should respond to availabled" do
+		expect(Course).to respond_to(:availabled)
+	end
 	its(:user) { should eq user }
 
 	it { should be_valid }
@@ -31,5 +34,52 @@ describe Course do
 			before {@course.name = 'a'*101}
 			it { should_not be_valid }
 		end
+	end
+
+	describe "availabled" do
+		before do
+			@course.products = []
+			@course.save
+		end
+		it "should not include course without products" do
+			expect(Course.availabled).to_not include(@course)
+		end
+
+		describe "with" do
+	  	before do
+	  		@p1 = user.products.create(name: "p1")
+	  		@p2 = user.products.create(name: "p2")
+	  		@course.products << @p1
+	  		@course.products << @p2
+	  	end
+
+	  	describe "unavailable products" do
+	  		before do
+	  			@p1.update_attribute(:available, false)
+	  			@p2.update_attribute(:available, false)
+	  		end
+	  		specify { expect(Course.availabled).to_not include(@course)}
+	  	end
+
+	  	describe "one available and one unavailable products" do
+	  		before do
+	  			@p1.update_attribute(:available, true)
+	  			@p2.update_attribute(:available, false)
+	  		end
+	  		specify { expect(Course.availabled).to_not include(@course)}
+	  	end
+
+	  	describe "two available products" do
+	  		before do
+	  			@p1.update_attribute(:available, true)
+	  			@p2.update_attribute(:available, true)
+	  		end
+	  		specify { expect(Course.availabled).to include(@course)}
+	  	end
+
+	  end
+	  
+
+
 	end
 end

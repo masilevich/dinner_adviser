@@ -15,6 +15,9 @@ describe Product do
 	it { should respond_to(:courses) }
 	it { should respond_to(:ingridients) }
 	it { should respond_to(:available) }
+	it "should respond to availabled" do
+		expect(Product).to respond_to(:availabled)
+	end
 	its(:user) { should eq user }
 
 	it { should be_valid }

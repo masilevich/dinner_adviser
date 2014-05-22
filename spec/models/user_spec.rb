@@ -24,7 +24,6 @@ describe User do
   it { should respond_to(:username) }
   it { should respond_to(:email) }
   it { should respond_to(:products) }
-  it { should respond_to(:available_products) }
   it { should respond_to(:courses) }
 
   it { should be_valid }
@@ -123,16 +122,7 @@ describe User do
             @user.save
             @p = Product.create(name: "Огурец", user_id: @user.id, available: true)            
           end
-          its(:available_products) { should include(@p)}
-        end
-        describe "through available_products" do
-          before do
-            @user.save
-            @p = @user.available_products.create(name: "Огурец")
-          end
-          it "product should be available" do
-            expect(@p).to be_available
-          end
+          specify {expect(@user.products.availabled).to include(@p)}
         end
       end
     end

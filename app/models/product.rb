@@ -4,6 +4,7 @@ class Product < ActiveRecord::Base
 	has_many :courses, through: :ingridients
 
 	default_scope {order('name ASC')}
+	scope :availabled, -> { where(available: true) }
 
 	validates :name, presence: true, length: {maximum: 100}
 

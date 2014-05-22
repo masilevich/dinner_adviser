@@ -1,2 +1,13 @@
-<h1>Advices#new</h1>
-<p>Find me in app/views/advices/new.html.erb</p>
+<% provide(:title, "Совет") %>
+
+<div class="row">
+	<div class="span6 offset2">
+		<% if !@course.nil? %>
+			<h3><%= @course.name %></h3>
+			Состав: <%#= (@course.products.collect {|product| product.name}).join(", ") %>
+			<ul class="products">
+				<%= render @course.products %>
+			</ul>
+		<% end %>
+	</div>
+</div>

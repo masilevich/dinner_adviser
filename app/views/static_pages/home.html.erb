@@ -1,5 +1,9 @@
-<% if signed_in? %>
-  <%= render 'static_pages/home_signed_in' %>
-<% else %>
-  <%= render 'static_pages/home_not_signed_in' %>
-<% end %>
+<div class="center hero-unit">
+	<h1>Добро пожаловать к обеденному советнику</h1>
+
+	<h2>
+		Это главная страница
+	</h2>
+	<%= link_to "Регистрация", new_user_registration_path, 
+	class: "btn btn-large btn-primary" %>
+</div>

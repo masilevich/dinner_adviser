@@ -12,4 +12,13 @@ class Course < ActiveRecord::Base
 		}
 
 	validates :name, presence: true, length: {maximum: 100}
+
+	#scope :availabled, -> { joins(ingridients: :product).where("product.available" => true) }
+	
+
+	def available?
+    self.products.where(available: false).count == 0 && self.products.count > 0
+	end
+
+	scope :availabled, -> {select(&:available?)}
 end

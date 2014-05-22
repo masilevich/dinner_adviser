@@ -54,15 +54,32 @@ describe "CoursesPages" do
 			before do
 				visit new_course_path
 				fill_in 'course_name', with: "Жареная курица"
-				select p1.name, :from => "course_product_ids"
+				
 			end
 			it "should create a course" do
 				expect { click_button "Добавить" }.to change(Course, :count).by(1)
 			end
 
-			it "course should contain product" do
-				click_button "Добавить"
-				expect(Course.find_by_name("Жареная курица").products).to include(p1)
+			describe "and product select" do
+				before do
+				  select p1.name, :from => "course_product_ids"
+				  click_button "Добавить"
+				end
+				it "should contain product" do
+				 	expect(Course.find_by_name("Жареная курица").products).to include(p1)
+				end
+			end
+
+			describe "and product select blank" do
+				before do
+					fill_in 'course_name', with: "Жареная курица"
+				  click_button "Добавить"
+				  @course = Course.find_by_name("Жареная курица")
+				end
+				it "should not contain products and ingridients" do
+					expect(@course.products).to eq []
+					expect(@course.ingridients).to eq []
+				end
 			end
 		end
 	end
@@ -72,7 +89,7 @@ describe "CoursesPages" do
 		before { visit courses_path }
 
 		it "should delete a course" do
-			expect { click_link "удалить" }.to change(Course, :count).by(-1)
+			expect { first(:link, "удалить").click }.to change(Course, :count).by(-1)
 		end
 
 	end

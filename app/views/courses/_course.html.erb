@@ -1,5 +1,6 @@
 <li id="<%= course.id %>">
-	<span class="name"> <%= wrap(course.name) %> </span>
+	<span class="name"> <%= wrap(course.name) + " (" + 
+	  (course.products.collect {|product| product.name}).join(", ") + ")"%> </span>
 	<% if current_user?(course.user) %>
     <%= link_to "изменить", edit_course_path(course), title: course.name %>
     ,

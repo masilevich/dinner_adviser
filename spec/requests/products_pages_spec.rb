@@ -106,10 +106,10 @@ describe "ProductsPages" do
 				p1.update_attribute(:available, true)
 				visit products_path
 			end
-			it { should have_content("В наличии (#{user.available_products.count})") }
+			it { should have_content("В наличии (#{user.products.availabled.count})") }
 
 			it "should list each product" do
-				user.available_products.each do |product|
+				user.products.availabled.each do |product|
 					expect(page).to have_selector('li', text: product.name)
 				end
 			end
