@@ -13,6 +13,10 @@ class CoursesController < ApplicationController
     @ingridient = @course.ingridients.build()
   end
 
+  def show
+    @course = Course.find(params[:id])
+  end
+
   def create
     @course = current_user.courses.build(course_params)
     if @course.save

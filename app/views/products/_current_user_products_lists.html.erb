@@ -4,7 +4,7 @@
 			<% if current_user.products.availabled && current_user.products.availabled.any? %>
 			<h2>В наличии (<%= current_user.products.availabled.count %>)</h2>
 			<ol class="products.availabled">
-				<%= render current_user.products.availabled %>
+				<%= render partial: "product_with_li_and_delete", collection: current_user.products.availabled, :as => :product %>
 			</ol>
 			<% end %>
 		</section>
@@ -15,7 +15,7 @@
 			<% if current_user.products && current_user.products.any? %>
 			<h2>Все (<%= current_user.products.count %>)</h2>
 			<ol class="products">
-				<%= render current_user.products %>
+				<%= render partial: "product_with_li_and_delete", collection: current_user.products, :as => :product  %>
 			</ol>
 			<% end %>
 		</section>

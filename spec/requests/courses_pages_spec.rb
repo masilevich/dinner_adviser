@@ -18,13 +18,35 @@ describe "CoursesPages" do
 
 		it { should have_link('Добавить', href: new_course_path) }
 		it { should have_link('удалить', href: course_path(c1)) }
-		it { should have_link('изменить', href: edit_course_path(c1)) }
+		it { should have_link(c1.name, href: course_path(c1)) }
 
 		it { should have_content("Блюда (#{user.courses.count})") }
 
 		it "should list each course" do
 			user.courses.each do |course|
 				expect(page).to have_selector('li', text: course.name)
+			end
+		end
+	end
+
+	describe "show" do
+		let!(:c1) { FactoryGirl.create(:course, user: user, name: 'Пюре') }
+		let!(:p1) { FactoryGirl.create(:product, user: user, name: 'Картошка', available: true) }
+		let!(:p2) { FactoryGirl.create(:product, user: user, name: 'Огурец') }
+		before do
+			c1.products << p1
+			c1.products << p2
+			visit course_path(c1)
+		end	
+
+		it { should have_title(full_title('Блюдо')) }
+
+		it { should have_link('Изменить', href: edit_course_path(c1)) }
+		it { should have_content(c1.name)}
+
+		it "should list each product" do
+			c1.products.each do |product|
+				expect(page).to have_selector('li', text: product.name)
 			end
 		end
 	end

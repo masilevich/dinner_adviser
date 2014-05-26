@@ -1,0 +1,7 @@
+<% provide(:title, 'Блюдо') %>
+
+<%= render partial: "course_show", object: @course, :as => :course  %>
+
+<section>
+			<%= link_to "Изменить", edit_course_path(@course), class: "btn btn-large btn-primary"%>
+</section>

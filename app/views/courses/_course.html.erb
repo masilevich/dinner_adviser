@@ -1,9 +1,7 @@
 <li id="<%= course.id %>">
-	<span class="name"> <%= wrap(course.name) + " (" + 
+	<span class="name"> <%= link_to(wrap(course.name) , course_path(course), title: course.name) + " (" + 
 	  (course.products.collect {|product| product.name}).join(", ") + ")"%> </span>
 	<% if current_user?(course.user) %>
-    <%= link_to "изменить", edit_course_path(course), title: course.name %>
-    ,
     <%= link_to "удалить", course, method: :delete, remote: true, data: { confirm: "Вы уверены?" }, title: course.name %>
   <% end %>
 </li>

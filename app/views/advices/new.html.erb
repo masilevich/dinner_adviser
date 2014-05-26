@@ -3,11 +3,11 @@
 <div class="row">
 	<div class="span6 offset2">
 		<% if !@course.nil? %>
-			<h3><%= @course.name %></h3>
-			Состав: <%#= (@course.products.collect {|product| product.name}).join(", ") %>
-			<ul class="products">
-				<%= render @course.products %>
-			</ul>
+			<div  id="advice_course">
+			<%= render partial: "courses/course_show", object: @course, :as => :course  %>
+			</div>
+			<%= link_to "Получить другой", advice_path, class: "btn btn-large btn-primary",
+			remote: true%>
 		<% end %>
 	</div>
 </div>

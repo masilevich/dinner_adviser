@@ -1,0 +1,9 @@
+	<span class="name"> <%= link_to wrap(product.name), edit_product_path(product), title: product.name %> </span>
+	<% if current_user?(product.user) %>
+        /
+        <% if product.available %>
+        <%=link_to("есть", set_availability_product_path(product, product: {available: false}), :method => :put, remote: true)%>
+        <% else %>
+        <%=link_to("нет", set_availability_product_path(product, product: {available: true}), :method => :put, remote: true)%>
+        <% end %>
+    <% end %>

@@ -19,6 +19,7 @@ describe "AdvicePages" do
 		it { should have_title(full_title('Совет')) }
 		it { should have_content(available_course.name) }
 		it { should_not have_content(unavailable_course.name) }
+		it {should have_link("Получить другой", href: advice_path)}
 
 		describe "should have only available course after update page" do
 			before { visit advice_path }

@@ -34,9 +34,25 @@ describe "ProductsPages" do
 
 	describe "destruction" do
 		let!(:product) {FactoryGirl.create(:product,user: user)}
-		before { visit products_path }
-		it "should delete a product" do
-			expect { click_link "удалить" }.to change(Product, :count).by(-1)
+		describe "in products controller pages" do
+
+			before { visit products_path }
+			it "should delete a product" do
+				expect { click_link "удалить" }.to change(Product, :count).by(-1)
+			end
+
+			describe "should have link to destroy" do
+				specify {expect(page).to have_link("удалить", product_path(product))}
+			end
+		end
+
+		describe "link should be only on product contoller pages" do
+		let!(:c1) { FactoryGirl.create(:course, user: user, name: 'Пюре') }
+		before do
+			c1.products << product
+			visit course_path(c1)
+		end	
+			specify {expect(page).to_not have_link("удалить", href: product_path(product))}
 		end
 	end
 
@@ -62,7 +78,7 @@ describe "ProductsPages" do
 		before { visit products_path }
 
 		describe "mark available" do
-			before {click_link "в наличии"}
+			before {click_link "нет"}
 			it "should make product available" do
 				expect(product.reload).to be_available
 			end
@@ -72,7 +88,7 @@ describe "ProductsPages" do
 			before do
 				product.update_attribute(:available, true)
 				visit products_path
-				first(:link, "отсутствует").click
+				first(:link, "есть").click
 			end
 			it "should make product unavailable" do
 				expect(product.reload).to_not be_available
@@ -89,7 +105,8 @@ describe "ProductsPages" do
 
 		it { should have_button('Добавить') }
 		it { should have_link('удалить', href: product_path(p1)) }
-		it { should have_link('изменить', href: edit_product_path(p1)) }
+		it { should have_link(p1.name, href: edit_product_path(p1)) }
+		it { should have_link(p2.name, href: edit_product_path(p2)) }
 
 		describe "on all products" do
 			it { should have_content("Все (#{user.products.count})") }
