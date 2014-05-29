@@ -35,37 +35,38 @@ class ProductsController < ApplicationController
 
 	def set_availability
 		@product = Product.find(params[:id])
-		if params[:product][:available] then
-			if @product.update_attribute(:available, params[:product][:available])
-				respond_to do |format|
-					format.html do
-						if @product.available?
-							flash[:success] = 'Продукт доступен'
-						end
-						redirect_to products_path
+		if params[:available] then
+			available = params[:available]
+		else
+			available = false
+		end
+		if @product.update_attribute(:available, available)
+			respond_to do |format|
+				format.html do
+					if @product.available?
+						flash[:success] = 'Продукт доступен'
 					end
-					format.js
+					redirect_to products_path
 				end
-
+				format.js
 			end
 		end
-		
 	end
 
 	def edit
-    @product = Product.find(params[:id])
-  end
+		@product = Product.find(params[:id])
+	end
 
-  def update
-    @product = Product.find(params[:id])
-    if @product.update_attributes(product_params)
-      flash[:success] = 'Продукт изменен'
-      redirect_to products_path
-    else
-      flash[:success] = 'Продукт не изменен'
-      render 'edit'
-    end
-  end
+	def update
+		@product = Product.find(params[:id])
+		if @product.update_attributes(product_params)
+			flash[:success] = 'Продукт изменен'
+			redirect_to products_path
+		else
+			flash[:success] = 'Продукт не изменен'
+			render 'edit'
+		end
+	end
 
 	private
 

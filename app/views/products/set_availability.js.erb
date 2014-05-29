@@ -1,1 +1,6 @@
-$("#products_lists").html("<%= escape_javascript(render('products/current_user_products_lists')) %>")
+<% case URI(request.referer).path %>
+<% when "/products" %>
+	$("#products_lists").html("<%= escape_javascript(render('products/current_user_products_lists')) %>")
+<% when "/courses" %>
+	$("#courses_lists").html("<%= escape_javascript(render('courses/current_user_courses_lists')) %>")
+<% end %>
