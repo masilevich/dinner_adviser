@@ -16,7 +16,7 @@ describe "AdvicePages" do
 	describe "get advice" do
 		before {visit advice_path}
 
-		it { should have_title(full_title('Совет')) }
+		it { should have_title(full_title('Подобрать рецепт')) }
 		it { should have_content(available_course.name) }
 		it { should_not have_content(unavailable_course.name) }
 		it {should have_link("Получить другой", href: advice_path)}
@@ -30,12 +30,12 @@ describe "AdvicePages" do
 
 	it "should have the right links on the layout" do
 		visit root_path
-		click_link "Совет"
-		expect(page).to have_title(full_title('Совет'))
+		click_link "Подобрать рецепт"
+		expect(page).to have_title(full_title('Подобрать рецепт'))
 		click_link "Продукты"
 		expect(page).to have_title(full_title('Продукты'))
-		click_link "Блюда"
-		expect(page).to have_title( full_title('Блюда'))
+		click_link "Мои рецепты"
+		expect(page).to have_title( full_title('Мои рецепты'))
 		click_link "Обеденный советник"
 		expect(page).to have_title( full_title(''))
 	end

@@ -13,10 +13,23 @@
 	<div class="span5">
 		<section class="products" >
 			<% if current_user.products && current_user.products.any? %>
-			<h2>Все (<%= current_user.products.count %>)</h2>
-			<ol>
-				<%= render partial: "product_with_li_and_delete", collection: current_user.products, :as => :product  %>
-			</ol>
+				<h2>Все (<%= current_user.products.count %>)</h2>
+				<table class='table' id='people_table'>
+					<thead>
+						<tr>
+							<th>Название</th>
+							<th>Наличие</th>
+							<th></th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<% current_user.products.each do |product| %>
+						<%# Render table row partial for each product object %>
+						<%= render partial: 'product_row', locals: {product: product} %>
+						<% end %>
+					</tbody>
+				</table>
 			<% end %>
 		</section>
 	</div>

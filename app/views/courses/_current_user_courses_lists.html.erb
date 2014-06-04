@@ -13,7 +13,7 @@
 	<div class="span5">
 		<section>
 			<% if current_user.courses && current_user.courses.any? %>
-			<h2>Блюда (<%= current_user.courses.count %>)</h2>
+			<h2>Рецепты (<%= current_user.courses.count %>)</h2>
 			<ol class="courses">
 				<%= render current_user.courses %>
 			</ol>

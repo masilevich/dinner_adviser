@@ -1,18 +1,22 @@
 <% content_for :content do %>
-	<div class="row">
-		<div class="span2">
-			<section>
-				<ul class="nav nav-pills nav-stacked">
-					<li><%= link_to "Совет", advice_path %></li>
-					<li><%= link_to "Продукты", products_path %></li>
-					<li><%= link_to "Блюда", courses_path %></li>
-				</ul>
 
-			</section>
-		</div>
-		<div class="span10">
-			<%= yield %>
-		</div>
+<div class="row">
+
+	<div class="span2">
+		<section>
+			<div class="food-links-menu">
+				<ul class="nav nav-pills nav-stacked">
+					<li><%= link_to "Подобрать рецепт", advice_path %></li>
+					<li><%= link_to "Продукты", products_path %></li>
+					<li><%= link_to "Мои рецепты", courses_path %></li>
+				</ul>
+			</div>
+		</section>
 	</div>
+	<div class="span10">
+			<%= yield %>
+	</div>
+</div>
+
 <% end %>
 <%= render template: "layouts/application" %>

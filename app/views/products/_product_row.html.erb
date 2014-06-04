@@ -1,0 +1,17 @@
+<tr>
+  <td><%= link_to wrap(product.name), edit_product_path(product), title: product.name %></td>
+  <td>
+  	<% if current_user?(product.user) %>
+
+	<%= check_box_tag 'available', !product.available, product.available, 
+	data: {remote: true, method: :put, :url => url_for( :action => 'set_availability', :id => product.id, :controller=>"products" )}, id: "product_chckbox_#{product.id}"
+	%>
+
+	<% end %>
+  </td>
+  <td>
+  	<% if current_user?(product.user) %>
+  	<%= link_to "удалить", product, method: :delete, remote: true, data: { confirm: "Вы уверены?" }, title: product.name %>
+  	<% end %>
+  </td>
+</tr>

@@ -14,13 +14,13 @@ describe "CoursesPages" do
 		let!(:c2) { FactoryGirl.create(:course, user: user, name: 'Жареная курица') }
 		before {visit courses_path}
 
-		it { should have_title(full_title('Блюда')) }
+		it { should have_title(full_title('Мои рецепты')) }
 
 		it { should have_link('Добавить', href: new_course_path) }
 		it { should have_link('удалить', href: course_path(c1)) }
 		it { should have_link(c1.name, href: course_path(c1)) }
 
-		it { should have_content("Блюда (#{user.courses.count})") }
+		it { should have_content("Рецепты (#{user.courses.count})") }
 
 		it "should list each course" do
 			user.courses.each do |course|

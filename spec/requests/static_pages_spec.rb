@@ -36,7 +36,7 @@ describe "Static pages" do
 
       describe "food links" do
         it { should have_link("Продукты", href: products_path) }
-        it { should have_link("Блюда", href: courses_path) }
+        it { should have_link("Мои рецепты", href: courses_path) }
       end
     end
     
