@@ -9,6 +9,8 @@ describe CourseKind do
 
   it { should respond_to(:name) }
   it { should respond_to(:courses) }
+  it { should respond_to(:user_id) }
+	it { should respond_to(:user) }
 
   it { should be_valid }
 

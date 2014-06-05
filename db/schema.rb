@@ -11,21 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140513123927) do
+ActiveRecord::Schema.define(version: 20140605131251) do
 
   create_table "course_kinds", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
+
+  add_index "course_kinds", ["name", "user_id"], name: "index_course_kinds_on_name_and_user_id", unique: true
+  add_index "course_kinds", ["user_id"], name: "index_course_kinds_on_user_id"
 
   create_table "courses", force: true do |t|
     t.string   "name"
-    t.integer  "course_kind_id"
     t.boolean  "common"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "course_kind_id"
   end
 
   add_index "courses", ["name", "user_id"], name: "index_courses_on_name_and_user_id", unique: true
