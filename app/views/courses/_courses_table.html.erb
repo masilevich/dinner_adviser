@@ -1,0 +1,25 @@
+<table class='table' id='courses_table'>
+	<thead>
+		<tr>
+			<th>Название</th>
+			<th>Состав</th>
+			<th></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% courses.each do |course| %>
+		<tr>
+			<td><%= link_to(wrap(course.name) , course_path(course), title: course.name) %></td>
+			<td>
+				<%= render course.products %>
+			</td>
+			<td>
+				<% if current_user?(course.user) %>
+				<%= link_to "удалить", course, method: :delete, remote: true, data: { confirm: "Вы уверены?" }, title: course.name %>
+				<% end %>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

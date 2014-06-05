@@ -24,7 +24,7 @@ describe "CoursesPages" do
 
 		it "should list each course" do
 			user.courses.each do |course|
-				expect(page).to have_selector('li', text: course.name)
+				expect(page).to have_selector('td', text: course.name)
 			end
 		end
 	end

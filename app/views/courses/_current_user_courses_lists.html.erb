@@ -1,11 +1,9 @@
 <div class="row">
 	<div class="span5">
 		<section>
-			<% if current_user.courses && current_user.courses.any? %>
+			<% if current_user.courses.availabled && current_user.courses.availabled.any? %>
 			<h2>Можно приготовить (<%= current_user.courses.availabled.count %>)</h2>
-			<ol class="courses">
-				<%= render current_user.courses.availabled %>
-			</ol>
+			<%= render 'courses/courses_table', courses: current_user.courses.availabled %>
 			<% end %>
 		</section>
 	</div>
@@ -14,9 +12,7 @@
 		<section>
 			<% if current_user.courses && current_user.courses.any? %>
 			<h2>Рецепты (<%= current_user.courses.count %>)</h2>
-			<ol class="courses">
-				<%= render current_user.courses %>
-			</ol>
+			<%= render 'courses/courses_table', courses: current_user.courses %>
 			<% end %>
 		</section>
 	</div>
