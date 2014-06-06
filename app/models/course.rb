@@ -4,6 +4,8 @@ class Course < ActiveRecord::Base
 	has_many :ingridients,  dependent: :destroy
 	has_many :products, through: :ingridients
 
+	default_scope {order('name ASC')}
+
 	accepts_nested_attributes_for :ingridients,
 		allow_destroy: true,
 		:reject_if => proc { |attrs|

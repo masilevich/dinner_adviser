@@ -128,17 +128,6 @@ describe User do
       end
     end
 
-    describe "associations" do
-      before { @user.save }
-
-      let!(:p3) { FactoryGirl.create(:product, user: @user, name: 'Картошка') }
-      let!(:p2) { FactoryGirl.create(:product, user: @user, name: 'Банан') }
-      let!(:p1) { FactoryGirl.create(:product, user: @user, name: 'Ананас') }
-
-      it "should have rights products in right order" do
-        expect(@user.products.to_a).to eq [p1, p2, p3]
-      end
-    end
   end
 
 end

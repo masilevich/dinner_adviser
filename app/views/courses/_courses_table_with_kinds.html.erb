@@ -1,0 +1,22 @@
+<div class="panel-group" id="accordion">
+	<% current_user.course_kinds.each_with_index do |course_kind, index|  %>
+	<% if course_kind.courses && course_kind.courses.any? %>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse<%=index%>">
+					<%= "#{index+1}. #{course_kind.name}"  %>
+				</a>
+			</h4>
+		</div>
+		<div id="collapse<%=index%>" class="panel-collapse collapse in">
+			<div class="panel-body">
+				
+				<%= render 'courses/courses_table', courses: course_kind.courses %>
+				
+			</div>
+		</div>
+	</div>
+	<% end %>
+	<% end %>
+</div>

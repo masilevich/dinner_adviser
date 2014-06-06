@@ -46,40 +46,48 @@ describe Course do
 		end
 
 		describe "with" do
-	  	before do
-	  		@p1 = user.products.create(name: "p1")
-	  		@p2 = user.products.create(name: "p2")
-	  		@course.products << @p1
-	  		@course.products << @p2
-	  	end
+			before do
+				@p1 = user.products.create(name: "p1")
+				@p2 = user.products.create(name: "p2")
+				@course.products << @p1
+				@course.products << @p2
+			end
 
-	  	describe "unavailable products" do
-	  		before do
-	  			@p1.update_attribute(:available, false)
-	  			@p2.update_attribute(:available, false)
-	  		end
-	  		specify { expect(Course.availabled).to_not include(@course)}
-	  	end
+			describe "unavailable products" do
+				before do
+					@p1.update_attribute(:available, false)
+					@p2.update_attribute(:available, false)
+				end
+				specify { expect(Course.availabled).to_not include(@course)}
+			end
 
-	  	describe "one available and one unavailable products" do
-	  		before do
-	  			@p1.update_attribute(:available, true)
-	  			@p2.update_attribute(:available, false)
-	  		end
-	  		specify { expect(Course.availabled).to_not include(@course)}
-	  	end
+			describe "one available and one unavailable products" do
+				before do
+					@p1.update_attribute(:available, true)
+					@p2.update_attribute(:available, false)
+				end
+				specify { expect(Course.availabled).to_not include(@course)}
+			end
 
-	  	describe "two available products" do
-	  		before do
-	  			@p1.update_attribute(:available, true)
-	  			@p2.update_attribute(:available, true)
-	  		end
-	  		specify { expect(Course.availabled).to include(@course)}
-	  	end
+			describe "two available products" do
+				before do
+					@p1.update_attribute(:available, true)
+					@p2.update_attribute(:available, true)
+				end
+				specify { expect(Course.availabled).to include(@course)}
+			end
 
-	  end
-	  
+		end
+	end
 
+	describe "order" do
 
+		let!(:c3) { FactoryGirl.create(:course, name: 'Пюре') }
+		let!(:c2) { FactoryGirl.create(:course, name: 'Курица') }
+		let!(:c1) { FactoryGirl.create(:course, name: 'Жаркое') }
+
+		it "should have rights products in right order" do
+			expect(Course.all.to_a).to eq [c1, c2, c3]
+		end
 	end
 end

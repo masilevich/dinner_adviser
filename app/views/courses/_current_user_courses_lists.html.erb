@@ -12,7 +12,7 @@
 		<section>
 			<% if current_user.courses && current_user.courses.any? %>
 			<h2>Рецепты (<%= current_user.courses.count %>)</h2>
-			<%= render 'courses/courses_table', courses: current_user.courses %>
+			<%= render 'courses/courses_table_with_kinds', courses: current_user.courses %>
 			<% end %>
 		</section>
 	</div>

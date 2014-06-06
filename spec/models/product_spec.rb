@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Product do
-  let(:user) { FactoryGirl.create(:user) }
+	let(:user) { FactoryGirl.create(:user) }
 	before do
 		@product = user.products.build(name: "Молоко")
 		@common_product = Product.new(name: "Сыр", common: true)
@@ -32,6 +32,17 @@ describe Product do
 		describe "with name that is too long" do
 			before {@product.name = 'a'*101}
 			it { should_not be_valid }
+		end
+	end
+
+	describe "order" do
+
+		let!(:p3) { FactoryGirl.create(:product, name: 'Картошка') }
+		let!(:p2) { FactoryGirl.create(:product, name: 'Банан') }
+		let!(:p1) { FactoryGirl.create(:product, name: 'Ананас') }
+
+		it "should have rights products in right order" do
+			expect(Product.all.to_a).to eq [p1, p2, p3]
 		end
 	end
 end
