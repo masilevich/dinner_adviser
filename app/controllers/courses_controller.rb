@@ -57,7 +57,7 @@ class CoursesController < ApplicationController
   private
 
   def course_params
-    params.require(:course).permit(:name, product_ids: [])
+    params.require(:course).permit(:name, :course_kind_id, product_ids: [])
   end
 
   def correct_user

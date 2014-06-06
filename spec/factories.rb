@@ -39,4 +39,9 @@ FactoryGirl.define do
     end
   end
 
+  factory :course_kind do
+    name "Второе блюдо"
+    user
+  end
+
 end

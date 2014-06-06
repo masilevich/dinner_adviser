@@ -1,0 +1,14 @@
+<% provide(:title, 'Изменить вид блюда') %>
+
+<div class="row">
+	<div class="span6 offset2">
+		<%= form_for(@course_kind) do |f| %>
+		<%= render 'shared/error_messages', object: f.object %>
+
+		<%= f.label :name, "Название" %>
+		<%= f.text_field :name %>
+
+		<%= f.submit "Сохранить", class: "btn btn-large btn-primary" %>
+		<% end %>
+	</div>
+</div>

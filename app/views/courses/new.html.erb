@@ -8,9 +8,12 @@
 		<%= f.label :name, "Название" %>
 		<%= f.text_field :name %>
 
-		Состав:
+		<%= f.label :ingridients, "Состав:" %>
+		<%= f.collection_select :product_ids, current_user.products, :id, :name, {},
+			:multiple => true  %>
 
-		<%= f.collection_select :product_ids, current_user.products, :id, :name, {}, :multiple => true %>
+		<%= f.label :course_kind, "Вид блюда:" %>
+		<%= f.collection_select(:course_kind_id, current_user.course_kinds, :id, :name, :include_blank  => true) %>
 
 		<%= f.submit "Добавить", class: "btn btn-large btn-primary" %>
 		<% end %>

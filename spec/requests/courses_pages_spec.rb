@@ -20,6 +20,8 @@ describe "CoursesPages" do
 		it { should have_link('удалить', href: course_path(c1)) }
 		it { should have_link(c1.name, href: course_path(c1)) }
 
+		it { should have_link("Виды блюд", href: course_kinds_path) }
+
 		it { should have_content("Рецепты (#{user.courses.count})") }
 
 		it "should list each course" do
@@ -76,7 +78,6 @@ describe "CoursesPages" do
 			before do
 				visit new_course_path
 				fill_in 'course_name', with: "Жареная курица"
-				
 			end
 			it "should create a course" do
 				expect { click_button "Добавить" }.to change(Course, :count).by(1)
@@ -103,6 +104,30 @@ describe "CoursesPages" do
 					expect(@course.ingridients).to eq []
 				end
 			end
+
+			describe "and course_kind select" do
+				let!(:ck1) { FactoryGirl.create(:course_kind, user: user, name: "Вторые блюда") }
+				before do
+					visit new_course_path
+					fill_in 'course_name', with: "Жареная курица"
+				  select ck1.name, :from => "course_course_kind_id"
+				  click_button "Добавить"
+				end
+				it "should contain course_kind" do
+				 	expect(Course.find_by_name("Жареная курица").course_kind).to eq ck1
+				end
+			end
+
+			describe "and course_kind select blank" do
+				before do
+					fill_in 'course_name', with: "Жареная курица"
+				  click_button "Добавить"
+				  @course = Course.find_by_name("Жареная курица")
+				end
+				it "should not contain course_kinds and ingridients" do
+					expect(@course.course_kind).to be_nil
+				end
+			end
 		end
 	end
 
@@ -120,15 +145,18 @@ describe "CoursesPages" do
 		let!(:course) {FactoryGirl.create(:course,user: user, name: "Пюре")}
 		let!(:p1) { FactoryGirl.create(:product, user: user, name: 'Картошка', available: true) }
 		let!(:p2) { FactoryGirl.create(:product, user: user, name: 'Огурец') }
+		let!(:ck1) { FactoryGirl.create(:course_kind, user: user, name: 'Вторые блюда') }
 		before {visit edit_course_path(course)}
 
 		it { should have_select('course_product_ids', :options => [p1.name, p2.name]) }
+		it { should have_select('course_course_kind_id', :options => ['',ck1.name]) }
 		it { should have_title(full_title('Изменить блюдо')) }
 
 		describe "after save" do
 			before do
 				fill_in "course_name", with: "Картошка"
 				select p1.name, :from => "course_product_ids"
+				select ck1.name, :from => "course_course_kind_id"
 				click_button "Сохранить"
 				course.reload
 			end
@@ -142,6 +170,10 @@ describe "CoursesPages" do
 
 			it "course should contain product" do
 				expect(course.products).to include(p1)
+			end
+
+			it "course should contain product" do
+				expect(course.course_kind).to eq ck1
 			end
 		end
 	end

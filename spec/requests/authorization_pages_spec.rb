@@ -26,20 +26,6 @@ describe "authorization" do
   describe "for non signed users" do
     let(:user) { FactoryGirl.create(:user) }
 
-=begin
-    describe "in the devise controller" do
-      describe "visiting the edit page" do
-        before {visit edit_user_registration_path(user)}
-        it_should_behave_like "Signin page"
-      end
-
-      describe "submitting to the update action" do
-        before { patch user_registration_path(user) }
-        it_should_behave_like "Redirect to signin page"
-      end
-    end
-=end
-
     describe "in the Products controller" do
 
       describe "submitting to the index action" do
@@ -106,6 +92,35 @@ describe "authorization" do
       end
     end
 
+    describe "in the CourseKinds controller" do
+
+      describe "submitting to the index action" do
+        before { get course_kinds_path }
+        it_should_behave_like "Redirect to signin page"
+      end
+
+      describe "submitting to the create action" do
+        before { post course_kinds_path }
+        it_should_behave_like "Redirect to signin page"
+      end
+
+      describe "submitting to the edit action" do
+        before { get edit_course_kind_path(FactoryGirl.create(:course_kind)) }
+        it_should_behave_like "Redirect to signin page"
+      end
+
+      describe "submitting to the update action" do
+        before { patch course_kind_path(FactoryGirl.create(:course_kind)) }
+        it_should_behave_like "Redirect to signin page"
+      end
+
+      describe "submitting to the destroy action" do
+        before { delete course_kind_path(FactoryGirl.create(:course_kind)) }
+        it_should_behave_like "Redirect to signin page"
+      end
+
+    end
+
     describe "in the Advices controller" do
 
       describe "submitting to the new action" do
@@ -114,20 +129,6 @@ describe "authorization" do
       end
     end
 
-
-=begin
-    describe "in the Relationships controller" do
-      describe "submitting to the create action" do
-        before { post relationships_path }
-        specify { expect(response).to redirect_to(signin_path) }
-      end
-
-      describe "submitting to the destroy action" do
-        before { delete relationship_path(1) }
-        specify { expect(response).to redirect_to(signin_path) }
-      end
-    end
-=end
 
   end
 
@@ -164,7 +165,7 @@ describe "authorization" do
     end
 
     describe "in the Courses controller" do
-    let!(:course) {FactoryGirl.create(:course,user: user)}
+      let!(:course) {FactoryGirl.create(:course,user: user)}
 
       describe "submitting to the edit action" do
         before { get edit_course_path(course) }
@@ -178,6 +179,25 @@ describe "authorization" do
 
       describe "submitting to the destroy action" do
         before { delete course_path(course) }
+        it_should_behave_like "Redirect to root"
+      end
+    end
+
+    describe "in the CourseKinds controller" do
+      let!(:course_kind) {FactoryGirl.create(:course_kind,user: user)}
+
+      describe "submitting to the edit action" do
+        before { get edit_course_kind_path(course_kind) }
+        it_should_behave_like "Redirect to root"
+      end
+
+      describe "submitting to the update action" do
+        before { patch course_kind_path(course_kind) }
+        it_should_behave_like "Redirect to root"
+      end
+
+      describe "submitting to the destroy action" do
+        before { delete course_kind_path(course_kind) }
         it_should_behave_like "Redirect to root"
       end
 
@@ -209,7 +229,7 @@ describe "authorization" do
      expect(response).to redirect_to(root_url)
    end
  end
-=end
+ =end
 
 =begin
  describe "for signed_in users" do

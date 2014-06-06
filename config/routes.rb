@@ -9,6 +9,7 @@ DinnerAdviser::Application.routes.draw do
   end
   
   resources :courses
+  resources :course_kinds
   
   root 'static_pages#home'
 

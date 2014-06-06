@@ -180,6 +180,10 @@ input {
   height: auto !important;
 }
 
+select {
+  height: 100%;
+}
+
 /* Users index */
 
 .users {
@@ -244,18 +248,10 @@ aside {
 .content {
   border-left: 1px solid $grayMediumLight;
 }
-@mixin box_sizing {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
+
 
 .food-links-menu {
   border-top: 1px solid $grayMediumLight;
   border-bottom: 1px solid $grayMediumLight;
-}
-@mixin box_sizing {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+  @include box_sizing;
 }

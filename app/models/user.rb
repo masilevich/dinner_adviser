@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :courses,  dependent: :destroy
+  has_many :course_kinds,  dependent: :destroy
   has_many :products,  dependent: :destroy
   #has_many :products.availabled, -> { where available: true },
   #  class_name: "Product"
