@@ -127,44 +127,6 @@ footer {
   @include box_sizing;
 }
 
-/* sidebar */
-
-aside {
-  section {
-    padding: 10px 0;
-    border-top: 1px solid $gray-lighter;
-    &:first-child {
-      border: 0;
-      padding-top: 0;
-    }
-    span {
-      display: block;
-      margin-bottom: 3px;
-      line-height: 1;
-    }
-    h1 {
-      font-size: 1.4em;
-      text-align: left;
-      letter-spacing: -1px;
-      margin-bottom: 3px;
-      margin-top: 0px;
-    }
-    h2 {
-      font-size: 1.1em;
-      text-align: left;
-      letter-spacing: -1px;
-      margin-bottom: 3px;
-      margin-top: 0px;
-    }
-    h3 {
-      font-size: 1.0em;
-      text-align: left;
-      letter-spacing: -1px;
-      margin-bottom: 3px;
-      margin-top: 0px;
-    }
-  }
-}
 
 /* forms */
 
@@ -176,21 +138,26 @@ input, textarea, select, .uneditable-input {
   @include box_sizing;
 }
 
-input {
+input, select {
   height: auto !important;
 }
-
-select {
-  height: 100%;
-}
-
-/* Users index */
-
 
 .food-links-menu {
   border-top: 1px solid $grayMediumLight;
   border-bottom: 1px solid $grayMediumLight;
   @include box_sizing;
+}
+
+.panel-heading .accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    color: grey;         /* adjust as needed */
+}
+.panel-heading .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
 }
 
 

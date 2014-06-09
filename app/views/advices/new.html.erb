@@ -1,12 +1,12 @@
-<% provide(:title, "Подобрать рецепт") %>
+<% provide(:title, "Случайный рецепт") %>
 
 <div class="row">
-	<div class="span6 offset2">
+	<div class="col-lg-6 col-lg-offset-2">
 		<% if !@course.nil? %>
 			<div  id="advice_course">
 			<%= render partial: "courses/course_show", object: @course, :as => :course  %>
 			</div>
-			<%= link_to "Получить другой", advice_path, class: "btn btn-large btn-primary",
+			<%= link_to "Следующий", advice_path, class: "btn btn-large btn-primary",
 			remote: true%>
 		<% end %>
 	</div>
