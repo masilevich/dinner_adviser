@@ -1,7 +1,10 @@
 <% provide(:title, 'Блюдо') %>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<%= render partial: "course_show", object: @course, :as => :course  %>
 
-<%= render partial: "course_show", object: @course, :as => :course  %>
-
-<section>
-			<%= link_to "Изменить", edit_course_path(@course), class: "btn btn-large btn-primary"%>
-</section>
+		<section>
+			<%= link_to "Изменить", edit_course_path(@course), class: "btn btn-lg btn-primary"%>
+		</section>
+	</div>
+</div>

@@ -1,18 +1,24 @@
 <div class="panel-group" id="accordion">
-	<% current_user.course_kinds.each_with_index do |course_kind, index|  %>
-	<% if course_kind.courses && course_kind.courses.any? %>
+	<% current_user.course_kinds.includes(:courses).each_with_index do |course_kind, index|  %>
+	<% if availabled %>
+		<% courses = course_kind.courses.availabled %>
+	<% else %>
+		<% courses = course_kind.courses %>
+	<% end %>
+	<% if courses && courses.any? %>
+	<% collapse_id = "collapse#{(availabled ? "availabled" : "") + index.to_s}" %>
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h4 class="panel-title">
-				<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse<%=index%>">
+				<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#<%=collapse_id%>">
 					<%= "#{index+1}. #{course_kind.name}"  %>
 				</a>
 			</h4>
 		</div>
-		<div id="collapse<%=index%>" class="panel-collapse collapse in">
+		<div id="<%=collapse_id%>" class="panel-collapse collapse in">
 			<div class="panel-body">
 				
-				<%= render 'courses/courses_table', courses: course_kind.courses %>
+				<%= render 'courses/courses_table', courses: courses %>
 				
 			</div>
 		</div>

@@ -1,0 +1,20 @@
+<div class="row">
+	<div class="col-md-6">
+		<section  id="courses_availabled">
+			<% if current_user.courses.availabled && current_user.courses.availabled.any? %>
+			<h2>Можно приготовить (<%= current_user.courses.availabled.count %>)</h2>
+			<%= render 'courses/courses_table_with_kinds', courses: @availabled_courses, availabled: true %>
+			<% end %>
+		</section>
+	</div>
+
+	<div class="col-md-6">
+		<section id="courses" >
+			<% if current_user.courses && current_user.courses.any? %>
+			<h2>Рецепты (<%= current_user.courses.count %>)</h2>
+			<%= render 'courses/courses_table_with_kinds', courses: @courses, availabled: false %>
+			<% end %>
+		</section>
+	</div>
+</div>
+

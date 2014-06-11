@@ -17,7 +17,9 @@ describe "CoursesPages" do
 		it { should have_title(full_title('Мои рецепты')) }
 
 		it { should have_link('Добавить', href: new_course_path) }
+		
 		it { should have_link('удалить', href: course_path(c1)) }
+
 		it { should have_link(c1.name, href: course_path(c1)) }
 
 		it { should have_link("Виды блюд", href: course_kinds_path) }

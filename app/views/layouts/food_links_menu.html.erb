@@ -1,20 +1,17 @@
 <% content_for :content do %>
 
 <div class="row">
-
-	<div class="col-lg-2">
-		<section>
-			<div class="food-links-menu">
-				<ul class="nav nav-pills nav-stacked">
-					<li><%= link_to "Случайный рецепт", advice_path %></li>
-					<li><%= link_to "Продукты", products_path %></li>
-					<li><%= link_to "Мои рецепты", courses_path %></li>
-				</ul>
-			</div>
-		</section>
+	<div class="col-md-2">
+		<hr>
+		<ul class="nav nav-stacked">
+			<li><%= link_to "Случайный рецепт", advice_path %></li>
+			<li><%= link_to "Продукты", products_path %></li>
+			<li><%= link_to "Мои рецепты", courses_path %></li>
+		</ul>
+		<hr>
 	</div>
-	<div class="col-lg-10">
-			<%= yield %>
+	<div class="col-md-10">
+		<%= yield %>
 	</div>
 </div>
 

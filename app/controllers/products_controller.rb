@@ -5,6 +5,8 @@ class ProductsController < ApplicationController
 	before_action :correct_user, only: [:edit, :update, :destroy, :set_availability]
 
 	def index
+		@products = current_user.products.includes(:user)
+		@available_products = current_user.products.availabled.includes(:user)
 	end
 
 	def create
@@ -48,7 +50,17 @@ class ProductsController < ApplicationController
 					end
 					redirect_to products_path
 				end
-				format.js
+				format.js do
+					case URI(request.referer).path
+					when "/products"
+						@products = current_user.products
+						@available_products = current_user.products.availabled
+					when "/courses"
+						@courses = current_user.courses
+						@available_courses = current_user.courses.availabled
+					end
+
+				end
 			end
 		end
 	end

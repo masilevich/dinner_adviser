@@ -126,7 +126,7 @@ describe "ProductsPages" do
 
 			it "should take product to available list" do
 				visit products_path
-				within(:css, ".products_availabled") do
+				within('#products_availabled') do
       		expect(page).to have_selector('td', text: product.name)
     		end
 			end

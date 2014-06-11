@@ -6,22 +6,6 @@ $grayMediumLight: #eaeaea;
 
 /* universal */
 
-html {
-  overflow-y: scroll;
-}
-
-body {
-  padding-top: 60px;
-}
-
-
-section {
-  overflow: auto;
-}
-
-textarea {
-  resize: vertical;
-}
 
 .center {
   text-align: center;
@@ -85,6 +69,14 @@ p {
   }
 }
 
+.navbar-static-top {
+  margin-bottom:20px;
+}
+
+i {
+  font-size:18px;
+}
+
 /* footer */
 
 footer {
@@ -111,11 +103,6 @@ footer {
   }
 }
 
-@mixin box_sizing {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
 
 /* miscellaneous */
 
@@ -124,7 +111,7 @@ footer {
   float: left;
   width: 100%;
   margin-top: 45px;
-  @include box_sizing;
+
 }
 
 
@@ -135,18 +122,20 @@ input, textarea, select, .uneditable-input {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
-  @include box_sizing;
 }
 
 input, select {
   height: auto !important;
 }
 
-.food-links-menu {
-  border-top: 1px solid $grayMediumLight;
-  border-bottom: 1px solid $grayMediumLight;
-  @include box_sizing;
+input[type='checkbox'] {
+   width: auto
 }
+
+.btn {
+  width: 100%;
+}
+
 
 .panel-heading .accordion-toggle:after {
     /* symbol for "opening" panels */
@@ -160,5 +149,7 @@ input, select {
     content: "\e080";    /* adjust as needed, taken from bootstrap.css */
 }
 
-
+#product {
+    display:block
+}
 

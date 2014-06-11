@@ -32,6 +32,9 @@ GEM
     bootstrap-will_paginate (0.0.9)
       will_paginate
     builder (3.1.4)
+    bullet (4.10.0)
+      activesupport
+      uniform_notifier (~> 1.6.0)
     byebug (3.1.2)
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
@@ -75,7 +78,7 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     erubis (2.7.0)
-    execjs (2.1.0)
+    execjs (2.2.0)
     factory_girl (4.2.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.2.1)
@@ -183,6 +186,7 @@ GEM
     uglifier (2.1.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    uniform_notifier (1.6.2)
     warden (1.2.3)
       rack (>= 1.0)
     websocket (1.0.7)
@@ -197,6 +201,7 @@ DEPENDENCIES
   bcrypt-ruby (= 3.1.2)
   bootstrap-sass (~> 3.1.1)
   bootstrap-will_paginate (= 0.0.9)
+  bullet
   byebug
   capybara (= 2.2.0)
   capybara-webkit
