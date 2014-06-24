@@ -5,7 +5,8 @@ class CoursesController < ApplicationController
   before_action :correct_user, only: [:edit, :update, :destroy]
   
   def index
-  	@courses = current_user.courses
+  	@courses = current_user.courses.includes(:user,:products)
+    @availabled_courses = current_user.courses.availabled.includes(:user,:products)
   end
 
   def new

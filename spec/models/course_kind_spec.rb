@@ -37,4 +37,22 @@ describe CourseKind do
       expect(CourseKind.all.to_a).to eq [ck1, ck2, ck3]
     end
   end
+
+  describe "course_kinds for courses" do
+
+    let!(:ck1) { FactoryGirl.create(:course_kind, name: 'Супы') }
+    let!(:ck2) { FactoryGirl.create(:course_kind, name: 'Гарниры') }
+    before do
+      @course = Course.new(name: "Картошка")
+      @course.course_kind = ck1
+      @course.save
+    end
+    it "should include course kind" do
+      expect(CourseKind.kinds_for_courses(@course)).to include(ck1)
+    end
+
+    it "should not include other kinds" do
+      expect(CourseKind.kinds_for_courses(@course)).to_not include(ck2)
+    end
+  end
 end

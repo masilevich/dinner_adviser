@@ -8,11 +8,13 @@
 	</thead>
 
 	<tbody>
+		<% if courses && courses.any? %>
+		<% courses = courses %>
 		<% courses.each do |course| %>
 		<tr>
 			<td><%= link_to(wrap(course.name) , course_path(course), title: course.name) %></td>
 			<td>
-				<%= render course.products %>
+				<%= render course.products.includes(:user) %>
 			</td>
 			<td>
 				<% if current_user?(course.user) %>
@@ -20,6 +22,7 @@
 				<% end %>
 			</td>
 		</tr>
+		<% end %>
 		<% end %>
 	</tbody>
 </table>

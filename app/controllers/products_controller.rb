@@ -57,7 +57,7 @@ class ProductsController < ApplicationController
 						@available_products = current_user.products.availabled
 					when "/courses"
 						@courses = current_user.courses
-						@available_courses = current_user.courses.availabled
+						@availabled_courses = current_user.courses.availabled
 					end
 
 				end

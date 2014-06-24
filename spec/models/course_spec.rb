@@ -19,6 +19,9 @@ describe Course do
 	it "should respond to availabled" do
 		expect(Course).to respond_to(:availabled)
 	end
+	it "should respond to without_kind" do
+		expect(Course).to respond_to(:without_kind)
+	end
 	its(:user) { should eq user }
 
 	it { should be_valid }
@@ -78,6 +81,24 @@ describe Course do
 			end
 
 		end
+	end
+
+	describe "without_kind" do
+		
+	  it "scope should include course without kind" do
+	  	@course.save
+			expect(Course.without_kind).to include(@course)
+		end
+
+		describe "scope should not include course with kind" do
+			let(:course_kind) { FactoryGirl.create(:course_kind) }
+			before do
+			  @course.course_kind = course_kind
+			  @course.save
+			end 
+			specify { expect(Course.without_kind).to_not include(@course) }
+		end
+
 	end
 
 	describe "order" do

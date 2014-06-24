@@ -1,8 +1,8 @@
-<div class="row">
+	<div class="row">
 	<div class="col-md-6">
 		<section  id="courses_availabled">
-			<% if current_user.courses.availabled && current_user.courses.availabled.any? %>
-			<h2>Можно приготовить (<%= current_user.courses.availabled.count %>)</h2>
+			<% if @availabled_courses && @availabled_courses.any? %>
+			<h2>Можно приготовить (<%= @availabled_courses.to_a.count %>)</h2>
 			<%= render 'courses/courses_table_with_kinds', courses: @availabled_courses, availabled: true %>
 			<% end %>
 		</section>
@@ -10,8 +10,8 @@
 
 	<div class="col-md-6">
 		<section id="courses" >
-			<% if current_user.courses && current_user.courses.any? %>
-			<h2>Рецепты (<%= current_user.courses.count %>)</h2>
+			<% if @courses && @courses.any? %>
+			<h2>Рецепты (<%= @courses.count %>)</h2>
 			<%= render 'courses/courses_table_with_kinds', courses: @courses, availabled: false %>
 			<% end %>
 		</section>

@@ -28,6 +28,7 @@ end
 
 group :development do
   gem 'bullet'
+  gem 'hirb'
 end
 
 group :test do

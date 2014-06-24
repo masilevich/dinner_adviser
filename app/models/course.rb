@@ -4,7 +4,7 @@ class Course < ActiveRecord::Base
 	has_many :ingridients,  dependent: :destroy
 	has_many :products, through: :ingridients
 
-	default_scope { includes(:products).order('courses.name ASC') }
+	default_scope { order(name: :asc) }
 
 	accepts_nested_attributes_for :ingridients,
 		allow_destroy: true,
@@ -21,15 +21,10 @@ class Course < ActiveRecord::Base
 
 	validates :name, presence: true, length: {maximum: 100}
 
-	#def available?
-  #  self.products.where(available: false).count == 0 && self.products.count > 0
-	#end
+	scope :without_kind, -> { where(course_kind_id: nil) }
 
-	#scope :availabled, -> {select(&:available?)}
-
-	#scope :availabled, -> {self.joins(:ingridients,:products)}
-
-	def self.availabled
-		joins(:products).where.not(products: {available: false}).group("course_id")
+	scope :availabled, -> do
+		joins(:products).group("courses.id").having("(COUNT(CASE WHEN products.available = ? then 1 ELSE null END)=0)",false)
 	end
+
 end
