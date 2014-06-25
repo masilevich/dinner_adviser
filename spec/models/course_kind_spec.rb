@@ -48,11 +48,11 @@ describe CourseKind do
       @course.save
     end
     it "should include course kind" do
-      expect(CourseKind.kinds_for_courses(@course)).to include(ck1)
+      expect(CourseKind.kinds_for_courses(Course.all)).to include(ck1)
     end
 
     it "should not include other kinds" do
-      expect(CourseKind.kinds_for_courses(@course)).to_not include(ck2)
+      expect(CourseKind.kinds_for_courses(Course.all)).to_not include(ck2)
     end
   end
 end

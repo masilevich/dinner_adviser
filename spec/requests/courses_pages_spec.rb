@@ -26,9 +26,67 @@ describe "CoursesPages" do
 
 		it { should have_content("Рецепты (#{user.courses.count})") }
 
-		it "should list each course" do
-			user.courses.each do |course|
-				expect(page).to have_selector('td', text: course.name)
+		describe "on all courses" do
+			it "should list each course" do
+				within('#courses') do
+					user.courses.each do |course|
+						expect(page).to have_selector('td', text: course.name)
+					end
+				end
+			end
+
+			describe "with kinds" do
+				let!(:ck) { FactoryGirl.create(:course_kind, user: user) }
+				before do
+					ck.save
+					c1.course_kind = ck
+					c1.save
+					visit courses_path
+				end
+				it "should list each kind" do
+					within('#courses') do
+						CourseKind.kinds_for_courses(user.courses).each do |course_kind|
+							expect(page).to have_selector('h4', text: ck.name)
+						end
+					end
+				end
+			end
+		end
+		
+
+		describe "on availabled courses" do
+			let!(:p1) { FactoryGirl.create(:product, available: true, user: user) }
+			before do
+				p1.save
+				c1.products << p1
+				c1.save
+				visit courses_path
+			end
+			it "should list each course" do
+				within('#courses_availabled') do
+					user.courses.availabled.each do |course|
+						expect(page).to have_selector('td', text: course.name)
+					end
+				end
+			end
+
+			specify { expect(page).to have_content("Можно приготовить (#{user.courses.availabled.to_a.count})") }
+
+			describe "with kinds" do
+				let!(:ck) { FactoryGirl.create(:course_kind, user: user) }
+				before do
+					ck.save
+					c1.course_kind = ck
+					c1.save
+					visit courses_path
+				end
+				it "should list each kind" do
+					within('#courses') do
+						CourseKind.kinds_for_courses(user.courses.availabled).each do |course_kind|
+							expect(page).to have_selector('h4', text: ck.name)
+						end
+					end
+				end
 			end
 		end
 	end
@@ -87,19 +145,19 @@ describe "CoursesPages" do
 
 			describe "and product select" do
 				before do
-				  select p1.name, :from => "course_product_ids"
-				  click_button "Добавить"
+					select p1.name, :from => "course_product_ids"
+					click_button "Добавить"
 				end
 				it "should contain product" do
-				 	expect(Course.find_by_name("Жареная курица").products).to include(p1)
+					expect(Course.find_by_name("Жареная курица").products).to include(p1)
 				end
 			end
 
 			describe "and product select blank" do
 				before do
 					fill_in 'course_name', with: "Жареная курица"
-				  click_button "Добавить"
-				  @course = Course.find_by_name("Жареная курица")
+					click_button "Добавить"
+					@course = Course.find_by_name("Жареная курица")
 				end
 				it "should not contain products and ingridients" do
 					expect(@course.products).to eq []
@@ -112,19 +170,19 @@ describe "CoursesPages" do
 				before do
 					visit new_course_path
 					fill_in 'course_name', with: "Жареная курица"
-				  select ck1.name, :from => "course_course_kind_id"
-				  click_button "Добавить"
+					select ck1.name, :from => "course_course_kind_id"
+					click_button "Добавить"
 				end
 				it "should contain course_kind" do
-				 	expect(Course.find_by_name("Жареная курица").course_kind).to eq ck1
+					expect(Course.find_by_name("Жареная курица").course_kind).to eq ck1
 				end
 			end
 
 			describe "and course_kind select blank" do
 				before do
 					fill_in 'course_name', with: "Жареная курица"
-				  click_button "Добавить"
-				  @course = Course.find_by_name("Жареная курица")
+					click_button "Добавить"
+					@course = Course.find_by_name("Жареная курица")
 				end
 				it "should not contain course_kinds and ingridients" do
 					expect(@course.course_kind).to be_nil
