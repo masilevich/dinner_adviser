@@ -1,5 +1,4 @@
 class CoursesController < ApplicationController
-  layout "food_links_menu"
 
   before_filter :authenticate_user!
   before_action :correct_user, only: [:edit, :update, :destroy]
@@ -12,6 +11,8 @@ class CoursesController < ApplicationController
   def new
     @course = current_user.courses.build()
     @ingridient = @course.ingridients.build()
+    @products = current_user.products
+    @course_kinds = current_user.course_kinds
   end
 
   def show
@@ -24,16 +25,26 @@ class CoursesController < ApplicationController
       flash[:success] = "Блюдо добавлено"
       redirect_to courses_path
     else
-      flash[:alert] = 'Блюдо не добавлено'
-      render 'new'
+      flash.now[:danger] = 'Блюдо не добавлено'
+      @products = current_user.products
+      @course_kinds = current_user.course_kinds
+      render 'new', layout: "form_for_food_links_menu"
     end
   end
 
   def destroy
-    Course.find(params[:id]).destroy
+    delete_result = Course.find(params[:id]).destroy
+    if delete_result
+      @courses = current_user.courses.includes(:user,:products)
+      @availabled_courses = current_user.courses.availabled.includes(:user,:products)
+    end
     respond_to do |format|
       format.html do
-        flash[:success] = 'Блюдо удалено'
+        if delete_result
+          flash[:success] = 'Блюдо удалено'
+        else
+          flash[:danger] = 'Блюдо не удалено'
+        end
         redirect_to courses_path
       end
       format.js
@@ -42,6 +53,8 @@ class CoursesController < ApplicationController
 
   def edit
     @course = Course.find(params[:id])
+    @products = current_user.products
+    @course_kinds = current_user.course_kinds
   end
 
   def update
@@ -50,8 +63,8 @@ class CoursesController < ApplicationController
       flash[:success] = 'Блюдо изменено'
       redirect_to courses_path
     else
-      flash[:success] = 'Блюдо не изменено'
-      render 'edit'
+      flash.now[:success] = 'Блюдо не изменено'
+      render 'edit', layout: "form_for_food_links_menu"
     end
   end
 
@@ -65,4 +78,5 @@ class CoursesController < ApplicationController
     @course = current_user.courses.find_by(id: params[:id])
     redirect_to root_url if @course.nil?
   end
+
 end

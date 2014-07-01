@@ -1,5 +1,6 @@
 DinnerAdviser::Application.routes.draw do
 
+  get "product_kinds/new"
   devise_for :users
 
   resources :products do
@@ -7,6 +8,7 @@ DinnerAdviser::Application.routes.draw do
       put :set_availability
     end
   end
+  resources :product_kinds
   
   resources :courses
   resources :course_kinds

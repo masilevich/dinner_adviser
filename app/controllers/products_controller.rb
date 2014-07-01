@@ -1,5 +1,4 @@
 class ProductsController < ApplicationController
-	layout "food_links_menu"
 
 	before_filter :authenticate_user!
 	before_action :correct_user, only: [:edit, :update, :destroy, :set_availability]
@@ -9,26 +8,46 @@ class ProductsController < ApplicationController
 		@available_products = current_user.products.availabled.includes(:user)
 	end
 
+	def new
+		@product = current_user.products.build()
+		@product_kinds = current_user.product_kinds
+	end
+
 	def create
 		@product = current_user.products.build(product_params)
+		save_result = @product.save
+		if save_result
+			@products = current_user.products.includes(:user)
+			@available_products = current_user.products.availabled.includes(:user)
+		end
 		respond_to do |format|
 			format.html do
-				if @product.save
+				if save_result
 					flash[:success] = 'Продукт добавлен'
+					redirect_to products_path
 				else
-					flash[:alert] = 'Продукт не добавлен'
+					flash.now[:danger] = 'Продукт не добавлен'
+					@product_kinds = current_user.product_kinds
+					render 'new', layout: "form_for_food_links_menu"
 				end
-				redirect_to products_path
 			end
-			format.js {@product.save}
+			format.js
 		end
 	end
 
 	def destroy
-		Product.find(params[:id]).destroy
+		delete_result = Product.find(params[:id]).destroy
+		if delete_result
+			@products = current_user.products.includes(:user)
+			@available_products = current_user.products.availabled.includes(:user)
+		end
 		respond_to do |format|
 			format.html do
-				flash[:success] = 'Продукт удален'
+				if delete_result
+					flash[:success] = 'Продукт удален'
+				else
+					flash[:danger] = 'Продукт не удален'
+				end
 				redirect_to products_path
 			end
 			format.js
@@ -67,6 +86,7 @@ class ProductsController < ApplicationController
 
 	def edit
 		@product = Product.find(params[:id])
+		@product_kinds = current_user.product_kinds
 	end
 
 	def update
@@ -75,19 +95,20 @@ class ProductsController < ApplicationController
 			flash[:success] = 'Продукт изменен'
 			redirect_to products_path
 		else
-			flash[:success] = 'Продукт не изменен'
-			render 'edit'
+			flash.now[:success] = 'Продукт не изменен'
+			render 'edit', layout: "form_for_food_links_menu"
 		end
 	end
 
 	private
 
 	def product_params
-		params.require(:product).permit(:name, :available)
+		params.require(:product).permit(:name, :available, :product_kind_id)
 	end
 
 	def correct_user
 		@product = current_user.products.find_by(id: params[:id])
 		redirect_to root_url if @product.nil?
 	end
+
 end

@@ -4,7 +4,7 @@ class Course < ActiveRecord::Base
 	has_many :ingridients,  dependent: :destroy
 	has_many :products, through: :ingridients
 
-	default_scope { order(name: :asc) }
+	validates :name, presence: true, length: {maximum: 100}
 
 	accepts_nested_attributes_for :ingridients,
 		allow_destroy: true,
@@ -19,7 +19,7 @@ class Course < ActiveRecord::Base
 			attrs['course_kind_id'].blank?
 		}
 
-	validates :name, presence: true, length: {maximum: 100}
+	default_scope { order(name: :asc) }
 
 	scope :without_kind, -> { where(course_kind_id: nil) }
 

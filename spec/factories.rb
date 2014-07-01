@@ -44,4 +44,9 @@ FactoryGirl.define do
     user
   end
 
+  factory :product_kind do
+    name "Овощи"
+    user
+  end
+
 end

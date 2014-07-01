@@ -19,7 +19,7 @@ describe "course_kindsPages" do
 
 			describe "error messages" do
 				before { click_button "Добавить" }
-				it { should have_content('Вид блюда не добавлен') }
+				it { should have_error_message('Вид блюда не добавлен') }
 			end
 		end
 

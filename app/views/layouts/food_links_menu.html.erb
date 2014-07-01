@@ -11,7 +11,8 @@
 		<hr>
 	</div>
 	<div class="col-md-10">
-		<%= yield %>
+		<%#= yield %>
+		<%= content_for?(:form_content) ? yield(:form_content) : yield %>
 	</div>
 </div>
 

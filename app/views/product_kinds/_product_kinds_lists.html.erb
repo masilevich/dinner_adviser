@@ -1,0 +1,11 @@
+<div class="row">
+
+	<div class="col-md-12">
+		<section class="product_kinds" >
+			<% if @product_kinds && @product_kinds.any? %>
+				<h2>Все (<%= @product_kinds.count %>)</h2>
+				<%= render 'product_kinds_table', product_kinds: @product_kinds %>
+			<% end %>
+		</section>
+	</div>
+</div>

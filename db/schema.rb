@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140605131251) do
+ActiveRecord::Schema.define(version: 20140626080806) do
 
   create_table "course_kinds", force: true do |t|
     t.string   "name"
@@ -43,13 +43,21 @@ ActiveRecord::Schema.define(version: 20140605131251) do
     t.datetime "updated_at"
   end
 
+  create_table "product_kinds", force: true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "products", force: true do |t|
     t.string   "name"
     t.boolean  "common"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "available"
+    t.boolean  "available",       default: false, null: false
+    t.integer  "product_kind_id"
   end
 
   add_index "products", ["name", "user_id"], name: "index_products_on_name_and_user_id", unique: true

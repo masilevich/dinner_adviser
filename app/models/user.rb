@@ -2,9 +2,7 @@ class User < ActiveRecord::Base
   has_many :courses,  dependent: :destroy
   has_many :course_kinds,  dependent: :destroy
   has_many :products,  dependent: :destroy
-  #has_many :products.availabled, -> { where available: true },
-  #  class_name: "Product"
-
+  has_many :product_kinds,  dependent: :destroy
 
 
   valid_user_name = Regexp.new(/\A/.source + ApplicationHelper::USER_NAME_REGEX.source + /\z/.source, Regexp::IGNORECASE)

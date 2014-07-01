@@ -1,11 +1,11 @@
 <% provide(:title, 'Мои рецепты') %>
 
-		<section>
-			<%= link_to "Добавить", new_course_path, class: "btn btn-lg btn-primary"%>
-		</section>
+<section>
+	<%= link_to "Добавить", new_course_path, class: "btn btn-lg btn-primary"%>
+</section>
 
-		<section id="courses_lists">
-			<%= render 'courses/two_columns_courses_lists' %>
-		</section>
+<section id="courses_lists">
+	<%= render 'courses/two_columns_courses_lists' %>
+</section>
 
-		<%= link_to "Виды блюд", course_kinds_path%>
+<%= link_to "Виды блюд", course_kinds_path%>

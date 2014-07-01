@@ -38,17 +38,19 @@ describe "CoursesPages" do
 			describe "with kinds" do
 				let!(:ck) { FactoryGirl.create(:course_kind, user: user) }
 				before do
-					ck.save
 					c1.course_kind = ck
-					c1.save
 					visit courses_path
 				end
 				it "should list each kind" do
 					within('#courses') do
 						CourseKind.kinds_for_courses(user.courses).each do |course_kind|
-							expect(page).to have_selector('h4', text: ck.name)
+							expect(page).to have_selector('h4', text: course_kind.name)
 						end
 					end
+				end
+
+				it "should list empty kind" do
+					expect(page).to have_selector('h4', text: "Без категории")
 				end
 			end
 		end
@@ -57,9 +59,7 @@ describe "CoursesPages" do
 		describe "on availabled courses" do
 			let!(:p1) { FactoryGirl.create(:product, available: true, user: user) }
 			before do
-				p1.save
 				c1.products << p1
-				c1.save
 				visit courses_path
 			end
 			it "should list each course" do
@@ -75,15 +75,13 @@ describe "CoursesPages" do
 			describe "with kinds" do
 				let!(:ck) { FactoryGirl.create(:course_kind, user: user) }
 				before do
-					ck.save
 					c1.course_kind = ck
-					c1.save
 					visit courses_path
 				end
 				it "should list each kind" do
-					within('#courses') do
+					within('#courses_availabled') do
 						CourseKind.kinds_for_courses(user.courses.availabled).each do |course_kind|
-							expect(page).to have_selector('h4', text: ck.name)
+							expect(page).to have_selector('h4', text: course_kind.name)
 						end
 					end
 				end
@@ -130,7 +128,7 @@ describe "CoursesPages" do
 			end
 			describe "error messages" do
 				before { click_button "Добавить" }
-				it { should have_content('Блюдо не добавлено') }
+				it { should have_error_message('Блюдо не добавлено') }
 			end
 		end
 
@@ -232,7 +230,7 @@ describe "CoursesPages" do
 				expect(course.products).to include(p1)
 			end
 
-			it "course should contain product" do
+			it "course_kind should contain course kind" do
 				expect(course.course_kind).to eq ck1
 			end
 		end

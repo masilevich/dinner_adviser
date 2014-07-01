@@ -1,0 +1,22 @@
+<table class='table' id='product_kinds_table'>
+	<thead>
+		<tr>
+			<th>Название</th>
+			<th></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% product_kinds.each do |product_kind| %>
+		<tr>
+			<td><%= link_to wrap(product_kind.name), edit_product_kind_path(product_kind), title: product_kind.name %>
+			</td>
+			<td>
+				<% if current_user?(product_kind.user) %>
+				<%= link_to "удалить", product_kind, method: :delete, remote: true, data: { confirm: "Вы уверены?" }, title: product_kind.name %>
+				<% end %>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

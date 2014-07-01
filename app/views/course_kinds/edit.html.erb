@@ -1,14 +1,10 @@
 <% provide(:title, 'Изменить вид блюда') %>
 
-<div class="row">
-	<div class="col-md-6 col-md-offset-3">
-		<%= form_for(@course_kind) do |f| %>
-		<%= render 'shared/error_messages', object: f.object %>
+<%= form_for(@course_kind) do |f| %>
+<%= render 'shared/error_messages', object: f.object %>
 
-		<%= f.label :name, "Название" %>
-		<%= f.text_field :name %>
+<%= f.label :name, "Название" %>
+<%= f.text_field :name %>
 
-		<%= f.submit "Сохранить", class: "btn btn-lg btn-primary" %>
-		<% end %>
-	</div>
-</div>
+<%= f.submit "Сохранить", class: "btn btn-lg btn-primary" %>
+<% end %>

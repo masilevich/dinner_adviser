@@ -15,6 +15,9 @@ describe Product do
 	it { should respond_to(:courses) }
 	it { should respond_to(:ingridients) }
 	it { should respond_to(:available) }
+	it { should respond_to(:product_kind_id) }
+	it { should respond_to(:product_kind) }
+
 	it "should respond to availabled" do
 		expect(Product).to respond_to(:availabled)
 	end
@@ -44,5 +47,23 @@ describe Product do
 		it "should have rights products in right order" do
 			expect(Product.all.to_a).to eq [p1, p2, p3]
 		end
+	end
+
+	describe "without_kind" do
+		
+	  it "scope should include product without kind" do
+	  	@product.save
+			expect(Product.without_kind).to include(@product)
+		end
+
+		describe "scope should not include product with kind" do
+			let(:product_kind) { FactoryGirl.create(:product_kind) }
+			before do
+			  @product.product_kind = product_kind
+			  @product.save
+			end 
+			specify { expect(Course.without_kind).to_not include(@product) }
+		end
+
 	end
 end
