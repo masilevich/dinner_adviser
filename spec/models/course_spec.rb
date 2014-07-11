@@ -16,6 +16,7 @@ describe Course do
 	it { should respond_to(:course_kind) }
 	it { should respond_to(:products) }
 	it { should respond_to(:ingridients) }
+	it { should respond_to(:menus) }
 
 	it "should respond to availabled" do
 		expect(Course).to respond_to(:availabled)

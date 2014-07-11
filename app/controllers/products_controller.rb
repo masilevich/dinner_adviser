@@ -26,12 +26,9 @@ class ProductsController < ApplicationController
 					flash[:success] = 'Продукт добавлен'
 					redirect_to products_path
 				else
-					#flash.now[:danger] = 'Продукт не добавлен'
-					#@product_kinds = current_user.product_kinds
-					#render 'new', layout: "form_for_food_links_menu"
-					flash[:danger] = 'Продукт не добавлен'
-					#@product_kinds = current_user.product_kinds
-					redirect_to action: :new
+					flash.now[:danger] = 'Продукт не добавлен'
+					@product_kinds = current_user.product_kinds
+					render 'new', layout: "form_for_food_links_menu"
 				end
 			end
 			format.js

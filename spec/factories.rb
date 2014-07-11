@@ -15,7 +15,8 @@ FactoryGirl.define do
   end
 
   factory :product do
-    name "Огурец"
+    sequence(:name) { |n| "Продукт #{n}" }
+    #name "Огурец"
     user
     factory :available_product do
       available true
@@ -27,7 +28,8 @@ FactoryGirl.define do
   end
 
   factory :course do
-    name "Рыба жареная"
+    sequence(:name) { |n| "Блюдо #{n}" }
+    #name "Рыба жареная"
     user
 
     factory :course_with_available_product do
@@ -39,13 +41,27 @@ FactoryGirl.define do
     end
   end
 
+
   factory :course_kind do
-    name "Второе блюдо"
+    sequence(:name) { |n| "Вид блюда #{n}" }
+    #name "Второе блюдо"
     user
   end
 
   factory :product_kind do
-    name "Овощи"
+    sequence(:name) { |n| "Вид продукта #{n}" }
+    #name "Овощи"
+    user
+  end
+
+  factory :menu do
+    date Time.now
+    user
+  end
+
+  factory :menu_kind do
+    sequence(:name) { |n| "Вид меню #{n}" }
+    #name "Обеденное"
     user
   end
 

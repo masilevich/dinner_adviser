@@ -1,0 +1,12 @@
+<% provide(:title, 'Меню') %>
+
+<section>
+	<%= link_to "Добавить", new_menu_path, class: "btn btn-lg btn-primary"%>
+</section>
+
+<section id="menus" >
+	<%= render 'menus/menus_table'%>
+</section>
+
+
+<%= link_to "Виды меню", menu_kinds_path%>

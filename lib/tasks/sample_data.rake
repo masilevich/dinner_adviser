@@ -4,6 +4,7 @@ namespace :db do
     make_users  
     make_products
     make_courses
+    make_menus
   end
 end
 
@@ -42,6 +43,12 @@ def make_users
     users = User.all
     users.each { |user| user.courses.create!(name: "Пюре для #{user.username}") }
     users.each { |user| user.courses.create!(name: "Курица для #{user.username}") }
+  end
+
+  def make_menus
+    user = User.first
+    user.menus.create!(date: Time.now()) 
+    user.menus.create!(date: (Time.now() - 1.day))
   end
   
 end

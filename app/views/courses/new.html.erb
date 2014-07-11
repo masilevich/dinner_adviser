@@ -13,5 +13,5 @@
 <%= f.label :course_kind, "Вид блюда:" %>
 <%= f.collection_select(:course_kind_id, @course_kinds, :id, :name, :include_blank  => true) %>
 
-<%= f.submit "Добавить", class: "btn btn-lg btn-primary" %>
+<%= f.submit "Сохранить", class: "btn btn-lg btn-primary" %>
 <% end %>

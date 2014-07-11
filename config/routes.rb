@@ -1,5 +1,6 @@
 DinnerAdviser::Application.routes.draw do
 
+  get "menus/new"
   get "product_kinds/new"
   devise_for :users
 
@@ -13,6 +14,9 @@ DinnerAdviser::Application.routes.draw do
   resources :courses
   resources :course_kinds
   
+  resources :menus
+  resources :menu_kinds
+
   root 'static_pages#home'
 
   match '/advice',    to: 'advices#new', via: 'get'

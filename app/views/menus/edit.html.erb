@@ -1,0 +1,16 @@
+<% provide(:title, 'Изменить меню') %>
+
+<%= form_for(@menu) do |f| %>
+<%= render 'shared/error_messages', object: f.object %>
+
+<div class="form-group">
+<%= f.label :date, "Дата" %>
+<%= f.date_field :date, :value => Time.now.strftime("%Y-%m-%d") %>
+</div>
+<div class="form-group">
+<%= f.label :menu_kind, "Вид меню:" %>
+<%= f.collection_select(:menu_kind_id, @menu_kinds, :id, :name, :include_blank  => true) %>
+</div>
+
+<%= f.submit "Сохранить", class: "btn btn-lg btn-primary" %>
+<% end %>

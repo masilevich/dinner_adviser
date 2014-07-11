@@ -1,24 +1,24 @@
 require 'spec_helper'
+require 'shared_stuff'
 
 describe "ProductsPages" do
 	include Warden::Test::Helpers
 	Warden.test_mode!
 
-	subject { page }
+	include_context "shared stuff"
 
-	let(:user) { FactoryGirl.create(:confirmed_user) }
-	before {login_as(user, :scope => :user)}
+	let(:product_name) { "Жареная курица" }
 
 	describe "creation" do
 		before {visit new_product_path}
 		describe "with invalid information" do
 
 			it "should not create a product" do
-				expect { click_button "Добавить" }.not_to change(Product, :count)
+				expect { click_button save_button }.not_to change(Product, :count)
 			end
 
 			describe "error messages" do
-				before { click_button "Добавить" }
+				before { click_button save_button }
 				it { should have_error_message('Продукт не добавлен') }
 
 				describe "after visiting another page" do
@@ -29,13 +29,13 @@ describe "ProductsPages" do
 		end
 
 		describe "with valid information" do
-			before {fill_in 'product_name', with: "Жареная курица" }
+			before {fill_in 'product_name', with: product_name }
 
 			describe "after save" do
 				before do
-					fill_in 'product_name', with: "Жареная курица"
-					click_button "Добавить"
-					@product = Product.find_by_name("Жареная курица")
+					fill_in 'product_name', with: product_name
+					click_button save_button
+					@product = Product.find_by_name(product_name)
 				end
 
 				specify {expect(@product.available).to be_false}
@@ -46,20 +46,20 @@ describe "ProductsPages" do
 			end
 
 			it "should create a product" do
-				expect { click_button "Добавить" }.to change(Product, :count).by(1)
+				expect { click_button save_button }.to change(Product, :count).by(1)
 			end
 
 
 			describe "and product_kind select" do
-				let!(:pk1) { FactoryGirl.create(:product_kind, user: user, name: "Овощи") }
+				let!(:pk1) { FactoryGirl.create(:product_kind, user: user) }
 				before do
 					visit new_product_path
-					fill_in 'product_name', with: "Жареная курица"
+					fill_in 'product_name', with: product_name
 					select pk1.name, :from => "product_product_kind_id"
-					click_button "Добавить"
+					click_button save_button
 				end
 				it "should contain product_kind" do
-					expect(Product.find_by_name("Жареная курица").product_kind).to eq pk1
+					expect(Product.find_by_name(product_name).product_kind).to eq pk1
 				end
 			end
 
@@ -72,44 +72,44 @@ describe "ProductsPages" do
 		describe "in products controller pages" do
 
 			before { visit products_path }
-			it "should delete a product" do
-				expect { click_link "удалить" }.to change(Product, :count).by(-1)
+			it "delete a product" do
+				expect { click_link delete_link }.to change(Product, :count).by(-1)
 			end
 
-			describe "should have link to destroy" do
-				specify {expect(page).to have_link("удалить", product_path(product))}
+			describe "have link to destroy" do
+				specify {expect(page).to have_link(delete_link, product_path(product))}
 			end
 		end
 
-		describe "link should be only on product contoller pages" do
-			let!(:c1) { FactoryGirl.create(:course, user: user, name: 'Пюре') }
+		describe "link only on product contoller pages" do
+			let!(:c1) { FactoryGirl.create(:course, user: user) }
 			before do
 				c1.products << product
 				visit course_path(c1)
 			end	
-			specify {expect(page).to_not have_link("удалить", href: product_path(product))}
+			specify {expect(page).to_not have_link(delete_link, href: product_path(product))}
 		end
 	end
 
 	describe "edit" do
-		let!(:product) {FactoryGirl.create(:product,user: user, name: "Огурцы")}
-		let!(:pk1) { FactoryGirl.create(:product_kind, user: user, name: 'Овощи') }
+		let!(:product) {FactoryGirl.create(:product,user: user)}
+		let!(:pk1) { FactoryGirl.create(:product_kind, user: user) }
 		before {visit edit_product_path(product) }
 
 		it { should have_select('product_product_kind_id', :options => ['',pk1.name]) }
 
 		describe "after save" do
 			before do
-				fill_in "product_name", with: "Картошка"
+				fill_in "product_name", with: product_name
 				select pk1.name, :from => "product_product_kind_id"
-				click_button "Сохранить"
+				click_button save_button
 				product.reload
 			end
 			it "should update a product" do
-				expect(product.name).to eq "Картошка"
+				expect(product.name).to eq product_name
 			end
 
-			it { should have_content("Картошка") }
+			it { should have_content(product_name) }
 
 			it { should have_content("Продукт изменен") }
 
@@ -121,14 +121,14 @@ describe "ProductsPages" do
 	end
 
 	describe "index" do
-		let!(:p1) { FactoryGirl.create(:product, user: user, name: 'Картошка') }
-		let!(:p2) { FactoryGirl.create(:product, user: user, name: 'Капуста') }
+		let!(:p1) { FactoryGirl.create(:product, user: user) }
+		let!(:p2) { FactoryGirl.create(:product, user: user) }
 		before {visit products_path}
 
 		it { should have_title(full_title('Продукты')) }
 
-		it { should have_link('Добавить', href: new_product_path) }
-		it { should have_link('удалить', href: product_path(p1)) }
+		it { should have_link(add_button, href: new_product_path) }
+		it { should have_link(delete_link, href: product_path(p1)) }
 		it { should have_link(p1.name, href: edit_product_path(p1)) }
 		it { should have_link(p2.name, href: edit_product_path(p2)) }
 

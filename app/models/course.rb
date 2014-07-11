@@ -3,6 +3,7 @@ class Course < ActiveRecord::Base
 	belongs_to :course_kind
 	has_many :ingridients,  dependent: :destroy
 	has_many :products, through: :ingridients
+	has_and_belongs_to_many :menus
 
 	validates :name, presence: true, length: {maximum: 100}
 

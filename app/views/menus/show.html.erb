@@ -1,0 +1,17 @@
+<% provide(:title, 'Меню') %>
+
+<h2><%= "Меню#{@menu.menu_kind ? (" " + @menu.menu_kind.name) : ""} на #{@menu.date}" %></h2>
+Блюда:
+<ul class="courses" >
+	<% @menu.courses.each do |course| %>
+	<li id="<%= course.id %>">
+		<span id="course">
+		<%= link_to wrap(course.name), course_path(course), title: course.name %>
+		</span>
+	</li>
+	<% end %>
+</ul>
+
+<section>
+	<%= link_to "Изменить", edit_menu_path(@menu), class: "btn btn-lg btn-primary"%>
+</section>

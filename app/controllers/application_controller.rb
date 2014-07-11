@@ -21,9 +21,16 @@ class ApplicationController < ActionController::Base
       "devise"
     else
       case controller_name
-      when "products", "courses", "product_kinds", "course_kinds", "advices"
+      when "products", "courses", "product_kinds", "course_kinds", "advices", "menu_kinds"
         case action_name
         when "new" , "edit" , "show"
+          "form_for_food_links_menu"
+        else 
+          "food_links_menu"
+        end
+      when "menus"
+        case action_name
+        when "show"
           "form_for_food_links_menu"
         else 
           "food_links_menu"

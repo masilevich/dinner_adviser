@@ -1,0 +1,28 @@
+<% if @menus && @menus.any? %>
+<h2>Меню (<%= @menus.count %>)</h2>
+
+<table class='table' id='menus_table'>
+	<thead>
+		<tr>
+			<th>Дата</th>
+			<th>Вид</th>
+			<th></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @menus.each do |menu| %>
+		<tr>
+			<td><%= link_to(menu.date, menu_path(menu), title: menu.date) %></td>
+			<td><%= menu.menu_kind ? menu.menu_kind.name : "" %></td>
+			<td>
+				<% if current_user?(menu.user) %>
+				<%= link_to "удалить", menu, method: :delete, remote: true, data: { confirm: "Вы уверены?" }, title: menu.date %>
+				<% end %>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<% end %>

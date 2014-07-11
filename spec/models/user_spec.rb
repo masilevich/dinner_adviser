@@ -25,8 +25,10 @@ describe User do
   it { should respond_to(:email) }
   it { should respond_to(:products) }
   it { should respond_to(:courses) }
+  it { should respond_to(:menus) }
   it { should respond_to(:course_kinds) }
   it { should respond_to(:product_kinds) }
+  it { should respond_to(:menu_kinds) }
 
   it { should be_valid }
 

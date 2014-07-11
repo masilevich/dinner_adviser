@@ -1,24 +1,22 @@
 require 'spec_helper'
+require 'shared_stuff'
 
 describe "course_kindsPages" do
 	include Warden::Test::Helpers
 	Warden.test_mode!
 
-	subject { page }
-
-	let(:user) { FactoryGirl.create(:confirmed_user) }
-	before {login_as(user, :scope => :user)}
+	include_context "shared stuff"
 
 	describe "creation" do
 		before {visit course_kinds_path}
 		describe "with invalid information" do
 
 			it "should not create a CourseKind" do
-				expect { click_button "Добавить" }.not_to change(CourseKind, :count)
+				expect { click_button add_button }.not_to change(CourseKind, :count)
 			end
 
 			describe "error messages" do
-				before { click_button "Добавить" }
+				before { click_button add_button }
 				it { should have_error_message('Вид блюда не добавлен') }
 			end
 		end
@@ -26,7 +24,7 @@ describe "course_kindsPages" do
 		describe "with valid information" do
 			before {fill_in 'course_kind_name', with: "Вторые блюда" }
 			it "should create a CourseKind" do
-				expect { click_button "Добавить" }.to change(CourseKind, :count).by(1)
+				expect { click_button add_button }.to change(CourseKind, :count).by(1)
 			end
 		end
 
@@ -38,11 +36,11 @@ describe "course_kindsPages" do
 
 			before { visit course_kinds_path }
 			it "should delete a CourseKind" do
-				expect { click_link "удалить" }.to change(CourseKind, :count).by(-1)
+				expect { click_link delete_link }.to change(CourseKind, :count).by(-1)
 			end
 
 			describe "should have link to destroy" do
-				specify {expect(page).to have_link("удалить", course_kind_path(course_kind))}
+				specify {expect(page).to have_link(delete_link, course_kind_path(course_kind))}
 			end
 		end
 
@@ -52,7 +50,7 @@ describe "course_kindsPages" do
 				c1.course_kind = course_kind
 				visit course_path(c1)
 			end	
-			specify {expect(page).to_not have_link("удалить", href: course_kind_path(course_kind))}
+			specify {expect(page).to_not have_link(delete_link, href: course_kind_path(course_kind))}
 		end
 	end
 
@@ -61,7 +59,7 @@ describe "course_kindsPages" do
 		before do
 			visit edit_course_kind_path(course_kind)
 			fill_in "course_kind_name", with: "Первые блюда"
-			click_button "Сохранить"
+			click_button save_button
 		end 
 		it "should update a course_kind" do
 			expect(course_kind.reload.name).to eq "Первые блюда"
@@ -80,8 +78,8 @@ describe "course_kindsPages" do
 
 		it { should have_title(full_title('Виды блюд')) }
 
-		it { should have_button('Добавить') }
-		it { should have_link('удалить', href: course_kind_path(ck1)) }
+		it { should have_button(add_button) }
+		it { should have_link(delete_link, href: course_kind_path(ck1)) }
 		it { should have_link(ck1.name, href: edit_course_kind_path(ck1)) }
 		it { should have_link(ck2.name, href: edit_course_kind_path(ck2)) }
 

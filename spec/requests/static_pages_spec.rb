@@ -35,8 +35,10 @@ describe "Static pages" do
       it { should_not have_link("Регистрация", href: new_user_registration_path) }
 
       describe "food links" do
+        it { should have_link("Случайный рецепт", href: advice_path) }
         it { should have_link("Продукты", href: products_path) }
         it { should have_link("Мои рецепты", href: courses_path) }
+        it { should have_link("Меню", href: menus_path) }
       end
     end
     

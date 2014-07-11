@@ -1,0 +1,22 @@
+<table class='table' id='menu_kinds_table'>
+	<thead>
+		<tr>
+			<th>Название</th>
+			<th></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% menu_kinds.each do |menu_kind| %>
+		<tr>
+			<td><%= link_to wrap(menu_kind.name), edit_menu_kind_path(menu_kind), title: menu_kind.name %>
+			</td>
+			<td>
+				<% if current_user?(menu_kind.user) %>
+				<%= link_to "удалить", menu_kind, method: :delete, remote: true, data: { confirm: "Вы уверены?" }, title: menu_kind.name %>
+				<% end %>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
