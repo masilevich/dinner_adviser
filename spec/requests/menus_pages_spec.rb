@@ -6,6 +6,16 @@ describe "MenusPages" do
 	Warden.test_mode!
 	include_context "shared stuff"
 
+	shared_context "two courses" do
+		let!(:c1) { FactoryGirl.create(:course, user: user) }
+		let!(:c2) { FactoryGirl.create(:course, user: user) }
+	end
+
+	shared_context "menu and two courses" do
+	  include_context "two courses"
+	  let!(:menu) {FactoryGirl.create(:menu, user: user)}
+	end
+
 	describe "index" do
 		let!(:m1) { FactoryGirl.create(:menu, user: user) }
 		let!(:m2) { FactoryGirl.create(:menu, user: user) }
@@ -32,7 +42,6 @@ describe "MenusPages" do
 					end
 				end
 			end
-
 		end	
 	end
 
@@ -46,8 +55,7 @@ describe "MenusPages" do
 	end
 
 	describe "creation" do
-		let!(:с1) { FactoryGirl.create(:course, user: user) }
-		let!(:с2) { FactoryGirl.create(:course, user: user) }
+		include_context "two courses"
 		before do
 			visit new_menu_path
 		end
@@ -90,12 +98,8 @@ describe "MenusPages" do
 
 	describe "show" do
 		let!(:menu_kind) { FactoryGirl.create(:menu_kind, user: user) }
-		let!(:menu) { FactoryGirl.create(:menu, user: user) }
-		let!(:c1) { FactoryGirl.create(:course, user: user) }
-		let!(:c2) { FactoryGirl.create(:course, user: user) }
+		let(:menu) { FactoryGirl.create(:menu_with_courses, courses_count: 5, user: user) }
 		before do
-			menu.courses << c1
-			menu.courses << c2
 			menu.menu_kind = menu_kind
 			menu_kind.save
 			menu.save
@@ -117,9 +121,7 @@ describe "MenusPages" do
 
 	describe "edit" do
 		let!(:menu_kind) { FactoryGirl.create(:menu_kind, user: user) }
-		let!(:menu) { FactoryGirl.create(:menu, user: user) }
-		let!(:c1) { FactoryGirl.create(:course, user: user) }
-		let!(:c2) { FactoryGirl.create(:course, user: user) }
+		include_context "menu and two courses"
 		before {visit edit_menu_path(menu)}
 
 		it { should have_select('menu_menu_kind_id', :options => ['',menu_kind.name]) }
@@ -140,7 +142,6 @@ describe "MenusPages" do
 			it { should have_content(@menu_date) }
 
 			it { should have_content("Меню изменено") }
-
 
 			it "menu_kind should contain menu kind" do
 				expect(menu.menu_kind).to eq menu_kind

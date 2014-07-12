@@ -8,6 +8,16 @@ describe "CoursesPages" do
 	include_context "shared stuff"
 
 	let(:course_name) { "Картошка" }
+
+	shared_context "two products" do
+		let!(:p1) { FactoryGirl.create(:product, user: user, available: true) }
+		let!(:p2) { FactoryGirl.create(:product, user: user) }
+	end
+
+	shared_context "course and two products" do
+	  include_context "two products"
+	  let!(:course) {FactoryGirl.create(:course,user: user)}
+	end
 	
 	describe "index" do
 		let!(:c1) { FactoryGirl.create(:course, user: user) }
@@ -90,30 +100,25 @@ describe "CoursesPages" do
 	end
 
 	describe "show" do
-		let!(:c1) { FactoryGirl.create(:course, user: user) }
-		let!(:p1) { FactoryGirl.create(:product, user: user, available: true) }
-		let!(:p2) { FactoryGirl.create(:product, user: user) }
+		let(:course) { FactoryGirl.create(:course_with_products,products_count: 5, user: user) }
 		before do
-			c1.products << p1
-			c1.products << p2
-			visit course_path(c1)
+			visit course_path(course)
 		end	
 
 		it { should have_title(full_title('Блюдо')) }
 
-		it { should have_link('Изменить', href: edit_course_path(c1)) }
-		it { should have_content(c1.name)}
+		it { should have_link('Изменить', href: edit_course_path(course)) }
+		it { should have_content(course.name)}
 
 		it "should list each product" do
-			c1.products.each do |product|
+			course.products.each do |product|
 				expect(page).to have_selector('li', text: product.name)
 			end
 		end
 	end
 
 	describe "creation" do
-		let!(:p1) { FactoryGirl.create(:product, user: user, available: true) }
-		let!(:p2) { FactoryGirl.create(:product, user: user) }
+		include_context "two products"
 		before do
 			visit new_course_path
 		end
@@ -141,6 +146,16 @@ describe "CoursesPages" do
 				expect { click_button save_button }.to change(Course, :count).by(1)
 			end
 
+			describe "and blank other fields" do
+				before do
+					click_button save_button
+				end
+				subject { Course.find_by_name(course_name) }
+			  its(:products) {should eq []}
+				its(:ingridients) {should  eq []}
+				its(:course_kind) {should  be_nil}
+			end
+
 			describe "and product select" do
 				before do
 					select p1.name, :from => "course_product_ids"
@@ -148,18 +163,6 @@ describe "CoursesPages" do
 				end
 				it "should contain product" do
 					expect(Course.find_by_name(course_name).products).to include(p1)
-				end
-			end
-
-			describe "and product select blank" do
-				before do
-					fill_in 'course_name', with: course_name
-					click_button save_button
-					@course = Course.find_by_name(course_name)
-				end
-				it "should not contain products and ingridients" do
-					expect(@course.products).to eq []
-					expect(@course.ingridients).to eq []
 				end
 			end
 
@@ -175,17 +178,6 @@ describe "CoursesPages" do
 					expect(Course.find_by_name(course_name).course_kind).to eq ck1
 				end
 			end
-
-			describe "and course_kind select blank" do
-				before do
-					fill_in 'course_name', with: course_name
-					click_button save_button
-					@course = Course.find_by_name(course_name)
-				end
-				it "should not contain course_kinds and ingridients" do
-					expect(@course.course_kind).to be_nil
-				end
-			end
 		end
 	end
 
@@ -199,9 +191,7 @@ describe "CoursesPages" do
 	end
 
 	describe "edit" do
-		let!(:course) {FactoryGirl.create(:course,user: user)}
-		let!(:p1) { FactoryGirl.create(:product, user: user, available: true) }
-		let!(:p2) { FactoryGirl.create(:product, user: user) }
+		include_context "course and two products"
 		let!(:ck1) { FactoryGirl.create(:course_kind, user: user) }
 		before {visit edit_course_path(course)}
 
