@@ -1,5 +1,6 @@
 DinnerAdviser::Application.routes.draw do
 
+  get "categories/new"
   get "menus/new"
   get "product_kinds/new"
   devise_for :users

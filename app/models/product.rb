@@ -1,6 +1,7 @@
 class Product < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :product_kind
+	belongs_to :category
 	has_many :ingridients
 	has_many :courses, through: :ingridients
 
@@ -10,6 +11,12 @@ class Product < ActiveRecord::Base
 		:reject_if => proc { |attrs|
 			attrs['name'].blank? &&
 			attrs['product_kind_id'].blank?
+		}
+
+	accepts_nested_attributes_for :category,
+		:reject_if => proc { |attrs|
+			attrs['name'].blank? &&
+			attrs['category_id'].blank?
 		}
 
 	default_scope {order(name: :asc)}
