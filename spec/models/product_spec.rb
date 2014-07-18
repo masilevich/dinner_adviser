@@ -15,8 +15,8 @@ describe Product do
 	it { should respond_to(:courses) }
 	it { should respond_to(:ingridients) }
 	it { should respond_to(:available) }
-	it { should respond_to(:product_kind_id) }
-	it { should respond_to(:product_kind) }
+	it { should respond_to(:category_id) }
+	it { should respond_to(:category) }
 
 	it "should respond to availabled" do
 		expect(Product).to respond_to(:availabled)
@@ -53,16 +53,16 @@ describe Product do
 		
 	  it "scope should include product without kind" do
 	  	@product.save
-			expect(Product.without_kind).to include(@product)
+			expect(Product.without_category).to include(@product)
 		end
 
 		describe "scope should not include product with kind" do
-			let(:product_kind) { FactoryGirl.create(:product_kind) }
+			let(:product_category) { FactoryGirl.create(:product_category) }
 			before do
-			  @product.product_kind = product_kind
+			  @product.category = product_category
 			  @product.save
 			end 
-			specify { expect(Course.without_kind).to_not include(@product) }
+			specify { expect(Product.without_category).to_not include(@product) }
 		end
 
 	end
