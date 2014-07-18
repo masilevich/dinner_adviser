@@ -1,6 +1,6 @@
 <% provide(:title, 'Меню') %>
 
-<h2><%= "Меню#{@menu.menu_kind ? (" " + @menu.menu_kind.name) : ""} на #{@menu.date}" %></h2>
+<h2><%= "Меню#{@menu.category ? (" " + @menu.category.name) : ""} на #{@menu.date}" %></h2>
 Блюда:
 <ul class="courses" >
 	<% @menu.courses.each do |course| %>

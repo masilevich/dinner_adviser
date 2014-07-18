@@ -1,15 +1,17 @@
 class MenusController < ApplicationController
 	before_filter :authenticate_user!
 	before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :set_menu, only: [:show, :destroy, :edit, :update]
+  before_action :set_menu_categories, only: [:new, :edit]
+  before_action :set_menus, only: [:index]
 
   def new
-    @menu = current_user.menus.build()
-    @menu_kinds = current_user.menu_kinds
+    @menu = menus.build()
     @courses = current_user.courses.includes(:user,:products)
   end
 
   def create
-    @menu = current_user.menus.build(menu_params)
+    @menu = menus.build(menu_params)
     if @menu.save
       flash[:success] = "Меню добавлено"
       redirect_to menus_path
@@ -21,17 +23,15 @@ class MenusController < ApplicationController
   end
 
   def index
-    @menus = current_user.menus
   end
 
   def show
-    @menu = Menu.find(params[:id])
   end
 
   def destroy
     delete_result = Menu.find(params[:id]).destroy
     if delete_result
-      @menus = current_user.menus
+      set_menus
     end
     respond_to do |format|
       format.html do
@@ -47,12 +47,9 @@ class MenusController < ApplicationController
   end
 
   def edit
-    @menu = Menu.find(params[:id])
-    @menu_kinds = current_user.menu_kinds
   end
 
   def update
-    @menu = Menu.find(params[:id])
     if @menu.update_attributes(menu_params)
       flash[:success] = 'Меню изменено'
       redirect_to menus_path
@@ -62,8 +59,26 @@ class MenusController < ApplicationController
     end
   end
 
+private
+
+  def set_menus
+    @menus = menus
+  end
+
+  def menus
+    current_user.menus
+  end
+
+  def set_menu
+    @menu = Menu.find(params[:id])
+  end
+
+  def set_menu_categories
+    @menu_categories = current_user.categories.menu_categories
+  end
+
   def menu_params
-    params.require(:menu).permit(:date, :menu_kind_id)
+    params.require(:menu).permit(:date, :category_id)
   end
 
   def correct_user

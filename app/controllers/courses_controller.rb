@@ -2,32 +2,33 @@ class CoursesController < ApplicationController
 
   before_filter :authenticate_user!
   before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :set_course, only: [:show, :destroy, :edit, :update]
+  before_action :set_course_categories, only: [:new, :edit]
+  before_action :set_courses, only: [:index]
+  before_action :set_available_courses, only: [:index]
   
   def index
-  	@courses = current_user.courses.includes(:user,:products)
-    @availabled_courses = current_user.courses.availabled.includes(:user,:products)
   end
 
   def new
-    @course = current_user.courses.build()
+    @course = courses.build()
     @ingridient = @course.ingridients.build()
     @products = current_user.products
-    @course_kinds = current_user.course_kinds
+    set_course_categories
   end
 
   def show
-    @course = Course.find(params[:id])
   end
 
   def create
-    @course = current_user.courses.build(course_params)
+    @course = courses.build(course_params)
     if @course.save
       flash[:success] = "Блюдо добавлено"
       redirect_to courses_path
     else
       flash.now[:danger] = 'Блюдо не добавлено'
       @products = current_user.products
-      @course_kinds = current_user.course_kinds
+      set_course_categories
       render 'new', layout: "form_for_food_links_menu"
     end
   end
@@ -35,8 +36,8 @@ class CoursesController < ApplicationController
   def destroy
     delete_result = Course.find(params[:id]).destroy
     if delete_result
-      @courses = current_user.courses.includes(:user,:products)
-      @availabled_courses = current_user.courses.availabled.includes(:user,:products)
+      set_courses
+      set_available_courses
     end
     respond_to do |format|
       format.html do
@@ -52,13 +53,10 @@ class CoursesController < ApplicationController
   end
 
   def edit
-    @course = Course.find(params[:id])
     @products = current_user.products
-    @course_kinds = current_user.course_kinds
   end
 
   def update
-    @course = Course.find(params[:id])
     if @course.update_attributes(course_params)
       flash[:success] = 'Блюдо изменено'
       redirect_to courses_path
@@ -70,8 +68,28 @@ class CoursesController < ApplicationController
 
   private
 
+  def set_courses
+    @courses = courses
+  end
+
+  def courses
+    current_user.courses
+  end
+
+  def set_course
+    @course = Course.find(params[:id])
+  end
+
+  def set_course_categories
+    @course_categories = current_user.categories.course_categories
+  end
+
+  def set_available_courses
+    @availabled_courses = courses.availabled.includes(:user,:products)
+  end
+
   def course_params
-    params.require(:course).permit(:name, :course_kind_id, product_ids: [])
+    params.require(:course).permit(:name, :category_id, product_ids: [])
   end
 
   def correct_user

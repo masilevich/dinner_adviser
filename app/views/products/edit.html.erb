@@ -6,8 +6,8 @@
 <%= f.label :name, "Название" %>
 <%= f.text_field :name %>
 
-<%= f.label :product_kind, "Вид продукта:" %>
-<%= f.collection_select(:product_kind_id, @product_kinds, :id, :name, :include_blank  => true) %>
+<%= f.label :category, "Вид продукта:" %>
+<%= f.collection_select(:category_id, @product_categories, :id, :name, :include_blank  => true) %>
 
 <%= f.submit "Сохранить", class: "btn btn-lg btn-primary" %>
 <% end %>

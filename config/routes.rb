@@ -1,8 +1,5 @@
 DinnerAdviser::Application.routes.draw do
 
-  get "categories/new"
-  get "menus/new"
-  get "product_kinds/new"
   devise_for :users
 
   resources :products do
@@ -10,13 +7,14 @@ DinnerAdviser::Application.routes.draw do
       put :set_availability
     end
   end
-  resources :product_kinds
   
-  resources :courses
-  resources :course_kinds
-  
+  resources :courses  
   resources :menus
-  resources :menu_kinds
+
+  resources :categories
+  resources :product_categories, controller: 'categories', type: 'ProductCategory' 
+  resources :menu_categories, controller: 'categories', type: 'MenuCategory'
+  resources :course_categories, controller: 'categories', type: 'CourseCategory'
 
   root 'static_pages#home'
 

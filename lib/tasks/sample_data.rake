@@ -5,6 +5,7 @@ namespace :db do
     make_products
     make_courses
     make_menus
+    make_categories
   end
 end
 
@@ -49,6 +50,16 @@ def make_users
     user = User.first
     user.menus.create!(date: Time.now()) 
     user.menus.create!(date: (Time.now() - 1.day))
+  end
+
+  def make_categories
+    user = User.first
+    user.categories.product_categories.create!(name: "Овощи") 
+    user.categories.product_categories.create!(name: "Фрукты") 
+    user.categories.menu_categories.create!(name: "Обеденное") 
+    user.categories.menu_categories.create!(name: "Вечернее") 
+    user.categories.course_categories.create!(name: "Первые") 
+    user.categories.course_categories.create!(name: "Гарниры")
   end
   
 end

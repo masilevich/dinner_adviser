@@ -3,7 +3,7 @@
 		<section  id="products_availabled">
 			<% if @available_products && @available_products.any? %>
 			<h2>В наличии (<%= @available_products.count %>)</h2>
-			<%= render 'products/products_table_with_kinds', products: @available_products, availabled: true, availabled: true %>
+			<%= render 'products/products_table_with_categories', products: @available_products, availabled: true, availabled: true %>
 			<% end %>
 		</section>
 	</div>
@@ -12,7 +12,7 @@
 		<section id="products" >
 			<% if @products && @products.any? %>
 				<h2>Все (<%= @products.count %>)</h2>
-				<%= render 'products_table_with_kinds', products: @products, availabled: false %>
+				<%= render 'products_table_with_categories', products: @products, availabled: false %>
 			<% end %>
 		</section>
 	</div>

@@ -1,0 +1,11 @@
+<div class="row">
+
+	<div class="col-md-12">
+		<section class="categories" >
+			<% if @categories && @categories.any? %>
+				<h2>Все (<%= @categories.count %>)</h2>
+				<%= render 'categories_table', categories: @categories %>
+			<% end %>
+		</section>
+	</div>
+</div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140712085347) do
+ActiveRecord::Schema.define(version: 20140718122625) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -21,15 +21,8 @@ ActiveRecord::Schema.define(version: 20140712085347) do
     t.datetime "updated_at"
   end
 
-  create_table "course_kinds", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "user_id"
-  end
-
-  add_index "course_kinds", ["name", "user_id"], name: "index_course_kinds_on_name_and_user_id", unique: true
-  add_index "course_kinds", ["user_id"], name: "index_course_kinds_on_user_id"
+  add_index "categories", ["name", "type", "user_id"], name: "index_categories_on_name_and_type_and_user_id", unique: true
+  add_index "categories", ["user_id"], name: "index_categories_on_user_id"
 
   create_table "courses", force: true do |t|
     t.string   "name"
@@ -37,7 +30,7 @@ ActiveRecord::Schema.define(version: 20140712085347) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "course_kind_id"
+    t.integer  "category_id"
   end
 
   add_index "courses", ["name", "user_id"], name: "index_courses_on_name_and_user_id", unique: true
@@ -56,19 +49,9 @@ ActiveRecord::Schema.define(version: 20140712085347) do
     t.datetime "updated_at"
   end
 
-  create_table "menu_kinds", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "user_id"
-  end
-
-  add_index "menu_kinds", ["name", "user_id"], name: "index_menu_kinds_on_name_and_user_id", unique: true
-  add_index "menu_kinds", ["user_id"], name: "index_menu_kinds_on_user_id"
-
   create_table "menus", force: true do |t|
     t.date     "date"
-    t.integer  "menu_kind_id"
+    t.integer  "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
@@ -76,24 +59,14 @@ ActiveRecord::Schema.define(version: 20140712085347) do
 
   add_index "menus", ["user_id"], name: "index_menus_on_user_id"
 
-  create_table "product_kinds", force: true do |t|
-    t.string   "name"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "product_kinds", ["name", "user_id"], name: "index_product_kinds_on_name_and_user_id", unique: true
-  add_index "product_kinds", ["user_id"], name: "index_product_kinds_on_user_id"
-
   create_table "products", force: true do |t|
     t.string   "name"
     t.boolean  "common"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "available",       default: false, null: false
-    t.integer  "product_kind_id"
+    t.boolean  "available",   default: false, null: false
+    t.integer  "category_id"
   end
 
   add_index "products", ["name", "user_id"], name: "index_products_on_name_and_user_id", unique: true

@@ -80,4 +80,24 @@ FactoryGirl.define do
     user
   end
 
+  factory :category do
+    sequence(:name) { |n| "Категория #{n}" }
+    user
+  end
+
+  factory :product_category do
+    sequence(:name) { |n| "Вид продукта #{n}" }
+    user
+  end
+
+  factory :course_category do
+    sequence(:name) { |n| "Вид блюда #{n}" }
+    user
+  end
+
+  factory :menu_category do
+    sequence(:name) { |n| "Вид меню #{n}" }
+    user
+  end
+
 end

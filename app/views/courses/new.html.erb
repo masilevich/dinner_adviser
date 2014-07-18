@@ -10,8 +10,8 @@
 <%= f.collection_select :product_ids, @products, :id, :name, {},
 :multiple => true  %>
 
-<%= f.label :course_kind, "Вид блюда:" %>
-<%= f.collection_select(:course_kind_id, @course_kinds, :id, :name, :include_blank  => true) %>
+<%= f.label :course_category, "Вид блюда:" %>
+<%= f.collection_select(:category_id, @course_categories, :id, :name, :include_blank  => true) %>
 
 <%= f.submit "Сохранить", class: "btn btn-lg btn-primary" %>
 <% end %>

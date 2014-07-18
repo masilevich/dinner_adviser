@@ -2,23 +2,24 @@ class ProductsController < ApplicationController
 
 	before_filter :authenticate_user!
 	before_action :correct_user, only: [:edit, :update, :destroy, :set_availability]
+	before_action :set_product, only: [:edit, :update, :destroy, :set_availability]
+	before_action :set_product_categories, only: [:new, :edit]
+	before_action :set_products, only: [:index]
+	before_action :set_available_products, only: [:index]
 
 	def index
-		@products = current_user.products.includes(:user)
-		@available_products = current_user.products.availabled.includes(:user)
 	end
 
 	def new
-		@product = current_user.products.build()
-		@product_kinds = current_user.product_kinds
+		@product = products.build()
 	end
 
 	def create
-		@product = current_user.products.build(product_params)
+		@product = products.build(product_params)
 		save_result = @product.save
 		if save_result
-			@products = current_user.products.includes(:user)
-			@available_products = current_user.products.availabled.includes(:user)
+			set_products
+			set_available_products
 		end
 		respond_to do |format|
 			format.html do
@@ -27,7 +28,7 @@ class ProductsController < ApplicationController
 					redirect_to products_path
 				else
 					flash.now[:danger] = 'Продукт не добавлен'
-					@product_kinds = current_user.product_kinds
+					set_product_categories
 					render 'new', layout: "form_for_food_links_menu"
 				end
 			end
@@ -38,8 +39,8 @@ class ProductsController < ApplicationController
 	def destroy
 		delete_result = Product.find(params[:id]).destroy
 		if delete_result
-			@products = current_user.products.includes(:user)
-			@available_products = current_user.products.availabled.includes(:user)
+			set_products
+			set_available_products
 		end
 		respond_to do |format|
 			format.html do
@@ -55,7 +56,6 @@ class ProductsController < ApplicationController
 	end
 
 	def set_availability
-		@product = Product.find(params[:id])
 		if params[:available] then
 			available = params[:available]
 		else
@@ -72,25 +72,21 @@ class ProductsController < ApplicationController
 				format.js do
 					case URI(request.referer).path
 					when "/products"
-						@products = current_user.products
-						@available_products = current_user.products.availabled
+						set_products
+						set_available_products
 					when "/courses"
 						@courses = current_user.courses
 						@availabled_courses = current_user.courses.availabled
 					end
-
 				end
 			end
 		end
 	end
 
 	def edit
-		@product = Product.find(params[:id])
-		@product_kinds = current_user.product_kinds
 	end
 
 	def update
-		@product = Product.find(params[:id])
 		if @product.update_attributes(product_params)
 			flash[:success] = 'Продукт изменен'
 			redirect_to products_path
@@ -102,8 +98,28 @@ class ProductsController < ApplicationController
 
 	private
 
+	def set_products
+		@products = products
+	end
+
+	def products
+		current_user.products
+	end
+
+	def set_available_products
+		@available_products = current_user.products.availabled.includes(:user)
+	end
+
+	def set_product
+		@product = Product.find(params[:id])
+	end
+
+	def set_product_categories
+		@product_categories = current_user.categories.product_categories
+	end
+
 	def product_params
-		params.require(:product).permit(:name, :available, :product_kind_id)
+		params.require(:product).permit(:name, :available, :category_id)
 	end
 
 	def correct_user

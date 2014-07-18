@@ -8,8 +8,8 @@
 <%= f.text_field :name %>
 </div>
 <div class="form-group">
-<%= f.label :course_kind, "Вид продукта:" %>
-<%= f.collection_select(:product_kind_id, @product_kinds, :id, :name, :include_blank  => true) %>
+<%= f.label :product_category, "Вид продукта:" %>
+<%= f.collection_select(:category_id, @product_categories, :id, :name, :include_blank  => true) %>
 </div>
 <div class="form-group">
 <%= f.submit "Сохранить", class: "btn btn-lg btn-primary" %>
