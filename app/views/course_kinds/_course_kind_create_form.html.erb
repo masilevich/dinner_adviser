@@ -1,4 +1,0 @@
-<%=form_tag('/course_kinds', method: :post, remote: true) do %>
-    <%= text_field_tag("course_kind[name]", nil, placeholder: 'Новый вид блюда') %>
-    <%= submit_tag("Добавить", class: "btn btn-lg btn-primary", remote: true) %>
-<% end %>
