@@ -92,30 +92,30 @@ describe "authorization" do
       end
     end
 
-    describe "in the CourseKinds controller" do
+    describe "in the Categories controller" do
 
       describe "submitting to the index action" do
-        before { get course_kinds_path }
+        before { get categories_path }
         it_should_behave_like "Redirect to signin page"
       end
 
       describe "submitting to the create action" do
-        before { post course_kinds_path }
+        before { post categories_path }
         it_should_behave_like "Redirect to signin page"
       end
 
       describe "submitting to the edit action" do
-        before { get edit_course_kind_path(FactoryGirl.create(:course_kind)) }
+        before { get edit_category_path(FactoryGirl.create(:category)) }
         it_should_behave_like "Redirect to signin page"
       end
 
       describe "submitting to the update action" do
-        before { patch course_kind_path(FactoryGirl.create(:course_kind)) }
+        before { patch category_path(FactoryGirl.create(:category)) }
         it_should_behave_like "Redirect to signin page"
       end
 
       describe "submitting to the destroy action" do
-        before { delete course_kind_path(FactoryGirl.create(:course_kind)) }
+        before { delete category_path(FactoryGirl.create(:category)) }
         it_should_behave_like "Redirect to signin page"
       end
 
@@ -183,21 +183,21 @@ describe "authorization" do
       end
     end
 
-    describe "in the CourseKinds controller" do
-      let!(:course_kind) {FactoryGirl.create(:course_kind,user: user)}
+    describe "in the Categories controller" do
+      let!(:category) {FactoryGirl.create(:category,user: user)}
 
       describe "submitting to the edit action" do
-        before { get edit_course_kind_path(course_kind) }
+        before { get edit_category_path(category) }
         it_should_behave_like "Redirect to root"
       end
 
       describe "submitting to the update action" do
-        before { patch course_kind_path(course_kind) }
+        before { patch category_path(category) }
         it_should_behave_like "Redirect to root"
       end
 
       describe "submitting to the destroy action" do
-        before { delete course_kind_path(course_kind) }
+        before { delete category_path(category) }
         it_should_behave_like "Redirect to root"
       end
 

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Category do
-	CATEGORY_TYPES = ["Product", "Course", "Menu"]
+	CATEGORY_TYPES = ["ProductCategory", "CourseCategory", "MenuCategory"]
 	before do
 		@category = Category.new(name: "Категория")
 
@@ -12,6 +12,7 @@ describe Category do
 	it { should respond_to(:name) }
 	it { should respond_to(:user_id) }
 	it { should respond_to(:user) }
+	it { should respond_to(:type) }
 
 	it { should be_valid }
 
@@ -40,14 +41,16 @@ describe Category do
 	end
 
 
-	describe "for" do
-		CATEGORY_TYPES.each do |s|
-			category_type = s + described_class.name
-			describe "#{s} scope" do
-				before {@sub_category = category_type.constantize.create(name: s)}
-				specify { expect(Category.send(category_type.tableize)).to include(@sub_category)}
-			end
+	CATEGORY_TYPES.each do |s|
+		describe "for #{s} scope" do
+			before {@sub_category = s.constantize.create(name: s)}
+			specify { expect(Category.send(s.tableize)).to include(@sub_category)}
 		end
-	end
 
+		describe "subclasses creation" do
+			before {@sub_class = Category.create(name: s, type: s)}
+			specify { expect(@sub_class).to be_kind_of s.constantize}
+		end
+
+	end
 end

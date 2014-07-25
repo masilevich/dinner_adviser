@@ -29,7 +29,7 @@ describe "MenusPages" do
 
 		it { should have_link(m1.date, href: menu_path(m1)) }
 
-		it { should have_link("Виды меню", href: menu_kinds_path) }
+		it { should have_link("Виды меню", href: menu_categories_path) }
 
 		it { should have_content("Меню (#{user.menus.count})") }
 
@@ -38,7 +38,7 @@ describe "MenusPages" do
 				within('#menus') do
 					user.menus.each do |menu|
 						expect(page).to have_selector('td', text: menu.date)
-						expect(page).to have_selector('td', text: menu.menu_kind)
+						expect(page).to have_selector('td', text: menu.category)
 					end
 				end
 			end
@@ -72,36 +72,36 @@ describe "MenusPages" do
 				expect { click_button save_button }.to change(Menu, :count).by(1)
 			end
 
-			describe "and menu_kind select" do
-				let!(:mk1) { FactoryGirl.create(:menu_kind, user: user) }
+			describe "and menu_category select" do
+				let!(:mk1) { FactoryGirl.create(:menu_category, user: user) }
 				before do
 					visit new_menu_path
 					fill_in 'menu_date', with: @menu_date
-					select mk1.name, :from => "menu_menu_kind_id"
+					select mk1.name, :from => "menu_category_id"
 					click_button save_button
 				end
-				it "should contain menu_kind" do
-					expect(Menu.find_by_date(@menu_date).menu_kind).to eq mk1
+				it "should contain menu_category" do
+					expect(Menu.find_by_date(@menu_date).category).to eq mk1
 				end
 			end
 
-			describe "and menu_kind select blank" do
+			describe "and menu_category select blank" do
 				before do
 					click_button save_button
 				end
-				it "should not contain menu_kinds" do
-					expect(Menu.find_by_date(@menu_date).menu_kind).to be_nil
+				it "should not contain menu_categories" do
+					expect(Menu.find_by_date(@menu_date).category).to be_nil
 				end
 			end
 		end
 	end
 
 	describe "show" do
-		let!(:menu_kind) { FactoryGirl.create(:menu_kind, user: user) }
+		let!(:menu_category) { FactoryGirl.create(:menu_category, user: user) }
 		let(:menu) { FactoryGirl.create(:menu_with_courses, courses_count: 5, user: user) }
 		before do
-			menu.menu_kind = menu_kind
-			menu_kind.save
+			menu.category = menu_category
+			menu_category.save
 			menu.save
 			visit menu_path(menu)
 		end	
@@ -109,7 +109,7 @@ describe "MenusPages" do
 		it { should have_title(full_title('Меню')) }
 
 		it { should have_link(change_link, href: edit_menu_path(menu)) }
-		it { should have_content("Меню#{menu.menu_kind ? (" " + menu.menu_kind.name) : ""} на #{menu.date}")}
+		it { should have_content("Меню#{menu.category ? (" " + menu.category.name) : ""} на #{menu.date}")}
 
 		it "should list each course" do
 			expect(page).to have_content('Блюда')
@@ -120,18 +120,18 @@ describe "MenusPages" do
 	end
 
 	describe "edit" do
-		let!(:menu_kind) { FactoryGirl.create(:menu_kind, user: user) }
+		let!(:menu_category) { FactoryGirl.create(:menu_category, user: user) }
 		include_context "menu and two courses"
 		before {visit edit_menu_path(menu)}
 
-		it { should have_select('menu_menu_kind_id', :options => ['',menu_kind.name]) }
+		it { should have_select('menu_category_id', :options => ['',menu_category.name]) }
 		it { should have_title(full_title('Изменить меню')) }
 
 		describe "after save" do
 			before do
 				@menu_date = DateTime.now.to_date - 5.day
 				fill_in 'menu_date', with: @menu_date
-				select menu_kind.name, :from => "menu_menu_kind_id"
+				select menu_category.name, :from => "menu_category_id"
 				click_button save_button
 				menu.reload
 			end
@@ -143,8 +143,8 @@ describe "MenusPages" do
 
 			it { should have_content("Меню изменено") }
 
-			it "menu_kind should contain menu kind" do
-				expect(menu.menu_kind).to eq menu_kind
+			it "menu_category should contain menu category" do
+				expect(menu.category).to eq menu_category
 			end
 		end
 	end

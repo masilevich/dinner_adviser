@@ -49,14 +49,14 @@ describe Product do
 		end
 	end
 
-	describe "without_kind" do
+	describe "without_category" do
 		
-	  it "scope should include product without kind" do
+	  it "scope should include product without category" do
 	  	@product.save
 			expect(Product.without_category).to include(@product)
 		end
 
-		describe "scope should not include product with kind" do
+		describe "scope should not include product with category" do
 			let(:product_category) { FactoryGirl.create(:product_category) }
 			before do
 			  @product.category = product_category

@@ -11,7 +11,8 @@ describe Menu do
 	it { should respond_to(:date) }
 	it { should respond_to(:user_id) }
 	it { should respond_to(:user) }
-	it { should respond_to(:menu_kind) }
+	it { should respond_to(:category) }
+	it { should respond_to(:category_id) }
 	it { should respond_to(:courses) }
 
 	its(:user) { should eq user }
@@ -38,23 +39,22 @@ describe Menu do
 		end
 	end
 
-=begin
-	describe "without_kind" do
+
+	describe "without_category" do
 		
-	  it "scope should include menu without kind" do
+	  it "scope should include menu without category" do
 	  	@menu.save
-			expect(Menu.without_kind).to include(@menu)
+			expect(Menu.without_category).to include(@menu)
 		end
 
-		describe "scope should not include menu with kind" do
-			let(:menu_kind) { FactoryGirl.create(:menu_kind) }
+		describe "scope should not include menu with category" do
+			let(:menu_category) { FactoryGirl.create(:menu_category) }
 			before do
-			  @menu.menu_kind = menu_kind
+			  @menu.category = menu_category
 			  @menu.save
 			end 
-			specify { expect(Course.without_kind).to_not include(@menu) }
+			specify { expect(Course.without_category).to_not include(@menu) }
 		end
 
 	end
-=end
 end

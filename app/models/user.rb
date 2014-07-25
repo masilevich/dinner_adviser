@@ -1,10 +1,7 @@
 class User < ActiveRecord::Base
   has_many :courses,  dependent: :destroy
-  has_many :course_kinds,  dependent: :destroy
   has_many :products,  dependent: :destroy
-  has_many :product_kinds,  dependent: :destroy
   has_many :menus,  dependent: :destroy
-  has_many :menu_kinds,  dependent: :destroy
   has_many :categories,  dependent: :destroy
 
 

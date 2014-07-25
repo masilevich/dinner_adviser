@@ -40,8 +40,8 @@ describe "ProductsPages" do
 
 				specify {expect(@product.available).to be_false}
 
-				it "should not contain product_kinds" do
-					expect(@product.product_kind).to be_nil
+				it "should not contain product_categories" do
+					expect(@product.category).to be_nil
 				end
 			end
 
@@ -50,16 +50,16 @@ describe "ProductsPages" do
 			end
 
 
-			describe "and product_kind select" do
-				let!(:pk1) { FactoryGirl.create(:product_kind, user: user) }
+			describe "and product_category select" do
+				let!(:pk1) { FactoryGirl.create(:product_category, user: user) }
 				before do
 					visit new_product_path
 					fill_in 'product_name', with: product_name
-					select pk1.name, :from => "product_product_kind_id"
+					select pk1.name, :from => "product_category_id"
 					click_button save_button
 				end
-				it "should contain product_kind" do
-					expect(Product.find_by_name(product_name).product_kind).to eq pk1
+				it "should contain product_category" do
+					expect(Product.find_by_name(product_name).category).to eq pk1
 				end
 			end
 
@@ -93,15 +93,15 @@ describe "ProductsPages" do
 
 	describe "edit" do
 		let!(:product) {FactoryGirl.create(:product,user: user)}
-		let!(:pk1) { FactoryGirl.create(:product_kind, user: user) }
+		let!(:pk1) { FactoryGirl.create(:product_category, user: user) }
 		before {visit edit_product_path(product) }
 
-		it { should have_select('product_product_kind_id', :options => ['',pk1.name]) }
+		it { should have_select('product_category_id', :options => ['',pk1.name]) }
 
 		describe "after save" do
 			before do
 				fill_in "product_name", with: product_name
-				select pk1.name, :from => "product_product_kind_id"
+				select pk1.name, :from => "product_category_id"
 				click_button save_button
 				product.reload
 			end
@@ -113,8 +113,8 @@ describe "ProductsPages" do
 
 			it { should have_content("Продукт изменен") }
 
-			it "product should contain product_kind" do
-				expect(product.product_kind).to eq pk1
+			it "product should contain product_category" do
+				expect(product.category).to eq pk1
 			end
 		end
 		
@@ -132,7 +132,7 @@ describe "ProductsPages" do
 		it { should have_link(p1.name, href: edit_product_path(p1)) }
 		it { should have_link(p2.name, href: edit_product_path(p2)) }
 
-		it { should have_link("Виды продуктов", href: product_kinds_path) }
+		it { should have_link("Виды продуктов", href: product_categories_path) }
 
 		describe "on all products" do
 			it { should have_content("Все (#{user.products.count})") }
@@ -145,21 +145,21 @@ describe "ProductsPages" do
 				end
 			end
 
-			describe "with kinds" do
-				let!(:pk) { FactoryGirl.create(:product_kind, user: user) }
+			describe "with categories" do
+				let!(:pk) { FactoryGirl.create(:product_category, user: user) }
 				before do
-					p1.product_kind = pk
+					p1.category = pk
 					visit products_path
 				end
-				it "should list each kind" do
+				it "should list each category" do
 					within('#products') do
-						ProductKind.kinds_for_products(user.products).each do |product_kind|
-							expect(page).to have_selector('h4', text: product_kind.name)
+						ProductCategory.categories_for_products(user.products).each do |product_category|
+							expect(page).to have_selector('h4', text: product_category.name)
 						end
 					end
 				end
 
-				it "should list empty kind" do
+				it "should list empty category" do
 					expect(page).to have_selector('h4', text: "Без категории")
 				end
 			end
@@ -180,16 +180,16 @@ describe "ProductsPages" do
 				end
 			end
 
-			describe "with kinds" do
-				let!(:pk) { FactoryGirl.create(:product_kind, user: user) }
+			describe "with categories" do
+				let!(:pk) { FactoryGirl.create(:product_category, user: user) }
 				before do
-					p1.product_kind = pk
+					p1.category = pk
 					visit products_path
 				end
-				it "should list each kind" do
+				it "should list each category" do
 					within('#products_availabled') do
-						ProductKind.kinds_for_products(user.products.availabled).each do |product_kind|
-							expect(page).to have_selector('h4', text: product_kind.name)
+						ProductCategory.categories_for_products(user.products.availabled).each do |product_category|
+							expect(page).to have_selector('h4', text: product_category.name)
 						end
 					end
 				end

@@ -17,7 +17,7 @@ class MenusController < ApplicationController
       redirect_to menus_path
     else
       flash.now[:danger] = 'Меню не добавлено'
-      @menu_kinds = current_user.menu_kinds
+      set_menu_categories
       render 'new', layout: "form_for_food_links_menu"
     end
   end

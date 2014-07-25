@@ -49,17 +49,6 @@ FactoryGirl.define do
     end
   end
 
-
-  factory :course_kind do
-    sequence(:name) { |n| "Вид блюда #{n}" }
-    user
-  end
-
-  factory :product_kind do
-    sequence(:name) { |n| "Вид продукта #{n}" }
-    user
-  end
-
   factory :menu do
     date Time.now
     user
@@ -73,11 +62,6 @@ FactoryGirl.define do
       end
       #using create(:course_with_products, products_count: 15).products.length # 15
     end
-  end
-
-  factory :menu_kind do
-    sequence(:name) { |n| "Вид меню #{n}" }
-    user
   end
 
   factory :category do

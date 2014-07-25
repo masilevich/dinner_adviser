@@ -12,8 +12,8 @@ describe Course do
 	it { should respond_to(:name) }
 	it { should respond_to(:user_id) }
 	it { should respond_to(:user) }
-	it { should respond_to(:course_kind_id) }
-	it { should respond_to(:course_kind) }
+	it { should respond_to(:category_id) }
+	it { should respond_to(:category) }
 	it { should respond_to(:products) }
 	it { should respond_to(:ingridients) }
 	it { should respond_to(:menus) }
@@ -21,8 +21,8 @@ describe Course do
 	it "should respond to availabled" do
 		expect(Course).to respond_to(:availabled)
 	end
-	it "should respond to without_kind" do
-		expect(Course).to respond_to(:without_kind)
+	it "should respond to without_category" do
+		expect(Course).to respond_to(:without_category)
 	end
 	
 	its(:user) { should eq user }
@@ -86,20 +86,20 @@ describe Course do
 		end
 	end
 
-	describe "without_kind" do
+	describe "without_category" do
 		
-	  it "scope should include course without kind" do
+	  it "scope should include course without category" do
 	  	@course.save
-			expect(Course.without_kind).to include(@course)
+			expect(Course.without_category).to include(@course)
 		end
 
-		describe "scope should not include course with kind" do
-			let(:course_kind) { FactoryGirl.create(:course_kind) }
+		describe "scope should not include course with category" do
+			let(:course_category) { FactoryGirl.create(:course_category) }
 			before do
-			  @course.course_kind = course_kind
+			  @course.category = course_category
 			  @course.save
 			end 
-			specify { expect(Course.without_kind).to_not include(@course) }
+			specify { expect(Course.without_category).to_not include(@course) }
 		end
 
 	end

@@ -32,7 +32,7 @@ describe "CoursesPages" do
 
 		it { should have_link(c1.name, href: course_path(c1)) }
 
-		it { should have_link("Виды блюд", href: course_kinds_path) }
+		it { should have_link("Виды блюд", href: course_categories_path) }
 
 		it { should have_content("Рецепты (#{user.courses.count})") }
 
@@ -45,21 +45,21 @@ describe "CoursesPages" do
 				end
 			end
 
-			describe "with kinds" do
-				let!(:ck) { FactoryGirl.create(:course_kind, user: user) }
+			describe "with categories" do
+				let!(:cc) { FactoryGirl.create(:course_category, user: user) }
 				before do
-					c1.course_kind = ck
+					c1.category = cc
 					visit courses_path
 				end
-				it "should list each kind" do
+				it "should list each category" do
 					within('#courses') do
-						CourseKind.kinds_for_courses(user.courses).each do |course_kind|
-							expect(page).to have_selector('h4', text: course_kind.name)
+						CourseCategory.categories_for_courses(user.courses).each do |course_category|
+							expect(page).to have_selector('h4', text: course_category.name)
 						end
 					end
 				end
 
-				it "should list empty kind" do
+				it "should list empty category" do
 					expect(page).to have_selector('h4', text: "Без категории")
 				end
 			end
@@ -82,16 +82,16 @@ describe "CoursesPages" do
 
 			specify { expect(page).to have_content("Можно приготовить (#{user.courses.availabled.to_a.count})") }
 
-			describe "with kinds" do
-				let!(:ck) { FactoryGirl.create(:course_kind, user: user) }
+			describe "with categoriess" do
+				let!(:cc) { FactoryGirl.create(:course_category, user: user) }
 				before do
-					c1.course_kind = ck
+					c1.category = cc
 					visit courses_path
 				end
-				it "should list each kind" do
+				it "should list each category" do
 					within('#courses_availabled') do
-						CourseKind.kinds_for_courses(user.courses.availabled).each do |course_kind|
-							expect(page).to have_selector('h4', text: course_kind.name)
+						CourseCategory.categories_for_courses(user.courses.availabled).each do |course_category|
+							expect(page).to have_selector('h4', text: course_category.name)
 						end
 					end
 				end
@@ -153,7 +153,7 @@ describe "CoursesPages" do
 				subject { Course.find_by_name(course_name) }
 			  its(:products) {should eq []}
 				its(:ingridients) {should  eq []}
-				its(:course_kind) {should  be_nil}
+				its(:category) {should  be_nil}
 			end
 
 			describe "and product select" do
@@ -166,16 +166,16 @@ describe "CoursesPages" do
 				end
 			end
 
-			describe "and course_kind select" do
-				let!(:ck1) { FactoryGirl.create(:course_kind, user: user) }
+			describe "and course_category select" do
+				let!(:ck1) { FactoryGirl.create(:course_category, user: user) }
 				before do
 					visit new_course_path
 					fill_in 'course_name', with: course_name
-					select ck1.name, :from => "course_course_kind_id"
+					select ck1.name, :from => "course_category_id"
 					click_button save_button
 				end
-				it "should contain course_kind" do
-					expect(Course.find_by_name(course_name).course_kind).to eq ck1
+				it "should contain course_category" do
+					expect(Course.find_by_name(course_name).category).to eq ck1
 				end
 			end
 		end
@@ -192,18 +192,18 @@ describe "CoursesPages" do
 
 	describe "edit" do
 		include_context "course and two products"
-		let!(:ck1) { FactoryGirl.create(:course_kind, user: user) }
+		let!(:ck1) { FactoryGirl.create(:course_category, user: user) }
 		before {visit edit_course_path(course)}
 
 		it { should have_select('course_product_ids', :options => [p1.name, p2.name]) }
-		it { should have_select('course_course_kind_id', :options => ['',ck1.name]) }
+		it { should have_select('course_category_id', :options => ['',ck1.name]) }
 		it { should have_title(full_title('Изменить блюдо')) }
 
 		describe "after save" do
 			before do
 				fill_in "course_name", with: course_name
 				select p1.name, :from => "course_product_ids"
-				select ck1.name, :from => "course_course_kind_id"
+				select ck1.name, :from => "course_category_id"
 				click_button save_button
 				course.reload
 			end
@@ -219,8 +219,8 @@ describe "CoursesPages" do
 				expect(course.products).to include(p1)
 			end
 
-			it "course_kind should contain course kind" do
-				expect(course.course_kind).to eq ck1
+			it "course_category should contain course category" do
+				expect(course.category).to eq ck1
 			end
 		end
 	end
