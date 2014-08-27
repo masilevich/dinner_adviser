@@ -12,6 +12,11 @@
 		<tr>
 			<td><%= link_to(wrap(course.name) , course_path(course), title: course.name) %></td>
 			<td>
+			<% if current_user?(course.user) %>
+				<%= check_box_tag 'available', !product.available, product.available, 
+				data: {remote: true, method: :put, :url => url_for( :action => 'set_availability', :id => product.id, :controller=>"products" )}, id: "product_chckbox_#{product.id}"
+				%>
+			<% end %>
 			</td>
 		</tr>
 		<% end %>
