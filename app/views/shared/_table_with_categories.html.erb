@@ -1,0 +1,22 @@
+<%= render layout: 'layouts/collapsed_panel' do %>
+	<% class_variable = (class_name + "Category").constantize %>
+	<% @without_category_text = "Без категории" %>
+	<% @categories = class_variable.send("categories_for_" + class_name.tableize, items).to_a %>
+	<% if !items.without_category.empty? %>
+		<% @categories = [class_variable.new(name: @without_category_text)] + @categories %>
+	<% end %>	
+
+	<% @categories.each_with_index do |category, index|  %>
+		<% if category.name == @without_category_text %>
+			<% @category_items = items.without_category %>
+		<% else %>
+				<% @category_items = items.with_category(category) %>
+		<% end %>
+		
+		<% if @category_items && @category_items.any? %>
+			<% @collapse_id = "collapse#{(rand(10000).to_s) + index.to_s}" %>
+			<% @heading_text = "#{index+1}. #{category.name}" %>
+			<%= render partial: table_partial,  locals: { :"#{class_name.tableize}" => @category_items}, layout: 'layouts/collapsed_panel_accordion'  %>
+		<% end %>	
+	<% end %>
+<% end %>

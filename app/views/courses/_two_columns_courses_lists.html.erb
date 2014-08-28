@@ -3,7 +3,7 @@
 		<section  id="courses_availabled">
 			<% if @availabled_courses && @availabled_courses.any? %>
 			<h2>Можно приготовить (<%= @availabled_courses.to_a.count %>)</h2>
-			<%= render 'courses/courses_table_with_categories', courses: @availabled_courses, availabled: true %>
+			<%= render 'shared/table_with_categories', items: @availabled_courses, class_name: "Course", table_partial: 'courses/courses_table'  %>
 			<% end %>
 		</section>
 	</div>
@@ -12,7 +12,7 @@
 		<section id="courses" >
 			<% if @courses && @courses.any? %>
 			<h2>Рецепты (<%= @courses.count %>)</h2>
-			<%= render 'courses/courses_table_with_categories', courses: @courses, availabled: false %>
+			<%= render 'shared/table_with_categories', items: @courses, class_name: "Course", table_partial: 'courses/courses_table'  %>
 			<% end %>
 		</section>
 	</div>

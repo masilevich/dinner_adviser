@@ -66,4 +66,21 @@ describe Product do
 		end
 
 	end
+
+	describe "with_category" do
+		let(:product_category) { FactoryGirl.create(:product_category) }
+	  it "scope should not include product without category" do
+	  	@product.save
+			expect(Product.with_category(product_category)).to_not include(@product)
+		end
+
+		describe "scope should include product with category" do
+			before do
+			  @product.category = product_category
+			  @product.save
+			end 
+			specify { expect(Product.with_category(product_category)).to include(@product) }
+		end
+
+	end
 end

@@ -9,6 +9,7 @@ module Categorizable
 			attrs['category_id'].blank?
 		}
 		scope :without_category, -> { where(category_id: nil) }
+		scope :with_category, ->(category) {where(category_id: category.id)}
 	end
 
 
@@ -19,6 +20,6 @@ module Categorizable
 
 	  # инстанс-методы
 	  module InstanceMethods
-
+	  		
 	  end
 	end

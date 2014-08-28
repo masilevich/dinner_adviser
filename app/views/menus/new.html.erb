@@ -20,7 +20,7 @@
 
 
 <div class="form-group">
-	<%= render 'courses/courses_table_with_categories', courses: @courses, course_table: 'courses/courses_table_for_menu', availabled: false  %>
+	<%= render 'shared/table_with_categories', items: @courses, class_name: "Course", table_partial: 'courses/courses_table_for_menu'  %>
 </div>
 <div class="form-group">
 	<%= f.submit "Сохранить", class: "btn btn-lg btn-primary" %>
