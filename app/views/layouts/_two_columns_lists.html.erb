@@ -1,0 +1,20 @@
+<%= yield %>
+<div class="row">
+	<div class="col-md-6">
+		<% if content_for?(:column1) %>
+		<section  id= "<%= yield :section_id1 %>" >
+			<h2><%= yield :title1 %></h2>
+			<%= yield :column1  %>
+		</section>
+		<% end %>
+	</div>
+
+	<div class="col-md-6">
+		<% if content_for?(:column2) %>
+		<section  id= "<%= yield :section_id2 %>" >
+			<h2><%= yield :title2 %></h2>
+			<%= yield :column2  %>
+		</section>
+		<% end %>
+	</div>
+</div>
