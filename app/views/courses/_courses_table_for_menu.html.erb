@@ -8,15 +8,16 @@
 
 	<tbody>
 		<% if courses && courses.any? %>
-		<% courses.each do |course| %>
+		<% courses.find_each do |course| %>
 		<tr>
 			<td><%= link_to(wrap(course.name) , course_path(course), title: course.name) %></td>
 			<td>
-			<%# if current_user?(course.user) %>
-				<%#= check_box_tag 'in_menu', @menu.courses.exists?(course), @menu.courses.exists?(course), 
-				data: {remote: true, method: :put, :url => url_for( :action => 'manage_courses', :course_id => course.id, :id => @menu.id, :controller=>"menus" )}, id: "course_chckbox_#{product.id}"
+			<% if current_user?(course.user) %>
+				<%= check_box_tag 'in_menu', !@courses_in_menu.include?(course), @courses_in_menu.include?(course), 
+				data: {remote: true, method: :put, :url => url_for( :action => 'manage_menu_courses', :id => course.id, :controller=>"courses" )}, 
+				id: "course_chckbox_#{course.id}"
 				%>
-			<%# end %>
+			<% end %>
 			</td>
 		</tr>
 		<% end %>

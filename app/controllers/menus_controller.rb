@@ -1,13 +1,14 @@
 class MenusController < ApplicationController
 	before_filter :authenticate_user!
 	before_action :correct_user, only: [:edit, :update, :destroy]
-  before_action :set_menu, only: [:show, :destroy, :edit, :update, :manage_courses]
+  before_action :set_menu, only: [:show, :destroy, :edit, :update]
   before_action :set_menu_categories, only: [:new, :edit]
   before_action :set_menus, only: [:index]
 
   def new
     @menu = menus.build()
-    @courses = current_user.courses.includes(:user,:products)
+    set_courses
+    @courses_in_menu = []
   end
 
   def create
@@ -59,15 +60,7 @@ class MenusController < ApplicationController
     end
   end
 
-  def manage_courses
-    @course = Course.find(params[:course_id])
-    if @menu.courses.exists?(@course)
-      @menu.courses.delete(@course)
-    else
-      @menu.courses << @course
-    end
 
-  end
 
   private
 
@@ -87,8 +80,12 @@ class MenusController < ApplicationController
     @menu_categories = current_user.categories.menu_categories
   end
 
+  def set_courses
+    @courses = current_user.courses.includes(:user,:products)    
+  end
+
   def menu_params
-    params.require(:menu).permit(:date, :category_id)
+    params.require(:menu).permit(:date, :category_id, course_ids: [])
   end
 
   def correct_user

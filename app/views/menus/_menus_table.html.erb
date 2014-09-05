@@ -11,7 +11,7 @@
 	</thead>
 
 	<tbody>
-		<% @menus.each do |menu| %>
+		<% @menus.find_each do |menu| %>
 		<tr>
 			<td><%= link_to(menu.date, menu_path(menu), title: menu.date) %></td>
 			<td><%= menu.category ? menu.category.name : "" %></td>

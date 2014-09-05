@@ -66,6 +66,14 @@ class CoursesController < ApplicationController
     end
   end
 
+  def manage_menu_courses
+    set_courses
+    @course = Course.find(params[:id])
+    @course_ids = params[:course_ids] || []  
+    @course_ids << @course.id
+    @courses_in_menu = Course.where(id: @course_ids)
+  end
+
   private
 
   def set_courses

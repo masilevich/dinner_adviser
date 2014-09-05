@@ -8,7 +8,7 @@
 	</thead>
 
 	<tbody>
-		<% products.each do |product| %>
+		<% products.find_each do |product| %>
 		<tr>
 			<td><%= link_to wrap(product.name), edit_product_path(product), title: product.name %></td>
 			<td>

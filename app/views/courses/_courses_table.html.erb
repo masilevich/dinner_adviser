@@ -1,4 +1,4 @@
-<table class='table' id='courses_table'>
+<table class='table' id='products_table'>
 	<thead>
 		<tr>
 			<th>Название</th>
@@ -9,7 +9,7 @@
 
 	<tbody>
 		<% if courses && courses.any? %>
-		<% courses.each do |course| %>
+		<% courses.find_each do |course| %>
 		<tr>
 			<td><%= link_to(wrap(course.name) , course_path(course), title: course.name) %></td>
 			<td>

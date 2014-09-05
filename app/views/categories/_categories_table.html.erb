@@ -7,7 +7,7 @@
 	</thead>
 
 	<tbody>
-		<% categories.each do |category| %>
+		<% categories.find_each do |category| %>
 		<tr>
 			<td><%= link_to wrap(category.name), edit_polymorphic_path(category), title: category.name %>
 			</td>

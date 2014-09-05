@@ -8,12 +8,12 @@ DinnerAdviser::Application.routes.draw do
     end
   end
   
-  resources :courses  
-  resources :menus do 
+  resources :courses do
     member do
-      put :manage_courses
+      put :manage_menu_courses
     end
   end
+  resources :menus 
 
   resources :categories
   resources :product_categories, controller: 'categories', type: 'ProductCategory' 

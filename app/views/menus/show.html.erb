@@ -3,7 +3,7 @@
 <h2><%= "Меню#{@menu.category ? (" " + @menu.category.name) : ""} на #{@menu.date}" %></h2>
 Блюда:
 <ul class="courses" >
-	<% @menu.courses.each do |course| %>
+	<% @menu.courses.find_each do |course| %>
 	<li id="<%= course.id %>">
 		<span id="course">
 		<%= link_to wrap(course.name), course_path(course), title: course.name %>
