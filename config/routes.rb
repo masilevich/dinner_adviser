@@ -10,7 +10,7 @@ DinnerAdviser::Application.routes.draw do
   
   resources :courses do
     member do
-      put :manage_menu_courses
+      put :add_or_remove_to_menu
     end
   end
   resources :menus 

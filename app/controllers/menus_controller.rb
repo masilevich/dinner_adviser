@@ -4,6 +4,7 @@ class MenusController < ApplicationController
   before_action :set_menu, only: [:show, :destroy, :edit, :update]
   before_action :set_menu_categories, only: [:new, :edit]
   before_action :set_menus, only: [:index]
+  before_action :check_course_ids_is_string, only: [:create, :update]
 
   def new
     @menu = menus.build()
@@ -48,6 +49,9 @@ class MenusController < ApplicationController
   end
 
   def edit
+    set_courses
+    @courses_in_menu = @menu.courses
+    @course_ids = @courses_in_menu.ids
   end
 
   def update
@@ -63,6 +67,12 @@ class MenusController < ApplicationController
 
 
   private
+
+  def check_course_ids_is_string
+    if params[:menu][:course_ids] && params[:menu][:course_ids] != "" && params[:menu][:course_ids].is_a?(String)
+      params[:menu][:course_ids] = params[:menu][:course_ids][1,params[:menu][:course_ids].length-2].split
+    end
+  end
 
   def set_menus
     @menus = menus

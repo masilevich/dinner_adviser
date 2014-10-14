@@ -13,8 +13,8 @@
 			<td><%= link_to(wrap(course.name) , course_path(course), title: course.name) %></td>
 			<td>
 			<% if current_user?(course.user) %>
-				<%= check_box_tag 'in_menu', !@courses_in_menu.include?(course), @courses_in_menu.include?(course), 
-				data: {remote: true, method: :put, :url => url_for( :action => 'manage_menu_courses', :id => course.id, :controller=>"courses" )}, 
+				<%= check_box_tag 'add_to_menu', !@courses_in_menu.include?(course), @courses_in_menu.include?(course), 
+				data: {remote: true, method: :put, :url => url_for( :action => 'add_or_remove_to_menu', :id => course.id, :controller=>"courses", course_ids: @course_ids )}, 
 				id: "course_chckbox_#{course.id}"
 				%>
 			<% end %>

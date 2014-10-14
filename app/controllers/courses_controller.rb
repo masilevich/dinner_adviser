@@ -2,9 +2,9 @@ class CoursesController < ApplicationController
 
   before_filter :authenticate_user!
   before_action :correct_user, only: [:edit, :update, :destroy]
-  before_action :set_course, only: [:show, :destroy, :edit, :update]
+  before_action :set_course, only: [:show, :destroy, :edit, :update, :add_or_remove_to_menu]
   before_action :set_course_categories, only: [:new, :edit]
-  before_action :set_courses, only: [:index]
+  before_action :set_courses, only: [:index, :add_or_remove_to_menu]
   before_action :set_available_courses, only: [:index]
   
   def index
@@ -66,12 +66,20 @@ class CoursesController < ApplicationController
     end
   end
 
-  def manage_menu_courses
-    set_courses
-    @course = Course.find(params[:id])
-    @course_ids = params[:course_ids] || []  
-    @course_ids << @course.id
+  def add_or_remove_to_menu
+    @course_ids = if params[:course_ids]
+      params[:course_ids].map { |i| i.to_i }
+    else
+      []
+    end
+    #@course_ids = params[:course_ids] || []  
+    if params[:add_to_menu]
+      @course_ids << @course.id
+    else
+      @course_ids.delete(@course.id)
+    end
     @courses_in_menu = Course.where(id: @course_ids)
+
   end
 
   private

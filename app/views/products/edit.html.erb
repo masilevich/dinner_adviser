@@ -3,11 +3,6 @@
 <%= form_for(@product) do |f| %>
 <%= render 'shared/error_messages', object: f.object %>
 
-<%= f.label :name, "Название" %>
-<%= f.text_field :name %>
+<%= render 'fields', f: f %>
 
-<%= f.label :category, "Вид продукта:" %>
-<%= f.collection_select(:category_id, @product_categories, :id, :name, :include_blank  => true) %>
-
-<%= f.submit "Сохранить", class: "btn btn-lg btn-primary" %>
 <% end %>

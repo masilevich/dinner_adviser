@@ -1,10 +1,12 @@
 require 'spec_helper'
 require 'shared_stuff'
 
+
 describe "MenusPages" do
 	include Warden::Test::Helpers
 	Warden.test_mode!
 	include_context "shared stuff"
+	include AsyncHelper
 
 	shared_context "two courses" do
 		let!(:c1) { FactoryGirl.create(:course, user: user) }
@@ -12,8 +14,8 @@ describe "MenusPages" do
 	end
 
 	shared_context "menu and two courses" do
-	  include_context "two courses"
-	  let!(:menu) {FactoryGirl.create(:menu, user: user)}
+		include_context "two courses"
+		let!(:menu) {FactoryGirl.create(:menu, user: user)}
 	end
 
 	describe "index" do
@@ -93,6 +95,40 @@ describe "MenusPages" do
 					expect(Menu.find_by_date(@menu_date).category).to be_nil
 				end
 			end
+
+			describe "and courses", js: true  do
+
+				describe "take to menu" do
+					before { within('#courses') {first(:checkbox, "course_chckbox_#{c1.id}").click}}
+					it "should move course to in menu table" do
+						within('#courses_in_menu') do
+							expect(page).to have_selector('td', text: c1.name)
+						end
+
+					end
+
+					describe "should be in menu courses" do		
+						before do
+							page.find('#save_button').trigger('click')
+						end
+
+						it "after save" do
+							expect(page).to have_content("Меню добавлено")
+						end
+					end
+
+
+					describe "and then remove from menu" do
+						before do
+							within('#courses_in_menu') {first(:checkbox, "course_chckbox_#{c1.id}").click	}
+							sleep(0.1)
+						end
+						it "should remove course from inmenu table" do
+							expect(page).to_not have_selector("#courses_in_menu")
+						end
+					end
+				end
+			end			
 		end
 	end
 
@@ -120,31 +156,41 @@ describe "MenusPages" do
 	end
 
 	describe "edit" do
-		let!(:menu_category) { FactoryGirl.create(:menu_category, user: user) }
-		include_context "menu and two courses"
-		before {visit edit_menu_path(menu)}
 
-		it { should have_select('menu_category_id', :options => ['',menu_category.name]) }
+		let!(:new_menu_category) { FactoryGirl.create(:menu_category, user: user) }
+		let!(:old_menu_category) { FactoryGirl.create(:menu_category, user: user) }
+		let!(:old_date) { DateTime.now.to_date }
+		let!(:menu) {FactoryGirl.create(:menu, user: user, category: old_menu_category, date: old_date)}
+		#include_context "menu and two courses"
+		before do
+			visit edit_menu_path(menu)
+		end
+
+		it { should have_select('menu_category_id', :options => ['',new_menu_category.name, old_menu_category.name]) }
 		it { should have_title(full_title('Изменить меню')) }
+		it { should have_content(new_menu_category.name) }
+		it { should have_field("menu_date", with: old_date.strftime("%Y-%m-%d")) }
+
+
 
 		describe "after save" do
 			before do
-				@menu_date = DateTime.now.to_date - 5.day
-				fill_in 'menu_date', with: @menu_date
-				select menu_category.name, :from => "menu_category_id"
+				@new_menu_date = DateTime.now.to_date - 5.day
+				fill_in 'menu_date', with: @new_menu_date
+				select new_menu_category.name, :from => "menu_category_id"
 				click_button save_button
 				menu.reload
 			end
 			it "should update a menu" do
-				expect(menu.date).to eq @menu_date
+				expect(menu.date).to eq @new_menu_date
 			end
 
-			it { should have_content(@menu_date) }
+			it { should have_content(@new_menu_date) }
 
 			it { should have_content("Меню изменено") }
 
 			it "menu_category should contain menu category" do
-				expect(menu.category).to eq menu_category
+				expect(menu.category).to eq new_menu_category
 			end
 		end
 	end

@@ -16,7 +16,7 @@
 		<% if @category_items && @category_items.any? %>
 			<% @collapse_id = "collapse#{(rand(10000).to_s) + index.to_s}" %>
 			<% @heading_text = "#{index+1}. #{category.name}" %>
-			<%= render partial: table_partial,  locals: { :"#{class_name.tableize}" => @category_items}, layout: 'layouts/collapsed_panel_accordion'  %>
+			<%= render partial: table_partial,  locals: { :"#{class_name.tableize}" => @category_items}, layout: 'layouts/collapsed_panel_accordion' %>
 		<% end %>	
 	<% end %>
 <% end %>
