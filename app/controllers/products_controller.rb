@@ -1,8 +1,8 @@
 class ProductsController < ApplicationController
 
 	before_filter :authenticate_user!
-	before_action :correct_user, only: [:edit, :update, :destroy, :set_availability]
-	before_action :set_product, only: [:edit, :update, :destroy, :set_availability]
+	before_action :correct_user, only: [:edit, :update, :destroy]
+	before_action :set_product, only: [:edit, :update, :destroy]
 	before_action :set_product_categories, only: [:new, :edit]
 	before_action :set_products, only: [:index]
 	before_action :set_available_products, only: [:index]
@@ -56,6 +56,7 @@ class ProductsController < ApplicationController
 	end
 
 	def set_availability
+		@product = Product.find(params[:product_id])
 		if params[:available] then
 			available = params[:available]
 		else
@@ -70,13 +71,18 @@ class ProductsController < ApplicationController
 					redirect_to products_path
 				end
 				format.js do
-					case URI(request.referer).path
-					when "/products"
+					case Rails.application.routes.recognize_path(URI(request.referer).path)[:controller]
+					when "products"
 						set_products
 						set_available_products
-					when "/courses"
+					when "courses"
 						@courses = current_user.courses
 						@availabled_courses = current_user.courses.availabled
+					when "menus"
+						menu_id = Rails.application.routes.recognize_path(URI(request.referer).path)[:id]
+						@menu = Menu.find(menu_id)
+						@enough_products = @menu.products.enough
+						@not_enough_products = @menu.products.not_enough
 					end
 				end
 			end

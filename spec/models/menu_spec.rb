@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'shared_food'
 
 describe Menu do
 	let(:user) { FactoryGirl.create(:user) }
@@ -14,6 +15,7 @@ describe Menu do
 	it { should respond_to(:category) }
 	it { should respond_to(:category_id) }
 	it { should respond_to(:courses) }
+	it { should respond_to(:products) }
 
 	its(:user) { should eq user }
 
@@ -56,5 +58,23 @@ describe Menu do
 			specify { expect(Course.without_category).to_not include(@menu) }
 		end
 
+	end
+
+	describe "products" do
+		include_context "course and two products"
+	  before do
+	  	course.products << p1
+	  	course.products << p2
+	  	@menu.courses << course
+	  	@menu.save
+	  end
+	  it "should include course products" do
+	  	expect(@menu.products).to include(p1) 
+	  	expect(@menu.products).to include(p2) 
+	  end
+	  it "not enough and enough" do
+	  	expect(@menu.products.enough).to include(p1) 
+	  	expect(@menu.products.not_enough).to include(p2) 
+	  end
 	end
 end

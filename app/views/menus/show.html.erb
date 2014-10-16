@@ -1,6 +1,7 @@
 <% provide(:title, 'Меню') %>
 
-<h2><%= "Меню#{@menu.category ? (" " + @menu.category.name) : ""} на #{@menu.date}" %></h2>
+<h2><%= menu_name(@menu) %></h2>
+
 Блюда:
 <ul class="courses" >
 	<% @menu.courses.find_each do |course| %>
@@ -11,6 +12,10 @@
 	</li>
 	<% end %>
 </ul>
+
+<section>
+	<%= link_to "Продукты", products_menu_path(@menu)%>
+</section>
 
 <section>
 	<%= link_to "Изменить", edit_menu_path(@menu), class: "btn btn-lg btn-primary"%>

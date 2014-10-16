@@ -1,0 +1,17 @@
+<%= render layout: 'layouts/two_columns_lists' do %>
+	<% if @not_enough_products && @not_enough_products.any? %>
+		<% content_for :column1 do	%>
+			<% provide(:title1, "Не хватает для приготовления (#{@not_enough_products.count})") %>	
+			<% provide(:section_id1, "not_enough_products") %>
+			<%= render 'shared/table_with_categories', items: @not_enough_products, class_name: "Product", table_partial: 'products/products_table'  %>
+		<% end %>
+	<% end %>
+	
+	<% if @enough_products && @enough_products.any? %>
+		<% content_for :column2 do	%>
+			<% provide(:title2, "В наличии (#{@enough_products.count})") %>	
+			<% provide(:section_id2, "enough_products") %>
+			<%= render 'shared/table_with_categories', items: @enough_products, class_name: "Product", table_partial: 'products/products_table'  %>
+		<% end %>
+	<% end %>
+<% end %>

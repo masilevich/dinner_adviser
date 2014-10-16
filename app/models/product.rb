@@ -8,9 +8,14 @@ class Product < ActiveRecord::Base
 
 	default_scope {order(name: :asc)}
 	scope :availabled, -> { where(available: true) }
+	scope :unavailabled, -> { where(available: false) }
+	scope :enough, -> { availabled.uniq }
+	scope :not_enough, -> { unavailabled.uniq }
 
 	def self.from_user(user)
 		where("user_id = (#{user.id})" )
 	end
-	
+
+
+
 end

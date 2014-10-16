@@ -3,9 +3,7 @@ DinnerAdviser::Application.routes.draw do
   devise_for :users
 
   resources :products do
-    member do
       put :set_availability
-    end
   end
   
   resources :courses do
@@ -13,7 +11,12 @@ DinnerAdviser::Application.routes.draw do
       put :add_or_remove_to_menu
     end
   end
-  resources :menus 
+
+  resources :menus do
+    member do
+      get :products
+    end
+  end
 
   resources :categories
   resources :product_categories, controller: 'categories', type: 'ProductCategory' 

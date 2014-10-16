@@ -1,7 +1,7 @@
 class MenusController < ApplicationController
 	before_filter :authenticate_user!
 	before_action :correct_user, only: [:edit, :update, :destroy]
-  before_action :set_menu, only: [:show, :destroy, :edit, :update]
+  before_action :set_menu, only: [:show, :destroy, :edit, :update, :products]
   before_action :set_menu_categories, only: [:new, :edit]
   before_action :set_menus, only: [:index]
   before_action :check_course_ids_is_string, only: [:create, :update]
@@ -64,6 +64,10 @@ class MenusController < ApplicationController
     end
   end
 
+  def products
+    @enough_products = @menu.products.enough
+    @not_enough_products = @menu.products.not_enough
+  end
 
 
   private

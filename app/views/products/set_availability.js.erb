@@ -1,6 +1,8 @@
-<% case URI(request.referer).path %>
-<% when "/products" %>
+<% case Rails.application.routes.recognize_path(URI(request.referer).path)[:controller] %>
+<% when "products" %>
 	$("#products_lists").html("<%= escape_javascript(render('products/products_lists')) %>")
-<% when "/courses" %>
+<% when "courses" %>
 	$("#courses_lists").html("<%= escape_javascript(render('courses/courses_lists')) %>")
+<% when "menus" %>
+	$("#products_lists").html("<%= escape_javascript(render('menus/products_lists')) %>")
 <% end %>

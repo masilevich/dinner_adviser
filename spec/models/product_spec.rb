@@ -21,6 +21,19 @@ describe Product do
 	it "should respond to availabled" do
 		expect(Product).to respond_to(:availabled)
 	end
+
+	it "should respond to unavailabled" do
+		expect(Product).to respond_to(:unavailabled)
+	end
+
+	it "should respond to enough" do
+		expect(Product).to respond_to(:enough)
+	end
+
+	it "should respond to not_enough" do
+		expect(Product).to respond_to(:not_enough)
+	end
+
 	its(:user) { should eq user }
 
 	it { should be_valid }

@@ -1,22 +1,13 @@
 require 'spec_helper'
 require 'shared_stuff'
-
+require 'shared_food'
 
 describe "MenusPages" do
 	include Warden::Test::Helpers
+	include MenusHelper
 	Warden.test_mode!
 	include_context "shared stuff"
 	include AsyncHelper
-
-	shared_context "two courses" do
-		let!(:c1) { FactoryGirl.create(:course, user: user) }
-		let!(:c2) { FactoryGirl.create(:course, user: user) }
-	end
-
-	shared_context "menu and two courses" do
-		include_context "two courses"
-		let!(:menu) {FactoryGirl.create(:menu, user: user)}
-	end
 
 	describe "index" do
 		let!(:m1) { FactoryGirl.create(:menu, user: user) }
@@ -143,9 +134,9 @@ describe "MenusPages" do
 		end	
 
 		it { should have_title(full_title('Меню')) }
-
+		it { should have_link("Продукты", href: products_menu_path(menu)) }
 		it { should have_link(change_link, href: edit_menu_path(menu)) }
-		it { should have_content("Меню#{menu.category ? (" " + menu.category.name) : ""} на #{menu.date}")}
+		it { should have_content(menu_name(menu))}
 
 		it "should list each course" do
 			expect(page).to have_content('Блюда')
@@ -191,6 +182,30 @@ describe "MenusPages" do
 
 			it "menu_category should contain menu category" do
 				expect(menu.category).to eq new_menu_category
+			end
+		end
+	end
+
+	describe "products" do
+		let(:menu) { FactoryGirl.create(:menu, user: user) }
+		include_context "course and two products"
+	  before do
+	  	course.products << p1
+	  	course.products << p2
+	  	menu.courses << course
+	  	menu.save
+	  	visit products_menu_path(menu)
+	  end
+
+	  it { should have_title(full_title('Продукты для меню')) }
+	  it { should have_content("Продукты для меню #{menu_name(menu)}") }
+
+		it "should have tables with enough and not enough" do
+			within('#enough_products') do
+				expect(page).to have_content(p1.name)
+			end
+			within('#not_enough_products') do
+				expect(page).to have_content(p2.name)
 			end
 		end
 	end
