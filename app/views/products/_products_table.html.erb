@@ -14,7 +14,7 @@
 			<td>
 			<% if current_user?(product.user) %>
 				<%= check_box_tag 'available', !product.available, product.available, 
-				data: {remote: true, method: :put, :url => url_for( :action => 'set_availability', product_id: product.id, :controller=>"products" )}, id: "product_chckbox_#{product.id}"
+				data: {remote: true, method: :put, :url => url_for( :action => 'set_availability', id: product.id, :controller=>"products" )}, id: "product_chckbox_#{product.id}"
 				%>
 			<% end %>
 			</td>

@@ -3,7 +3,9 @@ DinnerAdviser::Application.routes.draw do
   devise_for :users
 
   resources :products do
+    member do
       put :set_availability
+    end
   end
   
   resources :courses do

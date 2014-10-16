@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
 
 	before_filter :authenticate_user!
-	before_action :correct_user, only: [:edit, :update, :destroy]
+	before_action :correct_user, only: [:edit, :update, :destroy, :set_availability]
 	before_action :set_product, only: [:edit, :update, :destroy]
 	before_action :set_product_categories, only: [:new, :edit]
 	before_action :set_products, only: [:index]
@@ -56,7 +56,7 @@ class ProductsController < ApplicationController
 	end
 
 	def set_availability
-		@product = Product.find(params[:product_id])
+		@product = Product.find(params[:id])
 		if params[:available] then
 			available = params[:available]
 		else
