@@ -129,6 +129,71 @@ describe "authorization" do
       end
     end
 
+    describe "in the Menus controller" do
+
+      describe "submitting to the new action" do
+        before { get new_menu_path }
+        it_should_behave_like "Redirect to signin page"
+      end
+
+      describe "submitting to the index action" do
+        before { get menus_path }
+        it_should_behave_like "Redirect to signin page"
+      end
+
+      describe "submitting to the create action" do
+        before { post menus_path }
+        it_should_behave_like "Redirect to signin page"
+      end
+
+      describe "submitting to the edit action" do
+        before { get edit_menu_path(FactoryGirl.create(:menu)) }
+        it_should_behave_like "Redirect to signin page"
+      end
+
+      describe "submitting to the update action" do
+        before { patch menu_path(FactoryGirl.create(:menu)) }
+        it_should_behave_like "Redirect to signin page"
+      end
+
+      describe "submitting to the destroy action" do
+        before { delete menu_path(FactoryGirl.create(:menu)) }
+        it_should_behave_like "Redirect to signin page"
+      end
+    end
+
+    describe "in the ShoppingLists controller" do
+
+      describe "submitting to the new action" do
+        before { get new_shopping_list_path }
+        it_should_behave_like "Redirect to signin page"
+      end
+
+      describe "submitting to the index action" do
+        before { get shopping_lists_path }
+        it_should_behave_like "Redirect to signin page"
+      end
+
+      describe "submitting to the create action" do
+        before { post shopping_lists_path }
+        it_should_behave_like "Redirect to signin page"
+      end
+
+      describe "submitting to the edit action" do
+        before { get edit_shopping_list_path(FactoryGirl.create(:shopping_list)) }
+        it_should_behave_like "Redirect to signin page"
+      end
+
+      describe "submitting to the update action" do
+        before { patch shopping_list_path(FactoryGirl.create(:shopping_list)) }
+        it_should_behave_like "Redirect to signin page"
+      end
+
+      describe "submitting to the destroy action" do
+        before { delete shopping_list_path(FactoryGirl.create(:shopping_list)) }
+        it_should_behave_like "Redirect to signin page"
+      end
+    end
 
   end
 
@@ -200,7 +265,44 @@ describe "authorization" do
         before { delete category_path(category) }
         it_should_behave_like "Redirect to root"
       end
+    end
 
+    describe "in the Menus controller" do
+      let!(:menu) {FactoryGirl.create(:menu,user: user)}
+
+      describe "submitting to the edit action" do
+        before { get edit_menu_path(menu) }
+        it_should_behave_like "Redirect to root"
+      end
+
+      describe "submitting to the update action" do
+        before { patch menu_path(menu) }
+        it_should_behave_like "Redirect to root"
+      end
+
+      describe "submitting to the destroy action" do
+        before { delete menu_path(menu) }
+        it_should_behave_like "Redirect to root"
+      end
+    end
+
+    describe "in the ShoppingLists controller" do
+      let!(:shopping_list) {FactoryGirl.create(:shopping_list,user: user)}
+
+      describe "submitting to the edit action" do
+        before { get edit_shopping_list_path(shopping_list) }
+        it_should_behave_like "Redirect to root"
+      end
+
+      describe "submitting to the update action" do
+        before { patch shopping_list_path(shopping_list) }
+        it_should_behave_like "Redirect to root"
+      end
+
+      describe "submitting to the destroy action" do
+        before { delete shopping_list_path(shopping_list) }
+        it_should_behave_like "Redirect to root"
+      end
     end
 
   end

@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
         else 
           "food_links_menu"
         end
-      when "menus"
+      when "menus", "shopping_lists"
         case action_name
         when "show"
           "form_for_food_links_menu"

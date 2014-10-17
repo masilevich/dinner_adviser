@@ -1,0 +1,9 @@
+<% provide(:title, 'Списки покупок') %>
+
+<section>
+	<%= link_to "Добавить", new_shopping_list_path, class: "btn btn-lg btn-primary"%>
+</section>
+
+<section id="shopping_lists" >
+	<%= render 'shopping_lists/shopping_lists_table'%>
+</section>

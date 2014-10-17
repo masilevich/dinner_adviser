@@ -39,6 +39,7 @@ describe "Static pages" do
         it { should have_link("Продукты", href: products_path) }
         it { should have_link("Мои рецепты", href: courses_path) }
         it { should have_link("Меню", href: menus_path) }
+        it { should have_link("Списки покупок", href: shopping_lists_path) }
       end
     end
     

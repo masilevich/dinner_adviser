@@ -11,6 +11,7 @@ class Menu < ActiveRecord::Base
 	}
 
 	validates :date, presence: true
+	validates :user_id, presence: true
 
 	default_scope { order(date: :desc) }
 end

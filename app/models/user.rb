@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :products,  dependent: :destroy
   has_many :menus,  dependent: :destroy
   has_many :categories,  dependent: :destroy
+  has_many :shopping_lists,  dependent: :destroy
 
 
   valid_user_name = Regexp.new(/\A/.source + ApplicationHelper::USER_NAME_REGEX.source + /\z/.source, Regexp::IGNORECASE)

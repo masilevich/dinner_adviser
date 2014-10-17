@@ -23,7 +23,7 @@ describe Menu do
 
 	describe "validation" do
 
-		describe "with blank name" do
+		describe "with blank date" do
 			before {@menu.date = nil}
 			it { should_not be_valid }
 		end

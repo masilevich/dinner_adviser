@@ -1,8 +1,2 @@
 <% provide(:title, 'Новый продукт') %>
-
-<%= form_for(@product) do |f| %>
-<%= render 'shared/error_messages', object: f.object %>
-
-<%= render 'fields', f: f %>
-
-<% end %>
+<%= render 'product_form' %>

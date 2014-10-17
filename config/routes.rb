@@ -20,6 +20,8 @@ DinnerAdviser::Application.routes.draw do
     end
   end
 
+  resources :shopping_lists
+
   resources :categories
   resources :product_categories, controller: 'categories', type: 'ProductCategory' 
   resources :menu_categories, controller: 'categories', type: 'MenuCategory'

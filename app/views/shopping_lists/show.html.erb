@@ -1,0 +1,7 @@
+<% provide(:title, 'Список покупок') %>
+
+<h2><%= @shopping_list.name %></h2>
+
+<section>
+	<%= link_to "Изменить", edit_shopping_list_path(@shopping_list), class: "btn btn-lg btn-primary"%>
+</section>

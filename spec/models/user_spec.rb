@@ -26,6 +26,7 @@ describe User do
   it { should respond_to(:products) }
   it { should respond_to(:courses) }
   it { should respond_to(:menus) }
+  it { should respond_to(:shopping_lists) }
   it { should respond_to(:categories) }
 
   it { should be_valid }

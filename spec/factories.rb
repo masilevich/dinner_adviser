@@ -64,6 +64,11 @@ FactoryGirl.define do
     end
   end
 
+  factory :shopping_list do
+    sequence(:name) { |n| "Список покупок #{n}" }
+    user
+  end
+
   factory :category do
     sequence(:name) { |n| "Категория #{n}" }
     user
