@@ -10,7 +10,7 @@
 	<tbody>
 		<% products.find_each do |product| %>
 		<tr>
-			<td><%= link_to wrap(product.name), edit_product_path(product), title: product.name %></td>
+			<td><%= link_to wrap(product.name), product_path(product), title: product.name %></td>
 			<td>
 			<% if current_user?(product.user) %>
 				<%= check_box_tag 'available', !product.available, product.available, 

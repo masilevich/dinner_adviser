@@ -129,8 +129,8 @@ describe "ProductsPages" do
 
 		it { should have_link(add_button, href: new_product_path) }
 		it { should have_link(delete_link, href: product_path(p1)) }
-		it { should have_link(p1.name, href: edit_product_path(p1)) }
-		it { should have_link(p2.name, href: edit_product_path(p2)) }
+		it { should have_link(p1.name, href: product_path(p1)) }
+		it { should have_link(p2.name, href: product_path(p2)) }
 
 		it { should have_link("Виды продуктов", href: product_categories_path) }
 
@@ -227,6 +227,19 @@ describe "ProductsPages" do
 				expect(product.reload).to_not be_available
 			end
 		end
+	end
+
+	describe "show" do
+		let!(:product) {FactoryGirl.create(:product,user: user)}
+		before do
+			visit product_path(product)
+		end	
+
+		it { should have_title(full_title('Продукт')) }
+
+		it { should have_link('Изменить', href: edit_product_path(product)) }
+		it { should have_content(product.name)}
+
 	end
 
 end

@@ -1,0 +1,7 @@
+<% provide(:title, 'Продукт') %>
+
+<h2><%= @product.name %></h2>
+
+<section>
+	<%= link_to "Изменить", edit_product_path(@product), class: "btn btn-lg btn-primary"%>
+</section>

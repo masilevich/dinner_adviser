@@ -2,10 +2,13 @@ class ProductsController < ApplicationController
 
 	before_filter :authenticate_user!
 	before_action :correct_user, only: [:edit, :update, :destroy, :set_availability]
-	before_action :set_product, only: [:edit, :update, :destroy, :add_or_remove_to_shopping_list]
+	before_action :set_product, only: [:show, :edit, :update, :destroy, :add_or_remove_to_shopping_list]
 	before_action :set_product_categories, only: [:new, :edit]
 	before_action :set_products, only: [:index, :add_or_remove_to_shopping_list]
 	before_action :set_available_products, only: [:index]
+
+	def show
+	end
 
 	def index
 	end
