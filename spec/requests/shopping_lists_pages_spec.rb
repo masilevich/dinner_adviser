@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'shared_stuff'
+require 'shared_food'
 
 describe "ShoppingListSPages" do
 	include Warden::Test::Helpers
@@ -86,10 +87,24 @@ describe "ShoppingListSPages" do
 	end
 
 	describe "edit" do
-		let!(:shopping_list) {FactoryGirl.create(:shopping_list,user: user)}
-		before {visit edit_shopping_list_path(shopping_list) }
+		include_context "shopping list and two products"
+		before do
+			shopping_list.products << p1
+			shopping_list.save
+			visit edit_shopping_list_path(shopping_list) 
+		end
 
 		it { should have_title(full_title('Изменить список покупок')) }
+		it { should have_content("В списке покупок (#{shopping_list.products.to_a.count})") }
+
+		describe "before save" do
+		  it "show products in shopping list" do
+		  	within('#products_in_shopping_list') do
+					expect(page).to have_content(p1.name)
+					expect(page).to_not have_content(p2.name)
+				end
+		  end
+		end
 
 		describe "after save" do
 			before do
@@ -110,15 +125,23 @@ describe "ShoppingListSPages" do
 	end
 
 	describe "show" do
-		let!(:shopping_list) {FactoryGirl.create(:shopping_list,user: user, name: shopping_list_name)}
+		include_context "shopping list and two products"
 		before do
+			shopping_list.products << p1
+			shopping_list.save
 			visit shopping_list_path(shopping_list)
 		end	
 
 		it { should have_title(full_title('Список покупок')) }
 
 		it { should have_link(change_link, href: edit_shopping_list_path(shopping_list)) }
-		it { should have_content(shopping_list_name)}
+		it { should have_content(shopping_list.name)}
 
+		it "should list each product" do
+			expect(page).to have_content('Продукты')
+			shopping_list.products.each do |product|
+				expect(page).to have_selector('li', text: product.name)
+			end
+		end
 	end
 end

@@ -17,3 +17,13 @@ shared_context "menu and two courses" do
 	include_context "two courses"
 	let!(:menu) {FactoryGirl.create(:menu, user: user)}
 end
+
+shared_context "two shopping lists" do
+	let!(:sl1) { FactoryGirl.create(:shopping_list, user: user) }
+	let!(:sl2) { FactoryGirl.create(:shopping_list, user: user) }
+end
+
+shared_context "shopping list and two products" do
+	include_context "two products"
+	let!(:shopping_list) {FactoryGirl.create(:shopping_list,user: user)}
+end

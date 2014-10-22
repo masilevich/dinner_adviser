@@ -134,7 +134,7 @@ describe "MenusPages" do
 		end	
 
 		it { should have_title(full_title('Меню')) }
-		it { should have_link("Продукты", href: products_menu_path(menu)) }
+		it { should have_link("Продукты для приготовления", href: products_menu_path(menu)) }
 		it { should have_link(change_link, href: edit_menu_path(menu)) }
 		it { should have_content(menu_name(menu))}
 
@@ -152,8 +152,10 @@ describe "MenusPages" do
 		let!(:old_menu_category) { FactoryGirl.create(:menu_category, user: user) }
 		let!(:old_date) { DateTime.now.to_date }
 		let!(:menu) {FactoryGirl.create(:menu, user: user, category: old_menu_category, date: old_date)}
-		#include_context "menu and two courses"
+		include_context "two courses"
 		before do
+			menu.courses << c1
+			menu.save
 			visit edit_menu_path(menu)
 		end
 
@@ -161,8 +163,15 @@ describe "MenusPages" do
 		it { should have_title(full_title('Изменить меню')) }
 		it { should have_content(new_menu_category.name) }
 		it { should have_field("menu_date", with: old_date.strftime("%Y-%m-%d")) }
+		it { should have_content("В меню (#{menu.courses.to_a.count})") }
 
-
+		describe "before save" do
+		  it "show courses in menu" do
+		  	within('#courses_in_menu') do
+					expect(page).to have_content(c1.name)
+				end
+		  end
+		end
 
 		describe "after save" do
 			before do

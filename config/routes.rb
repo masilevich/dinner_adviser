@@ -5,6 +5,7 @@ DinnerAdviser::Application.routes.draw do
   resources :products do
     member do
       put :set_availability
+      put :add_or_remove_to_shopping_list
     end
   end
   

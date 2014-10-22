@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'shared_food'
 
 describe ShoppingList do
 	let(:user) { FactoryGirl.create(:user) }
@@ -10,6 +11,7 @@ describe ShoppingList do
 
 	it { should respond_to(:name) }
 	it { should respond_to(:user_id) }
+	it { should respond_to(:products) }
 
 	it { should be_valid }
 
@@ -42,5 +44,18 @@ describe ShoppingList do
 		it "should have rights menus in right order" do
 			expect(ShoppingList.all.to_a).to eq [sl1, sl2, sl3]
 		end
+	end
+
+	describe "products association" do
+		include_context "two products"
+	  before do
+	  	@shopping_list.products << p1
+	  	@shopping_list.products << p2
+	  	@shopping_list
+	  end
+	  it "should include products" do
+	  	expect(@shopping_list.products).to include(p1) 
+	  	expect(@shopping_list.products).to include(p2) 
+	  end
 	end
 end

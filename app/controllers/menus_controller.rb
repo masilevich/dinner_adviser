@@ -73,9 +73,7 @@ class MenusController < ApplicationController
   private
 
   def check_course_ids_is_string
-    if params[:menu][:course_ids] && params[:menu][:course_ids] != "" && params[:menu][:course_ids].is_a?(String)
-      params[:menu][:course_ids] = params[:menu][:course_ids][1,params[:menu][:course_ids].length-2].split
-    end
+    params[:menu][:course_ids] = view_context.check_params_ids_is_string(params, :menu, :course_ids)
   end
 
   def set_menus

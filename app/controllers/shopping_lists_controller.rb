@@ -1,8 +1,11 @@
 class ShoppingListsController < ApplicationController
+	include ApplicationHelper
+
 	before_filter :authenticate_user!
 	before_action :correct_user, only: [:edit, :update, :destroy]
 	before_action :set_shopping_list, only: [:show, :edit, :update, :destroy]
 	before_action :set_shopping_lists, only: [:index]
+	before_action :check_product_ids_is_string, only: [:create, :update]
 
 	def index
 	end
@@ -12,6 +15,8 @@ class ShoppingListsController < ApplicationController
 
 	def new
 		@shopping_list = shopping_lists.build()
+		set_products
+    @products_in_shopping_list = []
 	end
 
 	def create
@@ -54,6 +59,9 @@ class ShoppingListsController < ApplicationController
 
 
 	def edit
+		set_products
+    @products_in_shopping_list = @shopping_list.products
+    @product_ids = @products_in_shopping_list.ids
 	end
 
 	def update
@@ -62,11 +70,15 @@ class ShoppingListsController < ApplicationController
 			redirect_to shopping_lists_path
 		else
 			flash.now[:success] = 'Список покупок не изменен'
-			render 'edit', layout: "form_for_food_links_menu"
+			render 'edit', layout: "form_for_food_links_shopping_list"
 		end
 	end
 
 	private
+
+	def check_product_ids_is_string
+    params[:shopping_list][:product_ids] = view_context.check_params_ids_is_string(params, :shopping_list, :product_ids)
+  end
 
 	def set_shopping_lists
 		@shopping_lists = shopping_lists
@@ -81,11 +93,15 @@ class ShoppingListsController < ApplicationController
 	end
 
 	def shopping_list_params
-		params.require(:shopping_list).permit(:name)
+		params.require(:shopping_list).permit(:name, product_ids: [])
 	end
 
 	def correct_user
 		@shopping_list = current_user.shopping_lists.find_by(id: params[:id])
 		redirect_to root_url if @shopping_list.nil?
 	end
+
+	def set_products
+    @products = current_user.products   
+  end
 end

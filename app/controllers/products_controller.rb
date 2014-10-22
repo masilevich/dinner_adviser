@@ -2,9 +2,9 @@ class ProductsController < ApplicationController
 
 	before_filter :authenticate_user!
 	before_action :correct_user, only: [:edit, :update, :destroy, :set_availability]
-	before_action :set_product, only: [:edit, :update, :destroy]
+	before_action :set_product, only: [:edit, :update, :destroy, :add_or_remove_to_shopping_list]
 	before_action :set_product_categories, only: [:new, :edit]
-	before_action :set_products, only: [:index]
+	before_action :set_products, only: [:index, :add_or_remove_to_shopping_list]
 	before_action :set_available_products, only: [:index]
 
 	def index
@@ -101,6 +101,21 @@ class ProductsController < ApplicationController
 			render 'edit', layout: "form_for_food_links_menu"
 		end
 	end
+
+  def add_or_remove_to_shopping_list
+    @product_ids = if params[:product_ids]
+      params[:product_ids].map { |i| i.to_i }
+    else
+      []
+    end 
+    if params[:add_to_shopping_list]
+      @product_ids << @product.id
+    else
+      @product_ids.delete(@product.id)
+    end
+    @products_in_shopping_list = Product.where(id: @product_ids)
+
+  end
 
 	private
 

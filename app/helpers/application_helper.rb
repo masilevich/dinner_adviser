@@ -22,6 +22,15 @@ module ApplicationHelper
     end
   end
 
+  def check_params_ids_is_string(params, model_name, ids_name)
+    ids = params[model_name][ids_name]
+    if ids && ids != "" && ids.is_a?(String)
+      ids[1,ids.length-2].split
+    else
+      params[model_name][ids_name]
+    end
+  end
+
   private
 
   def wrap_long_string(text, max_width = 30)
@@ -30,4 +39,6 @@ module ApplicationHelper
     (text.length < max_width) ? text :
     text.scan(regex).join(zero_width_space)
   end
+
+  
 end

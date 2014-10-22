@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141016131459) do
+ActiveRecord::Schema.define(version: 20141017112712) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -71,6 +71,14 @@ ActiveRecord::Schema.define(version: 20141016131459) do
 
   add_index "products", ["name", "user_id"], name: "index_products_on_name_and_user_id", unique: true
   add_index "products", ["user_id"], name: "index_products_on_user_id"
+
+  create_table "products_shopping_lists", id: false, force: true do |t|
+    t.integer "product_id"
+    t.integer "shopping_list_id"
+  end
+
+  add_index "products_shopping_lists", ["product_id"], name: "index_products_shopping_lists_on_product_id"
+  add_index "products_shopping_lists", ["shopping_list_id"], name: "index_products_shopping_lists_on_shopping_list_id"
 
   create_table "shopping_lists", force: true do |t|
     t.string   "name"

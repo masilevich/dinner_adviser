@@ -2,6 +2,17 @@
 
 <h2><%= @shopping_list.name %></h2>
 
+Продукты:
+<ul class="products" >
+	<% @shopping_list.products.find_each do |product| %>
+	<li id="<%= product.id %>">
+		<span id="product">
+		<%= link_to wrap(product.name), product_path(product), title: product.name %>
+		</span>
+	</li>
+	<% end %>
+</ul>
+
 <section>
 	<%= link_to "Изменить", edit_shopping_list_path(@shopping_list), class: "btn btn-lg btn-primary"%>
 </section>

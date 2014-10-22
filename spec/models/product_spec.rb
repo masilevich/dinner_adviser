@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'shared_food'
 
 describe Product do
 	let(:user) { FactoryGirl.create(:user) }
@@ -17,6 +18,7 @@ describe Product do
 	it { should respond_to(:available) }
 	it { should respond_to(:category_id) }
 	it { should respond_to(:category) }
+	it { should respond_to(:shopping_lists) }
 
 	it "should respond to availabled" do
 		expect(Product).to respond_to(:availabled)
@@ -77,7 +79,6 @@ describe Product do
 			end 
 			specify { expect(Product.without_category).to_not include(@product) }
 		end
-
 	end
 
 	describe "with_category" do
@@ -94,6 +95,18 @@ describe Product do
 			end 
 			specify { expect(Product.with_category(product_category)).to include(@product) }
 		end
+	end
 
+	describe "shopping lists association" do
+		include_context "two shopping lists"
+	  before do
+	  	@product.shopping_lists << sl1
+	  	@product.shopping_lists << sl2
+	  	@product.save
+	  end
+	  it "should include shopping lists" do
+	  	expect(@product.shopping_lists).to include(sl1) 
+	  	expect(@product.shopping_lists).to include(sl2) 
+	  end
 	end
 end

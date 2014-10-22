@@ -1,0 +1,26 @@
+<table class='table' id='products_table'>
+	<thead>
+		<tr>
+			<th>Название</th>
+			<th>В список покупок</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% if products && products.any? %>
+		<% products.find_each do |product| %>
+		<tr>
+			<td><%= link_to(wrap(product.name) , product_path(product), title: product.name) %></td>
+			<td>
+			<% if current_user?(product.user) %>
+				<%= check_box_tag 'add_to_shopping_list', !@products_in_shopping_list.include?(product), @products_in_shopping_list.include?(product), 
+				data: {remote: true, method: :put, :url => url_for( :action => 'add_or_remove_to_shopping_list', :id => product.id, :controller=>"products", product_ids: @product_ids )}, 
+				id: "product_chckbox_#{product.id}"
+				%>
+			<% end %>
+			</td>
+		</tr>
+		<% end %>
+		<% end %>
+	</tbody>
+</table>
