@@ -1,8 +1,8 @@
 class CategoriesController < ApplicationController
 
 	before_filter :authenticate_user!
-	before_action :correct_user, only: [:edit, :update, :destroy]
-	before_action :set_category, only: [:edit, :update, :destroy]
+  load_and_authorize_resource
+	#before_action :set_category, only: [:edit, :update, :destroy]
 	before_action :set_type
 	before_action :set_ru_type_pluralize, only: [:edit, :update, :create, :index]
 
@@ -102,8 +102,4 @@ class CategoriesController < ApplicationController
 		end
 	end
 
-	def correct_user
-		@category = current_user.categories.find_by(id: params[:id])
-		redirect_to root_url if @category.nil?
-	end
 end

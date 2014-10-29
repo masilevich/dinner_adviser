@@ -1,6 +1,6 @@
 <span id="product">
 <%= link_to wrap(product.name), product_path(product), title: product.name %>
-<% if current_user?(product.user) %>
+<% if can? :manage, product %>
 
 <%= check_box_tag 'available', !product.available, product.available, 
 data: {remote: true, method: :put, :url => url_for( :action => 'set_availability', :id => product.id, :controller=>"products" )}, id: "product_chckbox_#{product.id}"

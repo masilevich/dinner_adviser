@@ -1,6 +1,7 @@
 DinnerAdviser::Application.routes.draw do
 
   devise_for :users
+  resources :roles
 
   resources :products do
     member do
@@ -27,6 +28,11 @@ DinnerAdviser::Application.routes.draw do
   resources :product_categories, controller: 'categories', type: 'ProductCategory' 
   resources :menu_categories, controller: 'categories', type: 'MenuCategory'
   resources :course_categories, controller: 'categories', type: 'CourseCategory'
+
+  namespace :admin do
+    root :to => "admin#index"
+    resources :products
+  end
 
   root 'static_pages#home'
 

@@ -16,7 +16,7 @@
 			<td><%= link_to(menu.date, menu_path(menu), title: menu.date) %></td>
 			<td><%= menu.category ? menu.category.name : "" %></td>
 			<td>
-				<% if current_user?(menu.user) %>
+				<% if can? :destroy, menu %>
 				<%= link_to "удалить", menu, method: :delete, remote: true, data: { confirm: "Вы уверены?" }, title: menu.date %>
 				<% end %>
 			</td>

@@ -18,7 +18,7 @@ describe "authorization" do
   end
 
   shared_examples_for "Redirect to root" do
-    it "should redirect_to root" do
+    specify do
       expect(response).to redirect_to(root_path)
     end
   end
@@ -315,7 +315,7 @@ describe "authorization" do
     before {sign_in non_admin_user, no_capybara: true}
     describe "submitting a DELETE request to the Users#destroy action" do
       before {delete user_path(user)}
-      it "redirect to root url" do
+      it "Redirect to root url" do
         expect(response).to redirect_to(root_url)
       end
     end

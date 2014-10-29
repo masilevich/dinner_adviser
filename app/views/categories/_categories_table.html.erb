@@ -12,7 +12,7 @@
 			<td><%= link_to wrap(category.name), edit_polymorphic_path(category), title: category.name %>
 			</td>
 			<td>
-				<% if current_user?(category.user) %>
+				<% if can? :destroy, category %>
 				<%= link_to "удалить", category, method: :delete, remote: true, data: { confirm: "Вы уверены?" }, title: category.name %>
 				<% end %>
 			</td>

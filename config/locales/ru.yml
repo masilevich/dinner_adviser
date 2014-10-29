@@ -262,3 +262,5 @@ ru:
         current_password: "Текущий пароль"
     errors:
       <<: *errors
+  unauthorized:
+    default: "Вы не имеете права для выполнения операции."

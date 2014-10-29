@@ -1,8 +1,8 @@
 class CoursesController < ApplicationController
 
   before_filter :authenticate_user!
-  before_action :correct_user, only: [:edit, :update, :destroy]
-  before_action :set_course, only: [:show, :destroy, :edit, :update, :add_or_remove_to_menu]
+  load_and_authorize_resource
+  #before_action :set_course, only: [:show, :destroy, :edit, :update, :add_or_remove_to_menu]
   before_action :set_course_categories, only: [:new, :edit]
   before_action :set_courses, only: [:index, :add_or_remove_to_menu]
   before_action :set_available_courses, only: [:index]
@@ -106,11 +106,6 @@ class CoursesController < ApplicationController
 
   def course_params
     params.require(:course).permit(:name, :category_id, product_ids: [])
-  end
-
-  def correct_user
-    @course = current_user.courses.find_by(id: params[:id])
-    redirect_to root_url if @course.nil?
   end
 
 end

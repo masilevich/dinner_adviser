@@ -16,7 +16,7 @@
 				<%= render course.products.includes(:user) %>
 			</td>
 			<td>
-				<% if current_user?(course.user) %>
+				<% if can? :destroy, course %>
 				<%= link_to "удалить", course, method: :delete, remote: true, data: { confirm: "Вы уверены?" }, title: course.name %>
 				<% end %>
 			</td>

@@ -1,6 +1,7 @@
 namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
+    make_roles
     make_users  
     make_products
     make_courses
@@ -9,13 +10,18 @@ namespace :db do
   end
 end
 
+def make_roles
+  Role.create!(name: :admin)
+end
+
 def make_users
-  User.create!(username: "jorik",
+  @admin = User.create!(username: "jorik",
     email: "l.masilevich@gmail.com",
     password: "foobar",
     password_confirmation: "foobar",
     confirmed_at: "21.04.2014" 
     )
+  @admin.roles << Role.find_by(name: :admin)
   10.times do |n|
     full_name  = Faker::Name.name
     username  = full_name.split.join('_').downcase
@@ -34,32 +40,32 @@ def make_users
       confirmed_at: "21.04.2014")
   end
 
-  def make_products
-    users = User.all
-    users.each { |user| user.products.create!(name: "Капуста для #{user.username}") }
-    users.each { |user| user.products.create!(name: "Картошка для #{user.username}") }
-  end
+end
 
-  def make_courses
-    users = User.all
-    users.each { |user| user.courses.create!(name: "Пюре для #{user.username}") }
-    users.each { |user| user.courses.create!(name: "Курица для #{user.username}") }
-  end
+def make_products
+  users = User.all
+  users.each { |user| user.products.create!(name: "Капуста для #{user.username}") }
+  users.each { |user| user.products.create!(name: "Картошка для #{user.username}") }
+end
 
-  def make_menus
-    user = User.first
-    user.menus.create!(date: Time.now()) 
-    user.menus.create!(date: (Time.now() - 1.day))
-  end
+def make_courses
+  users = User.all
+  users.each { |user| user.courses.create!(name: "Пюре для #{user.username}") }
+  users.each { |user| user.courses.create!(name: "Курица для #{user.username}") }
+end
 
-  def make_categories
-    user = User.first
-    user.categories.product_categories.create!(name: "Овощи") 
-    user.categories.product_categories.create!(name: "Фрукты") 
-    user.categories.menu_categories.create!(name: "Обеденное") 
-    user.categories.menu_categories.create!(name: "Вечернее") 
-    user.categories.course_categories.create!(name: "Первые") 
-    user.categories.course_categories.create!(name: "Гарниры")
-  end
-  
+def make_menus
+  user = User.first
+  user.menus.create!(date: Time.now()) 
+  user.menus.create!(date: (Time.now() - 1.day))
+end
+
+def make_categories
+  user = User.first
+  user.categories.product_categories.create!(name: "Овощи") 
+  user.categories.product_categories.create!(name: "Фрукты") 
+  user.categories.menu_categories.create!(name: "Обеденное") 
+  user.categories.menu_categories.create!(name: "Вечернее") 
+  user.categories.course_categories.create!(name: "Первые") 
+  user.categories.course_categories.create!(name: "Гарниры")
 end

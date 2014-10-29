@@ -24,22 +24,41 @@ describe "Static pages" do
       it { should have_link("Регистрация", href: new_user_registration_path) }
     end
 
-    describe "for signed-in users" do
-      let(:user) { FactoryGirl.create(:confirmed_user) }
-      before do
-        login_as(user, :scope => :user)
-        visit root_path
+    describe "for signed-in" do
+      let(:user) {FactoryGirl.create(:confirmed_user)}
+      describe "users" do
+        before do
+          login_as(user, :scope => :user)
+          visit root_path
+        end
+        after do
+          Warden.test_reset!
+        end
+
+        it { should_not have_link("Регистрация", href: new_user_registration_path) }
+        it { should_not have_link("Администрирование", href: admin_root_path) }
+
+        describe "food links" do
+          it { should have_link("Случайный рецепт", href: advice_path) }
+          it { should have_link("Продукты", href: products_path) }
+          it { should have_link("Мои рецепты", href: courses_path) }
+          it { should have_link("Меню", href: menus_path) }
+          it { should have_link("Списки покупок", href: shopping_lists_path) }
+        end
       end
-      after {Warden.test_reset! }
+      
+      
+      describe "admin" do
+        let(:admin) {FactoryGirl.create(:admin)}
+        before do
+          login_as(admin, :scope => :user)
+          visit root_path
+        end
+        after do
+          Warden.test_reset!
+        end
 
-      it { should_not have_link("Регистрация", href: new_user_registration_path) }
-
-      describe "food links" do
-        it { should have_link("Случайный рецепт", href: advice_path) }
-        it { should have_link("Продукты", href: products_path) }
-        it { should have_link("Мои рецепты", href: courses_path) }
-        it { should have_link("Меню", href: menus_path) }
-        it { should have_link("Списки покупок", href: shopping_lists_path) }
+        it { should have_link("Администрирование", href: admin_root_path) }
       end
     end
     

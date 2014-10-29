@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :menus,  dependent: :destroy
   has_many :categories,  dependent: :destroy
   has_many :shopping_lists,  dependent: :destroy
+  has_and_belongs_to_many :roles
 
 
   valid_user_name = Regexp.new(/\A/.source + ApplicationHelper::USER_NAME_REGEX.source + /\z/.source, Regexp::IGNORECASE)
@@ -33,5 +34,9 @@ class User < ActiveRecord::Base
   	else
   		where(conditions).first
   	end
+  end
+
+  def role?(role)
+    !!self.roles.find_by_name(role.to_s)
   end
 end

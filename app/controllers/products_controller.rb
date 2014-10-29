@@ -1,8 +1,8 @@
 class ProductsController < ApplicationController
-
+	
 	before_filter :authenticate_user!
-	before_action :correct_user, only: [:edit, :update, :destroy, :set_availability]
-	before_action :set_product, only: [:show, :edit, :update, :destroy, :add_or_remove_to_shopping_list]
+	load_and_authorize_resource
+	#before_action :set_product, only: [:show, :edit, :update, :destroy, :add_or_remove_to_shopping_list]
 	before_action :set_product_categories, only: [:new, :edit]
 	before_action :set_products, only: [:index, :add_or_remove_to_shopping_list]
 	before_action :set_available_products, only: [:index]
@@ -144,11 +144,6 @@ class ProductsController < ApplicationController
 
 	def product_params
 		params.require(:product).permit(:name, :available, :category_id)
-	end
-
-	def correct_user
-		@product = current_user.products.find_by(id: params[:id])
-		redirect_to root_url if @product.nil?
 	end
 
 end

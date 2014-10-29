@@ -2,8 +2,8 @@ class ShoppingListsController < ApplicationController
 	include ApplicationHelper
 
 	before_filter :authenticate_user!
-	before_action :correct_user, only: [:edit, :update, :destroy]
-	before_action :set_shopping_list, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
+	#before_action :set_shopping_list, only: [:show, :edit, :update, :destroy]
 	before_action :set_shopping_lists, only: [:index]
 	before_action :check_product_ids_is_string, only: [:create, :update]
 
@@ -94,11 +94,6 @@ class ShoppingListsController < ApplicationController
 
 	def shopping_list_params
 		params.require(:shopping_list).permit(:name, product_ids: [])
-	end
-
-	def correct_user
-		@shopping_list = current_user.shopping_lists.find_by(id: params[:id])
-		redirect_to root_url if @shopping_list.nil?
 	end
 
 	def set_products

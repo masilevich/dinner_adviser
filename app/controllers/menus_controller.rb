@@ -1,7 +1,7 @@
 class MenusController < ApplicationController
 	before_filter :authenticate_user!
-	before_action :correct_user, only: [:edit, :update, :destroy]
-  before_action :set_menu, only: [:show, :destroy, :edit, :update, :products]
+  load_and_authorize_resource
+  #before_action :set_menu, only: [:show, :destroy, :edit, :update, :products]
   before_action :set_menu_categories, only: [:new, :edit]
   before_action :set_menus, only: [:index]
   before_action :check_course_ids_is_string, only: [:create, :update]
@@ -100,8 +100,4 @@ class MenusController < ApplicationController
     params.require(:menu).permit(:date, :category_id, course_ids: [])
   end
 
-  def correct_user
-    @menu = current_user.menus.find_by(id: params[:id])
-    redirect_to root_url if @menu.nil?
-  end
 end

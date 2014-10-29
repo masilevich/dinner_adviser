@@ -5,13 +5,15 @@ FactoryGirl.define do
     password "foobar"
     password_confirmation "foobar"
 
-    factory :admin do
-      admin true
-    end
-
     factory :confirmed_user do
       confirmed_at Time.now
     end
+
+    factory :admin, parent: :confirmed_user do
+      roles {[FactoryGirl.create(:admin_role)]}
+    end
+
+    
   end
 
   factory :product do
@@ -23,6 +25,13 @@ FactoryGirl.define do
 
     factory :unavailable_product do
       available false
+    end
+  end
+
+  factory :role do
+    sequence(:name) { |n| "Роль #{n}" }
+    factory :admin_role do
+      name :admin
     end
   end
 
