@@ -4,13 +4,14 @@ class ProductsController < ApplicationController
 	load_and_authorize_resource
 	#before_action :set_product, only: [:show, :edit, :update, :destroy, :add_or_remove_to_shopping_list]
 	before_action :set_product_categories, only: [:new, :edit]
-	before_action :set_products, only: [:index, :add_or_remove_to_shopping_list]
+	before_action :set_products, only: [:index, :add_or_remove_to_shopping_list, :import_common]
 	before_action :set_available_products, only: [:index]
 
 	def show
 	end
 
 	def index
+		
 	end
 
 	def new
@@ -100,7 +101,7 @@ class ProductsController < ApplicationController
 			flash[:success] = 'Продукт изменен'
 			redirect_to products_path
 		else
-			flash.now[:success] = 'Продукт не изменен'
+			flash.now[:danger] = 'Продукт не изменен'
 			render 'edit', layout: "form_for_food_links_menu"
 		end
 	end
@@ -118,6 +119,23 @@ class ProductsController < ApplicationController
     end
     @products_in_shopping_list = Product.where(id: @product_ids)
 
+  end
+
+  def list_common
+  	@common_products = current_user.common_exclude_self_products
+  end
+
+  def import_common
+  	@common_products = Product.find(params[:product_ids])
+  	@imported_products_number = 0
+  	@common_products.each_with_index do |product,index| 
+  		products.find_or_create_by(name: product.name) 
+  		@imported_products_number = index + 1
+  	end
+  	if @imported_products_number > 0 
+  		flash[:success] = "Продуктов импортировано: #{@imported_products_number}"
+  	end
+  	redirect_to products_path
   end
 
 	private

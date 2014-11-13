@@ -10,10 +10,9 @@ FactoryGirl.define do
     end
 
     factory :admin, parent: :confirmed_user do
-      roles {[FactoryGirl.create(:admin_role)]}
+      role "admin"
     end
 
-    
   end
 
   factory :product do
@@ -26,12 +25,9 @@ FactoryGirl.define do
     factory :unavailable_product do
       available false
     end
-  end
 
-  factory :role do
-    sequence(:name) { |n| "Роль #{n}" }
-    factory :admin_role do
-      name :admin
+    factory :common_product do
+      common true
     end
   end
 

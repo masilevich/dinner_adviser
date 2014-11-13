@@ -1,17 +1,12 @@
 namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
-    make_roles
     make_users  
     make_products
     make_courses
     make_menus
     make_categories
   end
-end
-
-def make_roles
-  Role.create!(name: :admin)
 end
 
 def make_users
@@ -21,7 +16,7 @@ def make_users
     password_confirmation: "foobar",
     confirmed_at: "21.04.2014" 
     )
-  @admin.roles << Role.find_by(name: :admin)
+  @admin.admin!
   10.times do |n|
     full_name  = Faker::Name.name
     username  = full_name.split.join('_').downcase
@@ -46,6 +41,8 @@ def make_products
   users = User.all
   users.each { |user| user.products.create!(name: "Капуста для #{user.username}") }
   users.each { |user| user.products.create!(name: "Картошка для #{user.username}") }
+  Product.create!(name: "Общий продукт1", common: true)
+  Product.create!(name: "Общий продукт2", common: true)
 end
 
 def make_courses

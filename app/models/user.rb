@@ -36,7 +36,10 @@ class User < ActiveRecord::Base
   	end
   end
 
-  def role?(role)
-    !!self.roles.find_by_name(role.to_s)
+  enum role: [:admin, :common_food_manager]
+
+  def common_exclude_self_products
+    Product.common.merge(Product.exclude_by_name(products))
   end
+
 end

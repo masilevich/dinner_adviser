@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.1.0'
 #ruby-gemset=dinner_adviser
 
-gem 'rails', '4.0.2'
+gem 'rails', '4.1.4'
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'bcrypt-ruby', '3.1.2'
 gem 'faker', '1.1.2'
@@ -17,11 +17,11 @@ gem 'turbolinks', '1.1.1'
 gem 'jbuilder', '1.0.2'
 gem 'devise', '3.2.2'
 gem 'cancancan', '~> 1.9'
-gem 'i18n'
+gem 'i18n' 
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'
-  gem 'rspec-rails', '2.13.1'
+  gem "rspec-rails", '~> 2.14.0.rc1'
   gem 'spork-rails', '4.0.0'
   gem 'childprocess', '0.3.6'
   gem 'byebug'
@@ -39,6 +39,7 @@ group :test do
   gem 'cucumber-rails', '1.4.0', :require => false
   gem 'database_cleaner'
   gem 'capybara-webkit'
+  gem 'minitest'
 end
 
 

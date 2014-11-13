@@ -1,0 +1,18 @@
+<% content_for :content do %>
+
+<div class="row">
+	<div class="col-md-2">
+		<hr>
+		<ul class="nav nav-stacked">
+			<%#= render partial: "shared/#{"admin_" if controller_name.start_with?("admin") }food_links" %>
+			<%= yield(:food_links) if content_for?(:food_links) %>
+		</ul>
+		<hr>
+	</div>
+	<div class="col-md-10">
+		<%= content_for?(:form_content) ? yield(:form_content) : yield %>
+	</div>
+</div>
+
+<% end %>
+<%= render template: "layouts/application" %>

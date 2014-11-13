@@ -5,7 +5,6 @@ describe Product do
 	let(:user) { FactoryGirl.create(:user) }
 	before do
 		@product = user.products.build(name: "Молоко")
-		@common_product = Product.new(name: "Сыр", common: true)
 	end
 
 	subject { @product }
@@ -20,20 +19,15 @@ describe Product do
 	it { should respond_to(:category) }
 	it { should respond_to(:shopping_lists) }
 
-	it "should respond to availabled" do
-		expect(Product).to respond_to(:availabled)
-	end
-
-	it "should respond to unavailabled" do
-		expect(Product).to respond_to(:unavailabled)
-	end
-
-	it "should respond to enough" do
-		expect(Product).to respond_to(:enough)
-	end
-
-	it "should respond to not_enough" do
-		expect(Product).to respond_to(:not_enough)
+	describe "class methods" do
+	  subject { Product }
+	  it { should respond_to(:availabled) }
+	  it { should respond_to(:unavailabled) }
+	  it { should respond_to(:common) }
+	  it { should respond_to(:exclude_by_name) }
+	  it { should respond_to(:common_exclude_by_name) }
+	  it { should respond_to(:enough) }
+	  it { should respond_to(:not_enough) }
 	end
 
 	its(:user) { should eq user }
@@ -108,5 +102,16 @@ describe Product do
 	  	expect(@product.shopping_lists).to include(sl1) 
 	  	expect(@product.shopping_lists).to include(sl2) 
 	  end
+	end
+
+	describe "common" do
+		let!(:common_product) { FactoryGirl.create(:common_product) }
+	  specify{ expect(Product.common.to_a).to include(common_product)}
+	end
+
+	describe "exclude by name" do
+		let!(:common_product) { FactoryGirl.create(:common_product) }
+		let!(:user_product) { FactoryGirl.create(:product, user: user, name: common_product.name) }
+	  specify{ expect(Product.common_exclude_by_name(user.products).find_by(name: common_product.name)).to be_nil}
 	end
 end

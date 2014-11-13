@@ -1,0 +1,10 @@
+<%= form_for([:admin, @product]) do |f| %>
+<%= render 'shared/error_messages', object: f.object %>
+	<div><%= f.hidden_field :common %></div>
+	<div class="form-group">
+		<%= f.label :name, "Название" %>
+		<%= f.text_field :name %>
+	</div>
+	<%= f.submit "Сохранить", class: "btn btn-lg btn-primary" %>
+	</div>
+<% end %>

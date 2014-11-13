@@ -28,7 +28,7 @@ describe User do
   it { should respond_to(:menus) }
   it { should respond_to(:shopping_lists) }
   it { should respond_to(:categories) }
-  it { should respond_to(:roles) }
+  it { should respond_to(:role) }
 
   it { should be_valid }
 
@@ -133,20 +133,15 @@ describe User do
 
   end
 
-  describe "roles" do
-    describe "without" do
-      specify do
-      expect(@user.roles.to_a).to be_empty
-      expect(@user.roles(:admin)).to be_false 
-      end
-    end
-    
+  describe "role" do
     describe "admin" do
       before do
-        @user.roles << Role.new(name: :admin)
-        @user.save
+        @user.admin!
       end
-      specify {expect(@user.role?(:admin)).to be_true }
+      specify do
+        expect(@user.role).to eq "admin"
+        expect(@user.admin?).to be_true
+      end
     end
     
   end

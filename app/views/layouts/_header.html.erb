@@ -7,7 +7,7 @@
         <li><%= link_to "Главная", root_path %></li>
         <% if user_signed_in? %>
         
-        <% if current_user.role?(:admin) %>
+        <% if current_user.admin? %>
           <li><%= link_to "Администрирование", admin_root_path %></li>
         <% end %>
         <li id="fat-menu" class="dropdown">

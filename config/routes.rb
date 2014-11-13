@@ -8,6 +8,10 @@ DinnerAdviser::Application.routes.draw do
       put :set_availability
       put :add_or_remove_to_shopping_list
     end
+    collection do
+      get :import_common, action: :list_common
+      post :import_common, action: :import_common
+    end
   end
   
   resources :courses do

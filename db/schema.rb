@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141028063102) do
+ActiveRecord::Schema.define(version: 20141030080346) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -80,17 +80,6 @@ ActiveRecord::Schema.define(version: 20141028063102) do
   add_index "products_shopping_lists", ["product_id"], name: "index_products_shopping_lists_on_product_id"
   add_index "products_shopping_lists", ["shopping_list_id"], name: "index_products_shopping_lists_on_shopping_list_id"
 
-  create_table "roles", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "roles_users", id: false, force: true do |t|
-    t.integer "role_id"
-    t.integer "user_id"
-  end
-
   create_table "shopping_lists", force: true do |t|
     t.string   "name"
     t.integer  "user_id"
@@ -118,6 +107,7 @@ ActiveRecord::Schema.define(version: 20141028063102) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username"
+    t.integer  "role"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

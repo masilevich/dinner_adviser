@@ -2,7 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if user.role? :admin
+    if user.admin?
       can :manage, :all
     elsif user
       food_models = [Product, Course, Menu, ShoppingList, Category]
