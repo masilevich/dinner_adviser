@@ -1,0 +1,28 @@
+<% if @courses && @courses.any? %>
+<h2>Все (<%= @courses.count %>)</h2>
+
+<table class='table' id='courses_table'>
+	<thead>
+		<tr>
+			<th>Название</th>
+			<th>Состав</th>
+			<th></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @courses.each do |course| %>
+		<tr>
+			<td><%= link_to(course.name, admin_course_path(course), title: course.name) %></td>
+			<td><%= render course.products %></td>
+			<td>
+				<% if can? :destroy, course %>
+				<%= link_to "удалить", admin_course_path(course), method: :delete, remote: true, data: { confirm: "Вы уверены?" }, title: course.name %>
+				<% end %>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<% end %>

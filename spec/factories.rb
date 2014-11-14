@@ -50,7 +50,20 @@ FactoryGirl.define do
       after(:create) do |course, evaluator|
         create_list(:product, evaluator.products_count, courses: [course])
       end
-      #using create(:course_with_products, products_count: 15).products.length # 15
+    end
+
+    factory :common_course do
+      common true
+
+      factory :common_course_with_products do
+        ignore do
+          products_count 2
+        end
+        after(:create) do |course, evaluator|
+          create_list(:common_product, evaluator.products_count, courses: [course])
+        end
+      end
+
     end
   end
 

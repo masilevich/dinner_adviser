@@ -1,0 +1,15 @@
+<%= form_for([:admin, @course]) do |f| %>
+<%= render 'shared/error_messages', object: f.object %>
+	<div><%= f.hidden_field :common %></div>
+	<div class="form-group">
+		<%= f.label :name, "Название" %>
+		<%= f.text_field :name %>
+	</div>
+	<div class="form-group">
+		<%= f.label :ingridients, "Состав:" %>
+		<%= f.collection_select :product_ids, @common_products, :id, :name, @course.new_record? ? {} : {selected: @course.product_ids},
+		:multiple => true  %>
+	</div>
+	<%= f.submit "Сохранить", class: "btn btn-lg btn-primary" %>
+	</div>
+<% end %>

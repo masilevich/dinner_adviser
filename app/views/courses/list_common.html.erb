@@ -1,0 +1,36 @@
+<% provide(:title, 'Импорт типовых рецептов') %>
+
+<% if @common_courses && @common_courses.any? %>
+	<h2>Типовые рецепты (<%= @common_courses.count %>)</h2>
+	<%= form_tag import_common_courses_path do %>
+	<table class='table' id='common_courses_table'>
+		<thead>
+			<tr>
+				<th>Название</th>
+				<th>Состав</th>
+				<th>Импортировать</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<% @common_courses.find_each do |course| %>
+			<tr>
+				<td>
+					<% if can? :manage, course %>
+					<%= link_to wrap(course.name), course_path(course), title: course.name %>
+					<% else %>
+					<%= wrap(course.name) %>
+					<% end %>
+				</td>
+				<td><%= render partial: "products/product_simple_link", collection: course.products, 
+					as: :product %></td>
+				<td>
+					<%= check_box_tag "course_ids[]", course.id, nil, id: "course_chckbox_#{course.id}" %>
+				</td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+	<%= submit_tag "Импорт", class: "btn btn-lg btn-primary" %>
+	<% end %>
+<% end %>

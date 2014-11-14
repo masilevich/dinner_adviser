@@ -1,6 +1,5 @@
 	class Admin::ProductsController < Admin::AdminController
 
-		
 		before_action :set_common_products, only: [:index]
 
 		def show

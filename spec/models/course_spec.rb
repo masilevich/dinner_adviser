@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'common_shared_examples'
 
 describe Course do
 	let(:user) { FactoryGirl.create(:user) }
@@ -18,12 +19,13 @@ describe Course do
 	it { should respond_to(:ingridients) }
 	it { should respond_to(:menus) }
 
-	it "should respond to availabled" do
-		expect(Course).to respond_to(:availabled)
+	describe "class methods" do
+	  subject { Course }
+	  it { should respond_to(:availabled) }
+	  it { should respond_to(:without_category) }
+	  it_behaves_like "common"
 	end
-	it "should respond to without_category" do
-		expect(Course).to respond_to(:without_category)
-	end
+
 	
 	its(:user) { should eq user }
 

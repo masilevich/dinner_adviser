@@ -82,6 +82,28 @@ class CoursesController < ApplicationController
 
   end
 
+  def list_common
+    @common_courses = current_user.common_exclude_self_courses
+  end
+
+  def import_common
+    @common_courses = Course.find(params[:course_ids])
+    imported_courses_number = 0
+    @common_courses.each_with_index do |course,index| 
+      imported_course = courses.find_or_create_by(name: course.name)
+      course.products.each do |product|
+        imported_product = current_user.products.find_or_create_by(name: product.name)
+        imported_course.products << imported_product
+      end  
+      imported_course.save
+      imported_courses_number = index + 1
+    end
+    if imported_courses_number > 0 
+      flash[:success] = "Блюд импортировано: #{imported_courses_number}"
+    end
+    redirect_to courses_path
+  end
+
   private
 
   def set_courses

@@ -42,4 +42,8 @@ class User < ActiveRecord::Base
     Product.common.merge(Product.exclude_by_name(products))
   end
 
+  def common_exclude_self_courses
+    Course.common.merge(Course.exclude_by_name(courses))
+  end
+
 end

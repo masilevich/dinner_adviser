@@ -62,6 +62,7 @@ describe "Static pages" do
         describe "common food links" do
           before {click_link "Администрирование"}
           it { should have_link("Базовые продукты", href: admin_products_path) }
+          it { should have_link("Типовые рецепты", href: admin_courses_path) }
         end
       end
     end

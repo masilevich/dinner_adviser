@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'shared_food'
+require 'common_shared_examples'
 
 describe Product do
 	let(:user) { FactoryGirl.create(:user) }
@@ -23,9 +24,7 @@ describe Product do
 	  subject { Product }
 	  it { should respond_to(:availabled) }
 	  it { should respond_to(:unavailabled) }
-	  it { should respond_to(:common) }
-	  it { should respond_to(:exclude_by_name) }
-	  it { should respond_to(:common_exclude_by_name) }
+	  it_behaves_like "common"
 	  it { should respond_to(:enough) }
 	  it { should respond_to(:not_enough) }
 	end

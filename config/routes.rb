@@ -18,6 +18,10 @@ DinnerAdviser::Application.routes.draw do
     member do
       put :add_or_remove_to_menu
     end
+    collection do
+      get :import_common, action: :list_common
+      post :import_common, action: :import_common
+    end
   end
 
   resources :menus do
@@ -36,6 +40,7 @@ DinnerAdviser::Application.routes.draw do
   namespace :admin do
     root :to => "admin#index"
     resources :products
+    resources :courses
   end
 
   root 'static_pages#home'

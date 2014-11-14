@@ -1,0 +1,5 @@
+<h2><%= course.name %></h2>
+Состав:
+<ul class="products" >
+	<%= render partial: "admin/products/product_with_li", collection: course.products, :as => :product  %>
+</ul>

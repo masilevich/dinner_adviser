@@ -3,9 +3,19 @@ shared_context "two products" do
 	let!(:p2) { FactoryGirl.create(:product, user: user) }
 end
 
+shared_context "two common products" do
+	let!(:cp1) { FactoryGirl.create(:common_product) }
+	let!(:cp2) { FactoryGirl.create(:common_product) }
+end
+
 shared_context "course and two products" do
 	include_context "two products"
 	let!(:course) {FactoryGirl.create(:course,user: user)}
+end
+
+shared_context "common course and two products" do
+	include_context "two common products"
+	let!(:course) {FactoryGirl.create(:common_course)}
 end
 
 shared_context "two courses" do

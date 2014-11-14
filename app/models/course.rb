@@ -1,5 +1,6 @@
 class Course < ActiveRecord::Base
 	include Categorizable
+	include Commonable
 	belongs_to :user
 	has_many :ingridients,  dependent: :destroy
 	has_many :products, through: :ingridients

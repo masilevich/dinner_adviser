@@ -1,16 +1,3 @@
 <% provide(:title, 'Изменить блюдо') %>
 
-<%= form_for(@course) do |f| %>
-<%= render 'shared/error_messages', object: f.object %>
-
-<%= f.label :name, "Название" %>
-<%= f.text_field :name %>
-
-<%= f.label :ingridients, "Состав:" %>
-<%= f.collection_select :product_ids, @products, :id, :name, {selected: @course.product_ids}, :multiple => true %>
-
-<%= f.label :course_category, "Вид блюда:" %>
-<%= f.collection_select(:category_id, @course_categories, :id, :name, :include_blank  => true) %>
-
-<%= f.submit "Сохранить", class: "btn btn-lg btn-primary" %>
-<% end %>
+<%= render 'course_form' %>
