@@ -6,7 +6,8 @@ describe "MenusPages" do
 	include Warden::Test::Helpers
 	include MenusHelper
 	Warden.test_mode!
-	include_context "shared stuff"
+	include_context "login user"
+	include_context "CRUD buttons and links names"
 	include AsyncHelper
 
 	describe "index" do

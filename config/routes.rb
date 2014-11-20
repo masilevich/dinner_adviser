@@ -1,7 +1,6 @@
 DinnerAdviser::Application.routes.draw do
 
   devise_for :users
-  resources :roles
 
   resources :products do
     member do
@@ -41,6 +40,16 @@ DinnerAdviser::Application.routes.draw do
     root :to => "admin#index"
     resources :products
     resources :courses
+  end
+
+  resource :introduction, controller: 'introduction' do
+    collection do
+      get :next_step
+      get :list_common_products
+      post :import_products
+      get :list_common_courses
+      post :import_courses
+    end
   end
 
   root 'static_pages#home'

@@ -1,12 +1,14 @@
 require 'spec_helper'
 require 'shared_stuff'
 require 'shared_food'
+require 'import_common_shared_examples'
 
 describe "CoursesPages" do
 	include Warden::Test::Helpers
 	Warden.test_mode!
 
-	include_context "shared stuff"
+	include_context "login user"
+	include_context "CRUD buttons and links names"
 
 	let(:course_name) { "Картошка" }
 	
@@ -217,79 +219,7 @@ describe "CoursesPages" do
 		end
 	end
 
-	describe "import common" do
-		let!(:cc1) { FactoryGirl.create(:common_course) }
-		let!(:cc2) { FactoryGirl.create(:common_course) }
-
-		before do
-			visit import_common_courses_path
-		end	
-
-		it { should have_title(full_title('Импорт типовых рецептов')) }
-		it { should have_button('Импорт') }
-
-		describe "list" do
-			let!(:course_with_common_name) { FactoryGirl.create(:course, user: user, name: cc1.name) }
-			before {visit import_common_courses_path}
-			it { should have_content("Типовые рецепты (#{user.common_exclude_self_courses.count})") }
-
-			it "each common course exclude user courses" do
-				user.common_exclude_self_courses.each do |course|
-					expect(page).to have_selector('td', text: course.name)
-				end
-			end
-
-			it "should not show user courses" do
-				user.courses.each do |course|
-					expect(page).to_not have_selector('td', text: course.name)
-				end
-			end
-
-			describe "course with ingridients" do
-			  let!(:course_with_products) { FactoryGirl.create(:common_course_with_products) }
-			  before {visit import_common_courses_path}
-			  specify do 
-			  	course_with_products.products.each do |product|  
-			  		expect(page).to have_link(product.name, href: product_path(product)) 
-			  	end
-			  end
-			end
-		end
-		
-		describe "submit" do
-			before do
-				user.common_exclude_self_courses.each do |course|  
-					check "course_chckbox_#{course.id}"
-				end
-				@imported_courses = user.common_exclude_self_courses.to_a
-				click_button "Импорт"
-			end
-			it { should have_content("Блюд импортировано: #{@imported_courses.count}") }
-			it "should list each imported_courses" do
-				@imported_courses.each { |course|  expect(page).to have_content(course.name) }
-			end
-		end
-
-		describe "with products" do
-			let!(:cp1) { FactoryGirl.create(:common_product) }
-			let!(:cp2) { FactoryGirl.create(:common_product) }
-			let!(:p1) { FactoryGirl.create(:product, user: user, name: cp1.name) }
-			before do
-				cc1.products << cp1
-				cc1.products << cp2
-				cc1.save
-				check "course_chckbox_#{cc1.id}"
-				click_button "Импорт"
-			end
-
-			specify {expect(page).to have_content(cc1.name)}
-			it "should copy common product to user products" do
-				expect(user.products).to_not include(cp1)
-				expect(user.courses.find_by(name: cc1.name).products).to include(p1)
-				expect(user.products.find_by(name: cp2.name)).to_not be_nil
-			end
-
-		end
-
+	it_should_behave_like "import common courses" do
+		let(:import_path) { import_common_courses_path }
 	end
 end

@@ -6,7 +6,8 @@ describe "ShoppingListSPages" do
 	include Warden::Test::Helpers
 	Warden.test_mode!
 
-	include_context "shared stuff"
+	include_context "login user"
+	include_context "CRUD buttons and links names"
 
 	let(:shopping_list_name) { "Список покупок на выходные" }
 

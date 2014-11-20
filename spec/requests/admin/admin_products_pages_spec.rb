@@ -4,7 +4,8 @@ require 'shared_stuff'
 describe "Admin::ProductsPages" do
 	include Warden::Test::Helpers
 	Warden.test_mode!
-	include_context "shared stuff"
+	include_context "login user"
+	include_context "CRUD buttons and links names"
 
 	let(:admin) {FactoryGirl.create(:admin)}
 	before do

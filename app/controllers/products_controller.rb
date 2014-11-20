@@ -7,6 +7,8 @@ class ProductsController < ApplicationController
 	before_action :set_products, only: [:index, :add_or_remove_to_shopping_list, :import_common]
 	before_action :set_available_products, only: [:index]
 
+	include ImportCommon
+
 	def show
 	end
 
@@ -106,37 +108,33 @@ class ProductsController < ApplicationController
 		end
 	end
 
-  def add_or_remove_to_shopping_list
-    @product_ids = if params[:product_ids]
-      params[:product_ids].map { |i| i.to_i }
-    else
-      []
-    end 
-    if params[:add_to_shopping_list]
-      @product_ids << @product.id
-    else
-      @product_ids.delete(@product.id)
-    end
-    @products_in_shopping_list = Product.where(id: @product_ids)
+	def add_or_remove_to_shopping_list
+		@product_ids = if params[:product_ids]
+			params[:product_ids].map { |i| i.to_i }
+		else
+			[]
+		end 
+		if params[:add_to_shopping_list]
+			@product_ids << @product.id
+		else
+			@product_ids.delete(@product.id)
+		end
+		@products_in_shopping_list = Product.where(id: @product_ids)
 
-  end
+	end
 
-  def list_common
-  	@common_products = current_user.common_exclude_self_products
-  end
+	def list_common
+		list_common_products
+	end
 
-  def import_common
-  	@common_products = Product.find(params[:product_ids])
-  	@imported_products_number = 0
-  	@common_products.each_with_index do |product,index| 
-  		products.find_or_create_by(name: product.name) 
-  		@imported_products_number = index + 1
-  	end
-  	if @imported_products_number > 0 
-  		flash[:success] = "Продуктов импортировано: #{@imported_products_number}"
-  	end
-  	redirect_to products_path
-  end
+	def import_common
+		import_common_products do |imported_products_number|
+			if imported_products_number > 0 
+				flash[:success] = "Продуктов импортировано: #{imported_products_number}"
+			end
+		end
+		redirect_to products_path
+	end
 
 	private
 

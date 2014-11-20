@@ -1,11 +1,13 @@
 require 'spec_helper'
 require 'shared_stuff'
+require 'import_common_shared_examples'
 
 describe "ProductsPages" do
 	include Warden::Test::Helpers
 	Warden.test_mode!
 
-	include_context "shared stuff"
+	include_context "login user"
+	include_context "CRUD buttons and links names"
 
 	let(:product_name) { "Жареная курица" }
 
@@ -240,45 +242,7 @@ describe "ProductsPages" do
 		it { should have_content(product.name)}
 	end
 
-	describe "import common" do
-		let!(:cp1) { FactoryGirl.create(:common_product) }
-		let!(:cp2) { FactoryGirl.create(:common_product) }
-		let!(:p1) { FactoryGirl.create(:product, user: user, name: cp1.name) }
-
-
-		before do
-			visit import_common_products_path
-		end	
-
-		it { should have_title(full_title('Импорт базовых продуктов')) }
-		it { should have_content("Базовые продукты (#{user.common_exclude_self_products.count})") }
-		it { should have_button('Импорт') }
-
-		it "should list each common product exclude user products" do
-			user.common_exclude_self_products.each do |product|
-				expect(page).to have_selector('td', text: product.name)
-			end
-		end
-
-		it "should not list user products" do
-			user.products.each do |product|
-				expect(page).to_not have_selector('td', text: product.name)
-			end
-		end
-
-		describe "submit" do
-			before do
-				user.common_exclude_self_products.each do |product|  
-					check "product_chckbox_#{product.id}"
-				end
-				@imported_products = user.common_exclude_self_products.to_a
-		  	click_button "Импорт"
-			end
-			it { should have_content("Продуктов импортировано: #{@imported_products.count}") }
-			it "should list each imported_products" do
-				@imported_products.each { |product|  expect(page).to have_content(product.name) }
-			end
-		end
-
+	it_should_behave_like "import common products" do
+		let(:import_path) { import_common_products_path }
 	end
 end

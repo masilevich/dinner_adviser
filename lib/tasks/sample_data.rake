@@ -49,6 +49,8 @@ def make_courses
   users = User.all
   users.each { |user| user.courses.create!(name: "Пюре для #{user.username}") }
   users.each { |user| user.courses.create!(name: "Курица для #{user.username}") }
+  Course.create!(name: "Общее блюдо1", common: true)
+  Course.create!(name: "Общее блюдо2", common: true)
 end
 
 def make_menus
