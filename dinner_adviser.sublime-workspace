@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"do",
+				"dob	Insert do |variable| … end"
+			],
+			[
+				"let",
+				"let	let(:object) { }"
+			],
+			[
+				"pro",
+				"product"
+			],
+			[
+				"ex",
+				"exp	expect(subject).to something"
+			],
+			[
+				"p",
+				"product"
+			],
+			[
+				"impo",
+				"imported_products"
+			],
+			[
+				"imp",
+				"import_products"
+			],
+			[
 				"share",
 				"shared_context"
 			],
@@ -24,20 +52,12 @@
 				"controller"
 			],
 			[
-				"pro",
-				"product"
-			],
-			[
 				"produ",
 				"product"
 			],
 			[
 				"common",
 				"common_course"
-			],
-			[
-				"imp",
-				"imported_product"
 			],
 			[
 				"fin",
@@ -72,10 +92,6 @@
 				"Импорт"
 			],
 			[
-				"p",
-				"products"
-			],
-			[
 				"produc",
 				"products"
 			],
@@ -100,10 +116,6 @@
 				"name"
 			],
 			[
-				"let",
-				"letb	let!(:object) { }"
-			],
-			[
 				"set",
 				"set_products"
 			],
@@ -118,10 +130,6 @@
 			[
 				"sa",
 				"save"
-			],
-			[
-				"do",
-				"doe	Insert do … end"
 			],
 			[
 				"cm",
@@ -506,40 +514,16 @@
 			[
 				"ha",
 				"have_content"
-			],
-			[
-				"eac",
-				"each"
-			],
-			[
-				"creat",
-				"created_at"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "app/controllers/introduction_controller.rb",
+			"file": "app/views/advices/random_course.js.erb",
 			"settings":
 			{
-				"buffer_size": 611,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/controllers/courses_controller.rb",
-			"settings":
-			{
-				"buffer_size": 2790,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "spec/requests/courses_pages_spec.rb",
-			"settings":
-			{
-				"buffer_size": 8414,
+				"buffer_size": 0,
 				"line_ending": "Unix"
 			}
 		}
@@ -605,33 +589,65 @@
 	},
 	"file_history":
 	[
-		"/home/leanid/rails_projects/dinner_adviser/app/controllers/products_controller.rb",
-		"/home/leanid/rails_projects/dinner_adviser/app/controllers/concerns/import_common.rb",
-		"/home/leanid/rails_projects/dinner_adviser/spec/requests/products_pages_spec.rb",
+		"/home/leanid/rails_projects/dinner_adviser/app/views/advices/random_course.html.erb",
+		"/home/leanid/rails_projects/dinner_adviser/app/controllers/advices_controller.rb",
+		"/home/leanid/rails_projects/dinner_adviser/app/views/advices/random_course.js.erb",
+		"/home/leanid/rails_projects/dinner_adviser/app/controllers/application_controller.rb",
+		"/home/leanid/rails_projects/dinner_adviser/config/routes.rb",
+		"/home/leanid/rails_projects/dinner_adviser/app/views/layouts/food_links_menu.html.erb",
+		"/home/leanid/rails_projects/dinner_adviser/spec/requests/static_pages_spec.rb",
+		"/home/leanid/rails_projects/dinner_adviser/app/controllers/static_pages_controller.rb",
+		"/home/leanid/rails_projects/dinner_adviser/app/views/layouts/food_links_menu_container.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/spec/requests/introduction_pages_spec.rb",
+		"/home/leanid/rails_projects/dinner_adviser/app/views/advices/new.html.erb",
+		"/home/leanid/rails_projects/dinner_adviser/spec/factories.rb",
+		"/home/leanid/rails_projects/dinner_adviser/app/views/products/_product_form.html.erb",
+		"/home/leanid/rails_projects/dinner_adviser/app/views/products/new.html.erb",
+		"/home/leanid/rails_projects/dinner_adviser/app/views/menus/_menu_form.html.erb",
+		"/home/leanid/rails_projects/dinner_adviser/app/views/menus/new.html.erb",
+		"/home/leanid/rails_projects/dinner_adviser/app/views/layouts/_form_for_menu.html.erb",
+		"/home/leanid/rails_projects/dinner_adviser/app/views/advices/new.js.erb",
+		"/home/leanid/rails_projects/dinner_adviser/app/controllers/sessions_controller.rb",
+		"/home/leanid/rails_projects/dinner_adviser/db/schema.rb",
+		"/home/leanid/rails_projects/dinner_adviser/spec/requests/authorization_pages_spec.rb",
+		"/home/leanid/.rvm/gems/ruby-2.1.0@dinner_adviser/gems/rspec-core-2.14.8/lib/rspec/core/configuration.rb",
+		"/home/leanid/rails_projects/dinner_adviser/lib/tasks/sample_data.rake",
+		"/home/leanid/rails_projects/dinner_adviser/spec/import_common_shared_examples.rb",
+		"/home/leanid/rails_projects/dinner_adviser/app/controllers/concerns/import_common.rb",
+		"/home/leanid/rails_projects/dinner_adviser/app/controllers/introduction_controller.rb",
+		"/home/leanid/rails_projects/dinner_adviser/app/views/introduction/list_common_products.html.erb",
+		"/home/leanid/rails_projects/dinner_adviser/app/views/introduction/list_common_courses.html.erb",
+		"/home/leanid/rails_projects/dinner_adviser/app/views/introduction/show.html.erb",
+		"/home/leanid/rails_projects/dinner_adviser/spec/requests/products_pages_spec.rb",
+		"/home/leanid/rails_projects/dinner_adviser/spec/requests/courses_pages_spec.rb",
+		"/home/leanid/rails_projects/dinner_adviser/spec/shared_food.rb",
+		"/home/leanid/rails_projects/dinner_adviser/spec/shared_stuff.rb",
+		"/home/leanid/rails_projects/dinner_adviser/app/views/shared/_list_common_products.html.erb",
+		"/home/leanid/rails_projects/dinner_adviser/app/views/shared/_table_with_categories.html.erb",
+		"/home/leanid/rails_projects/dinner_adviser/spec/models/course_spec.rb",
+		"/home/leanid/rails_projects/dinner_adviser/spec/common_shared_examples.rb",
+		"/home/leanid/rails_projects/dinner_adviser/spec/requests/admin/admin_products_pages_spec.rb",
+		"/home/leanid/rails_projects/dinner_adviser/spec/spec_helper.rb",
+		"/home/leanid/rails_projects/dinner_adviser/app/views/products/list_common.html.erb",
+		"/home/leanid/rails_projects/dinner_adviser/app/views/courses/list_common.html.erb",
+		"/home/leanid/rails_projects/dinner_adviser/app/views/shared/_list_common_courses.html.erb",
+		"/home/leanid/rails_projects/dinner_adviser/app/views/introduction/list_products.html.erb",
+		"/home/leanid/rails_projects/dinner_adviser/app/controllers/products_controller.rb",
+		"/home/leanid/rails_projects/dinner_adviser/app/controllers/courses_controller.rb",
+		"/home/leanid/rails_projects/dinner_adviser/app/views/menus/products.html.erb",
+		"/home/leanid/rails_projects/dinner_adviser/app/views/menus/show.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/models/concerns/sub_category.rb",
 		"/home/leanid/rails_projects/dinner_adviser/app/models/categories/course_category.rb",
 		"/home/leanid/rails_projects/dinner_adviser/app/models/categories/category.rb",
 		"/home/leanid/rails_projects/dinner_adviser/app/models/concerns/categorizable.rb",
 		"/home/leanid/rails_projects/dinner_adviser/app/models/categories/menu_category.rb",
 		"/home/leanid/rails_projects/dinner_adviser/app/models/concerns/commonable.rb",
-		"/home/leanid/rails_projects/dinner_adviser/app/controllers/courses_controller.rb",
-		"/home/leanid/rails_projects/dinner_adviser/config/routes.rb",
-		"/home/leanid/rails_projects/dinner_adviser/spec/requests/authorization_pages_spec.rb",
-		"/home/leanid/rails_projects/dinner_adviser/spec/spec_helper.rb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/introduction/import_courses.html.erb",
-		"/home/leanid/rails_projects/dinner_adviser/spec/shared_stuff.rb",
-		"/home/leanid/rails_projects/dinner_adviser/spec/requests/static_pages_spec.rb",
-		"/home/leanid/rails_projects/dinner_adviser/spec/requests/courses_pages_spec.rb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/introduction/index.html.erb",
-		"/home/leanid/rails_projects/dinner_adviser/app/views/products/list_common.html.erb",
-		"/home/leanid/rails_projects/dinner_adviser/app/views/courses/list_common.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/introduction/import_products.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/spec/requests/shopping_lists_pages_spec.rb",
 		"/home/leanid/rails_projects/dinner_adviser/spec/requests/menus_pages_spec.rb",
-		"/home/leanid/rails_projects/dinner_adviser/spec/requests/admin/admin_products_pages_spec.rb",
 		"/home/leanid/rails_projects/dinner_adviser/spec/requests/admin/admin_courses_pages_spec.rb",
-		"/home/leanid/rails_projects/dinner_adviser/spec/shared_food.rb",
 		"/home/leanid/rails_projects/dinner_adviser/app/controllers/menus_controller.rb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/introduction/intro.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/static_pages/contact.html.erb",
@@ -639,9 +655,6 @@
 		"/home/leanid/rails_projects/dinner_adviser/app/views/static_pages/_home_signed_in.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/helpers/courses_helper.rb",
 		"/home/leanid/rails_projects/dinner_adviser/app/helpers/products_helper.rb",
-		"/home/leanid/rails_projects/dinner_adviser/app/controllers/static_pages_controller.rb",
-		"/home/leanid/rails_projects/dinner_adviser/app/views/products/_product_form.html.erb",
-		"/home/leanid/rails_projects/dinner_adviser/app/views/shared/_table_with_categories.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/menus/_courses_for_menu_lists.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/layouts/_two_columns_lists.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/admin/courses/index.html.erb",
@@ -655,11 +668,9 @@
 		"/home/leanid/rails_projects/dinner_adviser/app/views/admin/products/_product.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/admin/courses/_course_show.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/admin/products/_product_with_li.html.erb",
-		"/home/leanid/rails_projects/dinner_adviser/spec/factories.rb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/admin/courses/show.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/controllers/admin/products_controller.rb",
 		"/home/leanid/rails_projects/dinner_adviser/app/controllers/admin/courses_controller.rb",
-		"/home/leanid/rails_projects/dinner_adviser/app/controllers/application_controller.rb",
 		"/home/leanid/rails_projects/dinner_adviser/app/controllers/admin/admin_controller.rb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/products/_product.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/courses/show.html.erb",
@@ -673,18 +684,14 @@
 		"/home/leanid/rails_projects/dinner_adviser/app/views/courses/new.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/admin/courses/_course_form.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/courses/_course_form.html.erb",
-		"/home/leanid/rails_projects/dinner_adviser/app/views/products/new.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/courses/_course.html.erb",
-		"/home/leanid/rails_projects/dinner_adviser/spec/models/course_spec.rb",
 		"/home/leanid/rails_projects/dinner_adviser/spec/models/product_spec.rb",
-		"/home/leanid/rails_projects/dinner_adviser/spec/common_shared_examples.rb",
 		"/home/leanid/rails_projects/dinner_adviser/spec/support/support_helpers.rb",
 		"/home/leanid/rails_projects/dinner_adviser/spec/support/async_helper.rb",
 		"/home/leanid/rails_projects/dinner_adviser/spec/support/shared_examples.rb",
 		"/home/leanid/rails_projects/dinner_adviser/app/models/product.rb",
 		"/home/leanid/rails_projects/dinner_adviser/app/models/course.rb",
 		"/home/leanid/rails_projects/dinner_adviser/spec/shared_examples_for_kinds.rb",
-		"/home/leanid/rails_projects/dinner_adviser/db/schema.rb",
 		"/home/leanid/rails_projects/dinner_adviser/db/migrate/20141113111055_add_common_to_courses.rb",
 		"/home/leanid/rails_projects/dinner_adviser/db/migrate/20141030080346_add_role_to_users.rb",
 		"/home/leanid/rails_projects/dinner_adviser/db/migrate/20140422103409_create_courses.rb",
@@ -708,31 +715,8 @@
 		"/home/leanid/rails_projects/dinner_adviser/app/views/products/_common_products_table.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/products/import_common.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/layouts/admin_form_for_food_links_menu.html.erb",
-		"/home/leanid/rails_projects/dinner_adviser/app/views/layouts/_form_for_menu.html.erb",
-		"/home/leanid/rails_projects/dinner_adviser/app/views/layouts/food_links_menu_container.html.erb",
-		"/home/leanid/rails_projects/dinner_adviser/app/views/layouts/food_links_menu.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/helpers/application_helper.rb",
-		"/home/leanid/rails_projects/dinner_adviser/app/views/layouts/form_for_food_links_menu.html.erb",
-		"/home/leanid/rails_projects/dinner_adviser/db/migrate/20140605130155_add_index_to_course_kind.rb",
-		"/home/leanid/rails_projects/dinner_adviser/db/migrate/20141105114327_add_index_to_common_products.rb",
-		"/home/leanid/rails_projects/dinner_adviser/app/views/layouts/_header.html.erb",
-		"/home/leanid/rails_projects/dinner_adviser/app/views/layouts/_debug.html.erb",
-		"/home/leanid/.rvm/gems/ruby-2.1.0@dinner_adviser/gems/rspec-core-2.14.8/lib/rspec/core/configuration.rb",
-		"/home/leanid/rails_projects/dinner_adviser/app/views/admin/products/edit.html.erb",
-		"/home/leanid/rails_projects/dinner_adviser/app/views/admin/products/new.html.erb",
-		"/home/leanid/rails_projects/dinner_adviser/app/views/admin/products/_product_form.html.erb",
-		"/home/leanid/rails_projects/dinner_adviser/app/views/menus/_menu_form.html.erb",
-		"/home/leanid/rails_projects/dinner_adviser/app/views/admin/products/_products_table.html.erb",
-		"/home/leanid/rails_projects/dinner_adviser/app/views/products/destroy.js.erb",
-		"/home/leanid/rails_projects/dinner_adviser/app/views/admin/products/destroy.js.erb",
-		"/home/leanid/rails_projects/dinner_adviser/app/views/admin/products/index.html.erb",
-		"/home/leanid/rails_projects/dinner_adviser/spec/requests/advice_pages_spec.rb",
-		"/home/leanid/rails_projects/dinner_adviser/spec/admin/requests/products_pages_spec.rb",
-		"/home/leanid/rails_projects/sample_app/spec/api/users_spec.rb",
-		"/home/leanid/rails_projects/sample_app/spec/api/microposts_spec.rb",
-		"/home/leanid/rails_projects/dinner_adviser/app/views/layouts/_food_links.html.erb",
-		"/home/leanid/rails_projects/dinner_adviser/app/views/layouts/application.html.erb",
-		"/home/leanid/rails_projects/sample_app/spec/spec_helper.rb"
+		"/home/leanid/rails_projects/dinner_adviser/app/views/layouts/form_for_food_links_menu.html.erb"
 	],
 	"find":
 	{
@@ -743,6 +727,8 @@
 		"height": 93.0,
 		"where_history":
 		[
+			"/home/leanid/rails_projects/dinner_adviser/spec",
+			"/home/leanid/rails_projects/dinner_adviser",
 			"/home/leanid/rails_projects/dinner_adviser/spec",
 			"/home/leanid/rails_projects/dinner_adviser",
 			"/home/leanid/rails_projects/sample_app",
@@ -844,6 +830,10 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"fill_in",
+			"sign",
+			"after_sign",
+			"shared_examples",
 			"import",
 			"redirect",
 			"кув",
@@ -967,11 +957,7 @@
 			"menu",
 			"product",
 			"menu",
-			"product",
-			"kind",
-			"product_kind",
-			"product_kinds",
-			"kind"
+			"product"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1095,292 +1081,27 @@
 			[
 				{
 					"buffer": 0,
-					"file": "app/controllers/introduction_controller.rb",
+					"file": "app/views/advices/random_course.js.erb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 611,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								276,
-								276
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"sublime_auto_complete": true,
-							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+							"syntax": "Packages/Rails/JavaScript (Rails).tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "app/controllers/courses_controller.rb",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2790,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2034,
-								2034
-							]
-						],
-						"settings":
-						{
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"sublime_auto_complete": true,
-							"syntax": "Packages/Ruby/Ruby.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1026.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "spec/requests/courses_pages_spec.rb",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8414,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6055,
-								6055
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/RSpec/RSpec.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 3842.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1421,7 +1142,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 344.0
+		"height": 174.0
 	},
 	"output.find_results":
 	{
@@ -1500,7 +1221,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 268.0,
+	"side_bar_width": 307.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

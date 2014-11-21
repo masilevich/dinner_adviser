@@ -54,9 +54,13 @@ DinnerAdviser::Application.routes.draw do
 
   root 'static_pages#home'
 
-  match '/advice',    to: 'advices#new', via: 'get'
-  match '/about',    to: 'static_pages#about', via: 'get'
-  match '/contact',    to: 'static_pages#contact', via: 'get'
+  get 'advice', to: 'advices#random_course'
+  get 'advice(/:course_id)', to: 'advices#random_course'
+  #match '/advice',    to: 'advices#random_course', via: 'get'
+  #match '/advice/:course_id',    to: 'advices#random_course', via: 'get'
+
+  get '/about',    to: 'static_pages#about'
+  get '/contact',    to: 'static_pages#contact'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
