@@ -1,11 +1,7 @@
 <% content_for :form_content do %>
-<h2><%= yield(:title) %></h2>
-<div class="row">
-	<div class="col-md-6 col-md-offset-3">
-		<div class="border-form-div">
-			<%= yield %>
-		</div>
-	</div>
-</div>
+	<h2><%= yield(:title) %></h2>
 
+	<%= render layout: "layouts/form" do %>
+		<%= yield %>
+	<% end %>
 <% end %>
