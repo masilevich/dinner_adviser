@@ -1,9 +1,0 @@
-<% provide(:title, "Случайный рецепт") %>
-
-<% if !@course.nil? %>
-<div  id="advice_course">
-	<%= render partial: "courses/course_show", object: @course, :as => :course  %>
-</div>
-<%= link_to "Следующий", advice_path, class: "btn btn-lg btn-primary",
-remote: true%>
-<% end %>
