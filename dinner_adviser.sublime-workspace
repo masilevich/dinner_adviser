@@ -519,6 +519,14 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "dinner_adviser.sublime-project",
+			"settings":
+			{
+				"buffer_size": 203,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -581,6 +589,7 @@
 	},
 	"file_history":
 	[
+		"/home/leanid/rails_projects/dinner_adviser/dinner_adviser.sublime-project",
 		"/home/leanid/rails_projects/dinner_adviser/.git/MERGE_MSG",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/menus/_menu_form.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/courses/_course_form.html.erb",
@@ -707,8 +716,7 @@
 		"/home/leanid/rails_projects/dinner_adviser/app/views/admin/courses/_products_table.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/admin/courses/destroy.js.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/admin/courses/edit.html.erb",
-		"/home/leanid/rails_projects/dinner_adviser/app/views/admin/admin/index.html.erb",
-		"/home/leanid/rails_projects/sample_app/spec/models/user_spec.rb"
+		"/home/leanid/rails_projects/dinner_adviser/app/views/admin/admin/index.html.erb"
 	],
 	"find":
 	{
@@ -1070,8 +1078,37 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "dinner_adviser.sublime-project",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 203,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
