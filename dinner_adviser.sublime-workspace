@@ -581,6 +581,7 @@
 	},
 	"file_history":
 	[
+		"/home/leanid/rails_projects/dinner_adviser/.git/MERGE_MSG",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/menus/_menu_form.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/courses/_course_form.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/courses/_course_show.html.erb",
@@ -707,8 +708,7 @@
 		"/home/leanid/rails_projects/dinner_adviser/app/views/admin/courses/destroy.js.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/admin/courses/edit.html.erb",
 		"/home/leanid/rails_projects/dinner_adviser/app/views/admin/admin/index.html.erb",
-		"/home/leanid/rails_projects/sample_app/spec/models/user_spec.rb",
-		"/home/leanid/rails_projects/sample_app/spec/models/micropost_spec.rb"
+		"/home/leanid/rails_projects/sample_app/spec/models/user_spec.rb"
 	],
 	"find":
 	{
