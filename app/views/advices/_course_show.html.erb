@@ -1,0 +1,7 @@
+<%= render layout: 'layouts/form' do  %>
+<% if !@course.nil? %>
+<%= render partial: "courses/course_show", object: @course, :as => :course  %>
+<% else %>
+<h2>Нет рецептов</h2>
+<% end %>
+<% end %>

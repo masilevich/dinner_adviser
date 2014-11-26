@@ -1,12 +1,12 @@
 <% provide(:title, "Случайный рецепт") %>
 
-<% if !@course.nil? %>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<div class="form-div" id="random_course_select_form">
+			<%= render 'random_course_select_form' %>
+		</div>
+	</div>
+</div>
 <div  id="advice_course">
-	<%= render partial: "courses/course_show", object: @course, :as => :course  %>
+	<%= render 'course_show' %>
 </div>
-<div  id="next_course_link">
-	<%= render "next_random_course_link" %>
-</div>
-<% else %>
-	<h2>Нет рецептов</h2>
-<% end %>

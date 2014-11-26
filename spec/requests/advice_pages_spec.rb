@@ -7,36 +7,60 @@ describe "AdvicePages" do
 	subject { page }
 
 	let(:user) { FactoryGirl.create(:confirmed_user) }
-	let!(:available_course) { FactoryGirl.create(:course_with_available_product, user: user,
-		name: "available course") }
-	let!(:unavailable_course) { FactoryGirl.create(:course_with_unavailable_product, user: user,
-		name: "unavailable course") }
+	let!(:course) { FactoryGirl.create(:course, user: user) }
+	let!(:category1) { FactoryGirl.create(:course_category, user: user, name: "a") }
+	let!(:category2) { FactoryGirl.create(:course_category, user: user, name: "b") }
 	before {login_as(user, :scope => :user)}
 
 	describe "get advice" do
 		before {visit advice_path}
 
 		it { should have_title(full_title('Случайный рецепт')) }
-		it { should have_content(available_course.name) }
-		it { should_not have_content(unavailable_course.name) }
-		it {should have_link("Следующий", href: advice_path)}
+		it { should have_content(course.name) }
+		it { should have_button("Следующий")}
+		it { should have_select('course_type', :options => ['Все', 'Доступные для приготовления']) }
+		it { should have_select('course_category', :options => ['Все', category1.name, category2.name]) }
 
-		describe "should have only available course after update page" do
-			before { visit advice_path }
-			it { should have_content(available_course.name) }
-			it { should_not have_content(unavailable_course.name) }
+		describe "from empty category" do
+			before do
+				select category1.name, :from => "course_category"
+				click_button "Следующий"
+			end
+		  it { should have_content "Нет рецептов" }
+		end
+
+		describe "with category" do
+		  let!(:course_with_category) { FactoryGirl.create(:course, user: user, category: category1) }
+		 	before do
+		 	  select category1.name, :from => "course_category"
+				click_button "Следующий"
+		 	end
+		 	it { should have_content(course_with_category.name) }
+		end
+
+		describe "dont repeat twice one course" do
+		  let!(:another_course) { FactoryGirl.create(:course, user: user) }
+		 	specify do
+		 	  10.times do |i|
+		 	    expect(page).to have_content([course.name, another_course.name][i])
+		 	    click_button "Следующий"
+		 	  end
+		 	end
+		end
+
+		describe "with select availabled type" do
+			let!(:available_course) { FactoryGirl.create(:course_with_available_product, user: user) }
+		  before do
+		 	  select 'Доступные для приготовления', :from => "course_type"
+				click_button "Следующий"
+		 	end
+		 	it "should take course from user availabled courses" do
+		 	  expect(page).to have_content(available_course.name)
+		 	  select 'Все', :from => "course_type"
+				click_button "Следующий"
+				expect(page).to have_content(course.name)
+		 	end
 		end
 	end
 
-	it "should have the right links on the layout" do
-		visit root_path
-		click_link "Случайный рецепт"
-		expect(page).to have_title(full_title('Случайный рецепт'))
-		click_link "Продукты"
-		expect(page).to have_title(full_title('Продукты'))
-		click_link "Мои рецепты"
-		expect(page).to have_title( full_title('Мои рецепты'))
-		click_link "Обеденный советник"
-		expect(page).to have_title( full_title(''))
-	end
 end

@@ -1,2 +1,2 @@
-$("#advice_course").html("<%= escape_javascript(render(partial: 'courses/course_show', :locals => {:course => @course})) %>")
-$("#next_course_link").html("<%= escape_javascript(render(partial: 'next_random_course_link')) %>")
+$("#advice_course").html("<%= escape_javascript(render(partial: 'course_show')) %>")
+$("#random_course_select_form").html("<%= escape_javascript(render(partial: 'random_course_select_form')) %>")

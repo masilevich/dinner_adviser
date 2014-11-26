@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
       case controller_name
       when "products", "courses", "advices", "categories"
         case action_name
-        when "new" , "edit" , "show", "random_course"
+        when "new" , "edit" , "show"
           "form_for_food_links_menu"
         else 
           "food_links_menu"
