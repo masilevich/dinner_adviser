@@ -66,7 +66,29 @@ describe "User pages" do
           text: "Вход в систему выполнен.") }
       end
       
+      describe "redirect" do
 
+        describe "for first time sign in user" do
+          before do
+            fill_in "user_login",     with: user.email
+            fill_in "user_password",     with: user.password
+            click_button submit
+          end
+          it { should have_title(full_title('Введение')) }
+        end
+
+        describe "default" do
+          let(:user) { FactoryGirl.create(:confirmed_user,sign_in_count: 2, last_sign_in_at: Time.now) }
+          before do
+            fill_in "user_login",     with: user.email
+            fill_in "user_password",     with: user.password
+            click_button submit
+          end
+          it { should have_title(full_title('Случайный рецепт')) }
+        end
+        
+        
+      end
     end
   end
 

@@ -130,7 +130,6 @@ describe User do
         end
       end
     end
-
   end
 
   describe "role" do
@@ -143,7 +142,38 @@ describe User do
         expect(@user.admin?).to be_true
       end
     end
-    
   end
 
+  describe "#first_sign_in_today?" do
+    context 'false' do
+      let(:user) { FactoryGirl.create(:confirmed_user, last_sign_in_at: Time.now) }
+      specify do
+        expect(user.first_sign_in_today?).to be_false
+      end
+    end
+
+    context 'true' do
+      let(:user) { FactoryGirl.create(:confirmed_user, last_sign_in_at: 1.day.ago) }
+      specify do
+        expect(user.first_sign_in_today?).to be_true
+      end
+    end
+  end
+
+  describe "#first_sign_in?" do
+    context 'false' do
+      let(:user) { FactoryGirl.create(:confirmed_user, sign_in_count: 2) }
+      specify do
+        expect(user.first_sign_in?).to be_false
+      end
+    end
+
+    context 'true' do
+      let(:user) { FactoryGirl.create(:confirmed_user, sign_in_count: 1) }
+      specify do
+        expect(user.first_sign_in?).to be_true
+      end
+    end
+
+  end
 end

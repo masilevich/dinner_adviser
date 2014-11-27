@@ -4,8 +4,14 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
   def after_sign_in_path_for(resource)
-    if current_user.sign_in_count == 1
+
+    if current_user.first_sign_in?
+
       introduction_path
+    elsif current_user.first_sign_in_today?
+      flash.notice = "Актуализируйте продукты"
+      products_path
+
     else
       root_path
     end

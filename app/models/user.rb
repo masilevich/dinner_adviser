@@ -46,4 +46,11 @@ class User < ActiveRecord::Base
     Course.common.merge(Course.exclude_by_name(courses))
   end
 
+  def first_sign_in_today?
+    last_sign_in_at.to_date != Date.today
+  end
+
+  def first_sign_in?
+    sign_in_count == 1
+  end
 end

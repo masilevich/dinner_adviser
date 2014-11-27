@@ -9,7 +9,7 @@ describe "IntroductionPages" do
 	subject { page }
 
 	shared_examples_for "introduction first page" do
-		it { should have_title('Введение') }
+		it { should have_title(full_title('Введение')) }
 	end
 
 	describe "for signed user" do
