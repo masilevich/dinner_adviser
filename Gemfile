@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 ruby '2.1.0'
-#ruby-gemset=dinner_adviser
 
 gem 'rails', '4.1.4'
 gem 'bootstrap-sass', '~> 3.1.1'
