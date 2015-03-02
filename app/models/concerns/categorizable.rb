@@ -12,14 +12,4 @@ module Categorizable
 		scope :with_category, ->(category) {where(category_id: category.id)}
 	end
 
-
-  	# методы класса
-  	module ClassMethods
-
-  	end
-
-	  # инстанс-методы
-	  module InstanceMethods
-	  		
-	  end
-	end
+end
