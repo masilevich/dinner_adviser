@@ -253,14 +253,51 @@ ru:
     errors:
       <<: *errors
   activerecord:
+    models:
+      category:
+        one: &category "Категория"
+        other: "Категории"
+      product:
+        one: &product "Продукт"
+        other: &products "Продукты"
+      course:
+        one: &course "Блюдо"
+        other: &courses "Блюда"
+      menu:
+        one: &menu "Меню"
+        other: &menus "Меню"
+      shopping_list:
+        one: &shopping_list "Список покупок"
+        other: &shopping_lists "Списки покупок"
     attributes:
+      name: &name "Название"
       user:
         login: "Email или имя пользователя"
         username: "Имя пользователя"
         password: "Пароль"
         password_confirmation: "Подтверждение пароля"
         current_password: "Текущий пароль"
+      product:
+        name: *name
+        category: *category
+      course:
+        name: *name
+        category: *category
+        products: "Состав"
+      menu:
+        date: "Дата"
+        category: *category
+      shopping_list:
+        name: *name
+        category: *category
     errors:
       <<: *errors
   unauthorized:
     default: "Вы не имеете права для выполнения операции."
+  js:
+    placeholders:
+      product_name: "Введите название продукта"
+      course_name: "Введите название блюда"
+      shopping_list_name: "Введите название списка покупок"
+      menu_name: "Введите название меню"
+      category: "Введите название категории"

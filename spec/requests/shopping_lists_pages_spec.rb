@@ -8,6 +8,8 @@ describe "ShoppingListSPages" do
 
 	include_context "login user"
 	include_context "CRUD buttons and links names"
+	let(:create_button) { "Создать Список покупок" }
+	let(:save_button) { "Сохранить Список покупок" }
 
 	let(:shopping_list_name) { "Список покупок на выходные" }
 
@@ -19,11 +21,11 @@ describe "ShoppingListSPages" do
 		describe "with invalid information" do
 
 			it "should not create a shopping_list" do
-				expect { click_button save_button }.not_to change(ShoppingList, :count)
+				expect { click_button create_button }.not_to change(ShoppingList, :count)
 			end
 
 			describe "error messages" do
-				before { click_button save_button }
+				before { click_button create_button }
 				it { should have_error_message('Список покупок не добавлен') }
 
 				describe "after visiting another page" do
@@ -38,7 +40,7 @@ describe "ShoppingListSPages" do
 
 			describe "after save" do
 				before do
-					click_button save_button
+					click_button create_button
 					@shopping_list = ShoppingList.find_by_name(shopping_list_name)
 				end
 
@@ -46,7 +48,7 @@ describe "ShoppingListSPages" do
 			end
 
 			it "should create a shopping_list" do
-				expect { click_button save_button }.to change(ShoppingList, :count).by(1)
+				expect { click_button create_button }.to change(ShoppingList, :count).by(1)
 			end
 
 		end

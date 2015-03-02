@@ -10,6 +10,9 @@ describe "MenusPages" do
 	include_context "CRUD buttons and links names"
 	include AsyncHelper
 
+	let(:create_button) { "Создать Меню" }
+	let(:save_button) { "Сохранить Меню" }
+
 	describe "index" do
 		let!(:m1) { FactoryGirl.create(:menu, user: user) }
 		let!(:m2) { FactoryGirl.create(:menu, user: user) }
@@ -63,7 +66,7 @@ describe "MenusPages" do
 				fill_in 'menu_date', with: @menu_date
 			end
 			it "should create a menu" do
-				expect { click_button save_button }.to change(Menu, :count).by(1)
+				expect { click_button create_button }.to change(Menu, :count).by(1)
 			end
 
 			describe "and menu_category select" do
@@ -72,7 +75,7 @@ describe "MenusPages" do
 					visit new_menu_path
 					fill_in 'menu_date', with: @menu_date
 					select mk1.name, :from => "menu_category_id"
-					click_button save_button
+					click_button create_button
 				end
 				it "should contain menu_category" do
 					expect(Menu.find_by_date(@menu_date).category).to eq mk1
@@ -81,7 +84,7 @@ describe "MenusPages" do
 
 			describe "and menu_category select blank" do
 				before do
-					click_button save_button
+					click_button create_button
 				end
 				it "should not contain menu_categories" do
 					expect(Menu.find_by_date(@menu_date).category).to be_nil
@@ -101,7 +104,7 @@ describe "MenusPages" do
 
 					describe "should be in menu courses" do		
 						before do
-							page.find('#save_button').trigger('click')
+							click_button create_button
 						end
 
 						it "after save" do

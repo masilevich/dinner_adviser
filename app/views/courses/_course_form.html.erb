@@ -1,15 +1,16 @@
-<%= form_for(@course) do |f| %>
+<%= semantic_form_for(@course) do |f| %>
 <%= render 'shared/error_messages', object: f.object %>
 
-<%= f.label :name, "Название" %>
-<%= f.text_field :name %>
+	<%=f.inputs do %>
+		<%=f.input :name %>
 
-<%= f.label :ingridients, "Состав:" %>
-<%= f.collection_select :product_ids, @products, :id, :name, @course.new_record? ? {} : {selected: @course.product_ids},
-:multiple => true  %>
+		<%=f.input :products, collection: @products, input_html: { class: 'select2', data: { placeholder: t('js.placeholders.product_name') }} %>
 
-<%= f.label :course_category, "Вид блюда:" %>
-<%= f.collection_select(:category_id, @course_categories, :id, :name, :include_blank  => true) %>
+		<%=f.input :category, collection: @course_categories, input_html: { class: 'select2', data: { placeholder: t('js.placeholders.category') }} %>
 
-<%= f.submit "Сохранить", class: "btn btn-lg btn-primary" %>
+	<% end %>
+
+	<%= f.actions do %>
+	  	<%= f.submit :class => "btn btn-lg btn-primary" %>
+	<% end %>
 <% end %>

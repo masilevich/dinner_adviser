@@ -1,18 +1,14 @@
-<%= form_for(@product) do |f| %>
-<%= render 'shared/error_messages', object: f.object %>
+<%= semantic_form_for(@product) do |f| %>
+	<%= render 'shared/error_messages', object: f.object %>
 
-<div class="form-group">
-<%= f.label :name, "Название" %>
-<%= f.text_field :name %>
-</div>
+	<%=f.inputs do %>
+		<%=f.input :name %>
 
-<div class="form-group">
-<%= f.label :product_category, "Вид продукта:" %>
-<%= f.collection_select(:category_id, @product_categories, :id, :name, :include_blank  => true) %>
-</div>
+		<%=f.input :category, collection: @product_categories, input_html: { class: 'select2', data: { placeholder: t('js.placeholders.category') }} %>
+	<% end %>
 
-<div class="form-group">
-<%= f.submit "Сохранить", class: "btn btn-lg btn-primary" %>
-</div>
+	<%= f.actions do %>
+	  	<%= f.submit :class => "btn btn-lg btn-primary" %>
+	<% end %>
 
 <% end %>

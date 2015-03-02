@@ -11,6 +11,8 @@ describe "CoursesPages" do
 	include_context "CRUD buttons and links names"
 
 	let(:course_name) { "Картошка" }
+	let(:create_button) { "Создать Блюдо" }
+	let(:save_button) { "Сохранить Блюдо" }
 	
 	describe "index" do
 		let!(:c1) { FactoryGirl.create(:course, user: user) }
@@ -123,10 +125,10 @@ describe "CoursesPages" do
 		describe "with invalid information" do
 
 			it "should not create a course" do
-				expect { click_button save_button }.not_to change(Course, :count)
+				expect { click_button create_button }.not_to change(Course, :count)
 			end
 			describe "error messages" do
-				before { click_button save_button }
+				before { click_button create_button }
 				it { should have_error_message('Блюдо не добавлено') }
 			end
 		end
@@ -137,12 +139,12 @@ describe "CoursesPages" do
 				fill_in 'course_name', with: course_name
 			end
 			it "should create a course" do
-				expect { click_button save_button }.to change(Course, :count).by(1)
+				expect { click_button create_button }.to change(Course, :count).by(1)
 			end
 
 			describe "and blank other fields" do
 				before do
-					click_button save_button
+					click_button create_button
 				end
 				subject { Course.find_by_name(course_name) }
 				its(:products) {should eq []}
@@ -153,7 +155,7 @@ describe "CoursesPages" do
 			describe "and product select" do
 				before do
 					select p1.name, :from => "course_product_ids"
-					click_button save_button
+					click_button create_button
 				end
 				it "should contain product" do
 					expect(Course.find_by_name(course_name).products).to include(p1)
@@ -166,7 +168,7 @@ describe "CoursesPages" do
 					visit new_course_path
 					fill_in 'course_name', with: course_name
 					select ck1.name, :from => "course_category_id"
-					click_button save_button
+					click_button create_button
 				end
 				it "should contain course_category" do
 					expect(Course.find_by_name(course_name).category).to eq ck1
