@@ -6,6 +6,8 @@ describe "Admin::ProductsPages" do
 	Warden.test_mode!
 	include_context "login user"
 	include_context "CRUD buttons and links names"
+	let(:create_button) { "Создать Продукт" }
+	let(:save_button) { "Сохранить Продукт" }
 
 	let(:admin) {FactoryGirl.create(:admin)}
 	before do
@@ -50,14 +52,14 @@ describe "Admin::ProductsPages" do
 		describe "with invalid information" do
 
 			it "should not create a product" do
-				expect { click_button save_button }.not_to change(Product, :count)
+				expect { click_button create_button }.not_to change(Product, :count)
 			end
 
 			describe "render" do
-				before { click_button save_button }
+				before { click_button create_button }
 
 				describe "error messages" do
-					before { click_button save_button }
+					before { click_button create_button }
 					it { should have_error_message('Продукт не добавлен') }
 				end
 
@@ -73,7 +75,7 @@ describe "Admin::ProductsPages" do
 			describe "after save" do
 				before do
 					fill_in 'product_name', with: product_name
-					click_button save_button
+					click_button create_button
 					@product = Product.find_by_name(product_name)
 				end
 
@@ -82,7 +84,7 @@ describe "Admin::ProductsPages" do
 			end
 
 			it "should create a product" do
-				expect { click_button save_button }.to change(Product.common, :count).by(1)
+				expect { click_button create_button }.to change(Product.common, :count).by(1)
 			end
 
 		end

@@ -1,10 +1,11 @@
-<%= form_for([:admin, @product]) do |f| %>
+<%= semantic_form_for([:admin, @product]) do |f| %>
 <%= render 'shared/error_messages', object: f.object %>
-	<div><%= f.hidden_field :common %></div>
-	<div class="form-group">
-		<%= f.label :name, "Название" %>
-		<%= f.text_field :name %>
-	</div>
-	<%= f.submit "Сохранить", class: "btn btn-lg btn-primary" %>
-	</div>
+	<%=f.inputs do %>
+		<%=f.input :common, as: :hidden %>
+		<%=f.input :name %>
+	<% end %>
+
+	<%= f.actions do %>
+	  	<%= f.submit :class => "btn btn-lg btn-primary" %>
+	<% end %>
 <% end %>

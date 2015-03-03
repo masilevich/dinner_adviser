@@ -1,4 +1,162 @@
 ru:
+  errors: &errors
+    format: ! '%{attribute} %{message}'
+    messages:
+      accepted: 'нужно подтвердить'
+      blank: 'не может быть пустым'
+      confirmation: 'не совпадает со значением поля %{attribute}'
+      empty: не может быть пустым
+      equal_to: может иметь лишь значение, равное %{count}
+      even: может иметь лишь нечетное значение
+      exclusion: имеет зарезервированное значение
+      greater_than: может иметь значение большее %{count}
+      greater_than_or_equal_to: может иметь значение большее или равное %{count}
+      inclusion: имеет непредусмотренное значение
+      invalid: имеет неверное значение
+      less_than: может иметь значение меньшее чем %{count}
+      less_than_or_equal_to: может иметь значение меньшее или равное %{count}
+      not_a_number: не является числом
+      not_an_integer: не является целым числом
+      odd: может иметь лишь четное значение
+      record_invalid: ! 'Возникли ошибки: %{errors}'
+      taken: уже существует
+      too_long:
+        few: слишком большой длины (не может быть больше чем %{count} символа)
+        many: слишком большой длины (не может быть больше чем %{count} символов)
+        one: слишком большой длины (не может быть больше чем %{count} символ)
+        other: слишком большой длины (не может быть больше чем %{count} символа)
+      too_short:
+        few: недостаточной длины (не может быть меньше %{count} символов)
+        many: недостаточной длины (не может быть меньше %{count} символов)
+        one: недостаточной длины (не может быть меньше %{count} символа)
+        other: недостаточной длины (не может быть меньше %{count} символа)
+      wrong_length:
+        few: неверной длины (может быть длиной ровно %{count} символа)
+        many: неверной длины (может быть длиной ровно %{count} символов)
+        one: неверной длины (может быть длиной ровно %{count} символ)
+        other: неверной длины (может быть длиной ровно %{count} символа)
+    template:
+      body: ! 'Проблемы возникли со следующими полями:'
+      header:
+        few: ! '%{model}: сохранение не удалось из-за %{count} ошибок'
+        many: ! '%{model}: сохранение не удалось из-за %{count} ошибок'
+        one: ! '%{model}: сохранение не удалось из-за %{count} ошибки'
+        other: ! '%{model}: сохранение не удалось из-за %{count} ошибки'
+  activemodel:
+    errors:
+      <<: *errors
+  activerecord:
+    models:
+      category:
+        one: &category "Категория"
+        other: &categories "Категории"
+      product_category:
+        one: "Категория продуктов"
+        other: "Категории продуктов"
+      course_category:
+        one: "Категория блюд"
+        other: "Категории блюд"
+      menu_category:
+        one: "Категория меню"
+        other: "Категории меню"
+      product:
+        one: &product "Продукт"
+        other: &products "Продукты"
+      course:
+        one: &course "Блюдо"
+        other: &courses "Блюда"
+      menu:
+        one: &menu "Меню"
+        other: &menus "Меню"
+      shopping_list:
+        one: &shopping_list "Список покупок"
+        other: &shopping_lists "Списки покупок"
+    attributes:
+      name: &name "Название"
+      user:
+        login: "Email или имя пользователя"
+        username: "Имя пользователя"
+        password: "Пароль"
+        password_confirmation: "Подтверждение пароля"
+        current_password: "Текущий пароль"
+      product:
+        name: *name
+        category: *category
+      course:
+        name: *name
+        category: *category
+        products: "Состав"
+      menu:
+        date: "Дата"
+        category: *category
+      shopping_list:
+        name: *name
+        category: *category
+    errors:
+      <<: *errors
+  unauthorized:
+    default: "Вы не имеете права для выполнения операции."
+  js:
+    placeholders:
+      product_name: "Введите название продукта"
+      course_name: "Введите название блюда"
+      shopping_list_name: "Введите название списка покупок"
+      menu_name: "Введите название меню"
+      category: "Введите название категории"
+  devise:
+    username:
+      title: "Имя пользователя"
+    email:
+      title: "Адрес e-mail"
+    login:
+      title: "Адрес e-mail или имя пользователя"
+    subdomain:
+      title: "Поддомен"
+    password:
+      title: "Пароль"
+    password_confirmation:
+      title: "Подтверждение пароля"
+    current_password:
+      title: "Текущий пароль"
+    sign_up:
+      title: "Зарегистрироваться"
+      submit: "Зарегистрироваться"
+    edit_registration:
+      title: "Редактировать профиль"
+      submit: "Обновить"
+      delete:
+        title: "Удалить учетную запись"
+        submit: "Удалить"
+      unconfirmed_email: "Ожидается подтверждение учетной записи"
+    sign_in:
+      title: "Войти"
+      remember_me: "Запомнить меня"
+      submit: "Войти"
+    reset_password:
+      title: "Забыли пароль?"
+      submit: "Выслать"
+    change_password:
+      title: "Изменение пароля"
+      submit: "Изменение пароля"
+    unlock:
+      title: "Повторно отправить инструкции по разблокировке"
+      submit: "Повторно отправить инструкции по разблокировке"
+    resend_confirmation_instructions:
+      title: "Выслать повторно письмо с активацией"
+      submit: "Выслать повторно письмо с активацией"
+    links:
+      sign_in: "Войти"
+      sign_up: "Регистрация"
+      forgot_your_password: "Забыли пароль?"
+      sign_in_with_omniauth_provider: "Войти с помощью %{provider}"
+      resend_confirmation_instructions: "Не получили письмо с активацией?"
+    mailer:
+      confirm_account: Подтвердить регистрацию
+      change_password: Изменить пароль
+      unlock_account: Разблокировать учетную запись
+    delete_confirmation: 'Вы уверены, что хотите удалить аккаунт?'
+  access_denied:
+    message: "Вы не авторизованы для выполнения данного действия."
   date:
     abbr_day_names:
     - Вс
@@ -117,49 +275,6 @@ ru:
       month: Месяц
       second: Секунд
       year: Год
-  errors: &errors
-    format: ! '%{attribute} %{message}'
-    messages:
-      accepted: нужно подтвердить
-      blank: не может быть пустым
-      confirmation: 'не совпадает со значением поля %{attribute}'
-      empty: не может быть пустым
-      equal_to: может иметь лишь значение, равное %{count}
-      even: может иметь лишь нечетное значение
-      exclusion: имеет зарезервированное значение
-      greater_than: может иметь значение большее %{count}
-      greater_than_or_equal_to: может иметь значение большее или равное %{count}
-      inclusion: имеет непредусмотренное значение
-      invalid: имеет неверное значение
-      less_than: может иметь значение меньшее чем %{count}
-      less_than_or_equal_to: может иметь значение меньшее или равное %{count}
-      not_a_number: не является числом
-      not_an_integer: не является целым числом
-      odd: может иметь лишь четное значение
-      record_invalid: ! 'Возникли ошибки: %{errors}'
-      taken: уже существует
-      too_long:
-        few: слишком большой длины (не может быть больше чем %{count} символа)
-        many: слишком большой длины (не может быть больше чем %{count} символов)
-        one: слишком большой длины (не может быть больше чем %{count} символ)
-        other: слишком большой длины (не может быть больше чем %{count} символа)
-      too_short:
-        few: недостаточной длины (не может быть меньше %{count} символов)
-        many: недостаточной длины (не может быть меньше %{count} символов)
-        one: недостаточной длины (не может быть меньше %{count} символа)
-        other: недостаточной длины (не может быть меньше %{count} символа)
-      wrong_length:
-        few: неверной длины (может быть длиной ровно %{count} символа)
-        many: неверной длины (может быть длиной ровно %{count} символов)
-        one: неверной длины (может быть длиной ровно %{count} символ)
-        other: неверной длины (может быть длиной ровно %{count} символа)
-    template:
-      body: ! 'Проблемы возникли со следующими полями:'
-      header:
-        few: ! '%{model}: сохранение не удалось из-за %{count} ошибок'
-        many: ! '%{model}: сохранение не удалось из-за %{count} ошибок'
-        one: ! '%{model}: сохранение не удалось из-за %{count} ошибки'
-        other: ! '%{model}: сохранение не удалось из-за %{count} ошибки'
   helpers:
     select:
       prompt: ! 'Выберите: '
@@ -167,6 +282,7 @@ ru:
       create: Создать %{model}
       submit: Сохранить %{model}
       update: Сохранить %{model}
+    back: "Назад"
   number:
     currency:
       format:
@@ -248,56 +364,3 @@ ru:
       long: ! '%d %B %Y, %H:%M'
       short: ! '%d %b, %H:%M'
     pm: вечера
-  # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
-  activemodel:
-    errors:
-      <<: *errors
-  activerecord:
-    models:
-      category:
-        one: &category "Категория"
-        other: "Категории"
-      product:
-        one: &product "Продукт"
-        other: &products "Продукты"
-      course:
-        one: &course "Блюдо"
-        other: &courses "Блюда"
-      menu:
-        one: &menu "Меню"
-        other: &menus "Меню"
-      shopping_list:
-        one: &shopping_list "Список покупок"
-        other: &shopping_lists "Списки покупок"
-    attributes:
-      name: &name "Название"
-      user:
-        login: "Email или имя пользователя"
-        username: "Имя пользователя"
-        password: "Пароль"
-        password_confirmation: "Подтверждение пароля"
-        current_password: "Текущий пароль"
-      product:
-        name: *name
-        category: *category
-      course:
-        name: *name
-        category: *category
-        products: "Состав"
-      menu:
-        date: "Дата"
-        category: *category
-      shopping_list:
-        name: *name
-        category: *category
-    errors:
-      <<: *errors
-  unauthorized:
-    default: "Вы не имеете права для выполнения операции."
-  js:
-    placeholders:
-      product_name: "Введите название продукта"
-      course_name: "Введите название блюда"
-      shopping_list_name: "Введите название списка покупок"
-      menu_name: "Введите название меню"
-      category: "Введите название категории"

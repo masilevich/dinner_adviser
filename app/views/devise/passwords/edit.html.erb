@@ -1,16 +1,18 @@
-<% provide(:title, 'Смена пароля') %>
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
-<%= render 'shared/error_messages', object: f.object %>
-<%= f.hidden_field :reset_password_token %>
+<% provide(:title, t('devise.change_password.title')) %>
 
-<%= f.label :password, "Новый пароль" %>
-<%= f.password_field :password, :autofocus => true %>
+<%= semantic_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <%= f.hidden_field :reset_password_token %>
 
-<%= f.label :password_confirmation, "Повторите новый пароль" %>
-<%= f.password_field :password_confirmation %>
+  <%= f.inputs do %>
+    <%=f.input :password, label: t('devise.password.title')%>
+    <%=f.input :password_confirmation, label: t('devise.password_confirmation.title')%>
+  <% end %>
+  
 
-<%= f.submit "Сменить" %>
+  <%= f.actions do %>
+    <%= f.action :submit, label: t('devise.change_password.submit'), button_html: { value: t('devise.change_password.submit'), class: "btn btn-lg btn-primary" } %>
+  <% end %>
 <% end %>
 
 <%= render "devise/shared/links" %>
-

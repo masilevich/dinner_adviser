@@ -27,7 +27,7 @@ describe "User pages" do
         before { click_button submit }
 
         it { should have_title(full_title('Войти')) }
-        it { should have_link("Регистрация", href: new_user_registration_path) }
+        it { should have_link("Зарегистрироваться", href: new_user_registration_path) }
         it { should_not have_link("Выход", href: destroy_user_session_path) }
         it { should have_selector('div.alert.alert-alert', text: "Неверный логин или пароль.") }
       end
@@ -45,7 +45,7 @@ describe "User pages" do
         it { should have_selector('div.alert.alert-notice', 
           text: "Вход в систему выполнен.") }
 
-        it { should_not have_link("Регистрация", href: new_user_registration_path) }
+        it { should_not have_link("Зарегистрироваться", href: new_user_registration_path) }
         it { should_not have_link("Войти", href: new_user_session_path) }
         it { should have_link("Профиль", href: edit_user_registration_path(user)) }
         it { should have_link("Выход", href: destroy_user_session_path) }
@@ -98,11 +98,11 @@ describe "User pages" do
 
     describe "page" do
 
-      it { should have_selector('h2',    text: 'Регистрация') }
-      it { should have_title(full_title('Регистрация')) }
+      it { should have_selector('h2',    text: 'Зарегистрироваться') }
+      it { should have_title(full_title('Зарегистрироваться')) }
     end
 
-    let(:submit) { "Регистрация" }
+    let(:submit) { "Зарегистрироваться" }
 
     describe "with invalid information" do
       it "should not create a user" do
@@ -112,7 +112,7 @@ describe "User pages" do
       describe "after submission" do
         before { click_button submit }
 
-        it { should have_title(full_title('Регистрация')) }
+        it { should have_title(full_title('Зарегистрироваться')) }
         it { should have_content('ошибк') }
       end
     end
@@ -188,7 +188,7 @@ describe "User pages" do
 
         describe "should be unconfirmed" do
           before {visit edit_user_registration_path(user)}
-          it { should have_content("ожидается подтвеждение для: #{new_email}") }
+          it { should have_content("Ожидается подтверждение учетной записи") }
         end
 
         it "should send notification" do

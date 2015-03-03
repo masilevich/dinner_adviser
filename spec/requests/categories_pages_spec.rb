@@ -12,16 +12,19 @@ describe "categories_pages" do
 	before {login_as(user, :scope => :user)}
 
 	CATEGORYTYPES.each do |type|
+	let(:create_button) { "Добавить" }
+	let(:save_button) { "Сохранить Категория" }
+
 		describe "creation" do
 			before {visit polymorphic_path(type.tableize)}
 			describe "with invalid information" do
 
 				it "should not create a #{type}" do
-					expect { click_button "Добавить" }.not_to change(type.constantize, :count)
+					expect { click_button create_button }.not_to change(type.constantize, :count)
 				end
 
 				describe "error messages" do
-					before { click_button "Добавить" }
+					before { click_button create_button }
 					it { should have_error_message("Вид #{RUTYPEPLURALIZE[type]} не добавлен") }
 				end
 			end
@@ -29,7 +32,7 @@ describe "categories_pages" do
 			describe "with valid information" do
 				before {fill_in "#{type.underscore}_name", with: type }
 				it "should create a #{type.constantize}" do
-					expect { click_button "Добавить" }.to change(type.constantize, :count).by(1)
+					expect { click_button create_button }.to change(type.constantize, :count).by(1)
 				end
 			end
 
@@ -84,7 +87,7 @@ describe "categories_pages" do
 			before do
 				visit edit_polymorphic_path(category)
 				fill_in "#{type.underscore}_name", with: new_category_name
-				click_button "Сохранить"
+				click_button save_button
 			end 
 			it "should update a #{type.tableize}" do
 				expect(category.reload.name).to eq new_category_name

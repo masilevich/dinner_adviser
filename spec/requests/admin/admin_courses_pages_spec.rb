@@ -7,6 +7,8 @@ describe "Admin::CoursesPages" do
 	Warden.test_mode!
 	include_context "login user"
 	include_context "CRUD buttons and links names"
+	let(:create_button) { "Создать Блюдо" }
+	let(:save_button) { "Сохранить Блюдо" }
 
 
 	let(:admin) {FactoryGirl.create(:admin)}
@@ -69,14 +71,14 @@ describe "Admin::CoursesPages" do
 		describe "with invalid information" do
 
 			it "should not create a course" do
-				expect { click_button save_button }.not_to change(Course, :count)
+				expect { click_button create_button }.not_to change(Course, :count)
 			end
 
 			describe "render" do
-				before { click_button save_button }
+				before { click_button create_button }
 
 				describe "error messages" do
-					before { click_button save_button }
+					before { click_button create_button }
 					it { should have_error_message('Блюдо не добавлено') }
 				end
 
@@ -91,7 +93,7 @@ describe "Admin::CoursesPages" do
 
 			describe "after save" do
 				before do
-					click_button save_button
+					click_button create_button
 					@course = Course.find_by_name(course_name)
 				end
 
@@ -101,7 +103,7 @@ describe "Admin::CoursesPages" do
 			end
 
 			it "should create a course" do
-				expect { click_button save_button }.to change(Course.common, :count).by(1)
+				expect { click_button create_button }.to change(Course.common, :count).by(1)
 			end
 
 		end

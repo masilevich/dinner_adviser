@@ -1,34 +1,33 @@
-<% provide(:title, 'Редактировать профиль') %>
+<% provide(:title, t('devise.edit_registration.title')) %>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-<%= render 'shared/error_messages', object: f.object %>
+<%= semantic_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
 
-<%= f.label :username, "Имя пользователя" %>
-<%= f.text_field :username, :autofocus => true %>
+  <%=f.inputs do %>
 
-<%= f.label :email, "Email" %>
-<%= f.email_field :email %>
+    <%=f.input :username, label: t('devise.username.title'), required: true%>
+    <%=f.input :email, label: t('devise.email.title')%>
 
-<% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-ожидается подтвеждение для: <%= resource.unconfirmed_email %>
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div><%= t('devise.edit_registration.unconfirmed_email') %>: <%= resource.unconfirmed_email %></div>
+    <% end %>
+
+    <%=f.input :password, label: t('devise.password.title')%>
+    <%=f.input :password_confirmation, label: t('devise.password_confirmation.title'), required: true%>
+    <%=f.input :current_password, label: t('devise.current_password.title'), required: true%>
+  <% end %>
+
+  <%=f.actions do%>
+    <%=f.action :submit, label: t('devise.edit_registration.submit'), button_html: { value: t('devise.edit_registration.submit'), class: "btn btn-lg btn-primary" } %>
+  <% end %>
+
+  <%= link_to t('helpers.back'), :back %><br />
 <% end %>
 
-<%= f.label :password, "Новый пароль" %> <i>(оставьте пустым, если не хотите менять)</i>
-<%= f.password_field :password, :autocomplete => "off" %>
-
-<%= f.label :password_confirmation, "Повторите новый пароль" %>
-<%= f.password_field :password_confirmation %>
-
-<%= f.label :current_password, "Текущий пароль" %> <i>(введите текущий пароль - требуется для подтверждения изменений)</i>
-<%= f.password_field :current_password %>
-
-<%= f.submit "Обновить", class: "btn btn-lg btn-primary" %>
-<% end %>
-
-<h3>Удалить</h3>
+<h3><%= t('devise.edit_registration.delete.title')  %></h3>
 
 <p>
-  <%= button_to "Удалить аккаунт", registration_path(resource_name), :data => { :confirm => "Вы уверены?" }, :method => :delete,  class: "btn btn-lg btn-danger" %>
+  <%= button_to t('devise.edit_registration.delete.submit'), registration_path(resource_name), :data => { :confirm => t('devise.delete_confirmation') }, :method => :delete,  class: "btn btn-lg btn-danger" %>
 </p>
 
-<%= link_to "Назад", :back %>
+<%= link_to t('helpers.back'), :back %>
