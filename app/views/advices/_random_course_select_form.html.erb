@@ -1,8 +1,20 @@
 <%= form_tag({controller: 'advices', action: 'random_course'}, remote: true, method: 'get') do %>
-	<%= hidden_field_tag :course_id, @course.id if @course%>
-	<%= label_tag :course_type, "Тип блюда" %>
-	<%= select_tag(:course_type, options_for_select(@course_types,@selected_course_type),:prompt => "Все", class: 'select2') %>
-	<%= label_tag :course_type, "Вид блюда" %>
-	<%= select_tag(:course_category,options_from_collection_for_select(@course_categories, :id, :name, @selected_course_category), :prompt => "Все", class: 'select2') %>
-	<%= submit_tag "Следующий", class: "btn btn-lg btn-primary"  %>
+<%= hidden_field_tag :course_id, @course.id if @course%>
+<fieldset>
+	<ol>
+		<li>
+			<%= label_tag :course_type, "Тип блюда" %>
+			<%= select_tag(:course_type, options_for_select(@course_types,@selected_course_type),:prompt => "Все", class: 'select2') %>
+		</li>
+		<li>
+			<%= label_tag :course_type, "Вид блюда" %>
+			<%= select_tag(:course_category,options_from_collection_for_select(@course_categories, :id, :name, @selected_course_category), :prompt => "Все", class: 'select2') %>
+		</li>
+	</ol>
+</fieldset>
+<fieldset>
+	<ol>
+		<%= submit_tag "Следующий", class: "btn btn-lg btn-primary"  %>
+	</ol>
+</fieldset>
 <% end %>
