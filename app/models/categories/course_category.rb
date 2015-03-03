@@ -1,3 +1,3 @@
 class CourseCategory < Category
-	include SubCategory
+	include TypeableCategory
 end

@@ -17,8 +17,8 @@ describe "categories_pages" do
 
 		describe "creation" do
 			before {visit polymorphic_path(type.tableize)}
-			describe "with invalid information" do
 
+			describe "with invalid information" do
 				it "should not create a #{type}" do
 					expect { click_button create_button }.not_to change(type.constantize, :count)
 				end
@@ -38,16 +38,14 @@ describe "categories_pages" do
 
 		end
 
-
 		describe "destruction" do
 			let!(:"#{type.underscore}") {FactoryGirl.create(:"#{type.underscore}", user: user)}
-			describe "in #{type}s controller pages" do
 
+			describe "in #{type}s controller pages" do
 				before { visit polymorphic_path(type.tableize) }
 				it "should delete a #{type}" do
 					expect { click_link "удалить" }.to change(type.constantize, :count).by(-1)
 				end
-
 				describe "should have link to destroy" do
 					specify {expect(page).to have_link("удалить", polymorphic_path(type.underscore.tableize))}
 				end
@@ -55,10 +53,10 @@ describe "categories_pages" do
 
 		end
 
-
 		describe "index" do
 			let!(:c1) { FactoryGirl.create(:"#{type.underscore}", user: user) }
 			let!(:c2) { FactoryGirl.create(:"#{type.underscore}", user: user) }
+			let!(:other_user_category) { FactoryGirl.create(:"#{type.underscore}", user: FactoryGirl.create(:user)) }
 			before {visit polymorphic_path(type.tableize)}
 
 			it { should have_title(full_title("Виды #{RUTYPEPLURALIZE[type]}")) }
@@ -75,6 +73,10 @@ describe "categories_pages" do
 					user.categories.send(type.tableize).each do |category|
 						expect(page).to have_selector('td', text: category.name)
 					end
+				end
+
+				it "should no list each other users categories" do
+					expect(page).to_not have_selector('td', text: other_user_category.name)
 				end
 			end
 

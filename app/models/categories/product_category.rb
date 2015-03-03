@@ -1,3 +1,3 @@
 class ProductCategory < Category
-	include SubCategory
+	include TypeableCategory
 end

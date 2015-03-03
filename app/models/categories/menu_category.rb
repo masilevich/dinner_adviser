@@ -1,3 +1,3 @@
 class MenuCategory < Category
-	include SubCategory
+	include TypeableCategory
 end
