@@ -100,7 +100,7 @@ class CoursesController < ApplicationController
   private
 
   def set_courses
-    @courses = courses
+    @courses = courses.includes(:products)
   end
 
   def courses
@@ -116,7 +116,7 @@ class CoursesController < ApplicationController
   end
 
   def set_available_courses
-    @availabled_courses = courses.availabled.includes(:user,:products)
+    @availabled_courses = courses.availabled
   end
 
   def course_params

@@ -77,7 +77,7 @@ class MenusController < ApplicationController
   end
 
   def set_menus
-    @menus = menus
+    @menus = menus.includes(:category)
   end
 
   def menus
@@ -93,7 +93,7 @@ class MenusController < ApplicationController
   end
 
   def set_courses
-    @courses = current_user.courses.includes(:user,:products)    
+    @courses = current_user.courses 
   end
 
   def menu_params

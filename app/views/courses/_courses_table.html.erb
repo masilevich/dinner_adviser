@@ -13,7 +13,7 @@
 		<tr>
 			<td><%= link_to(wrap(course.name) , course_path(course), title: course.name) %></td>
 			<td>
-				<%= render course.products.includes(:user) %>
+				<%= render course.products %>
 			</td>
 			<td>
 				<% if can? :destroy, course %>

@@ -147,7 +147,7 @@ class ProductsController < ApplicationController
 	end
 
 	def set_available_products
-		@available_products = current_user.products.availabled.includes(:user)
+		@available_products = current_user.products.availabled
 	end
 
 	def set_product

@@ -30,7 +30,7 @@ class AdvicesController < ApplicationController
 	end
 
 	def set_courses_from_select
-		@courses = current_user.courses
+		@courses = current_user.courses.includes(:products)
 		@course_types = {"Доступные для приготовления"=> "1"}
 		
 		if params[:course_type] && params[:course_type] != ""
