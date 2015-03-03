@@ -26,5 +26,9 @@ module DinnerAdviser
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :ru
     config.i18n.enforce_available_locales = true
+
+    config.generators do |g|
+      g.assets false
+    end
   end
 end
