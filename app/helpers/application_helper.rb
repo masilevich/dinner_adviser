@@ -31,6 +31,13 @@ module ApplicationHelper
     end
   end
 
+  def nav_link(link_text, link_path, resource_name = nil)
+    class_name = (controller_name == resource_name) ? 'active' : ''    
+    content_tag(:li, :class => class_name, id: resource_name) do
+      link_to link_text, link_path
+    end
+  end
+
   private
 
   def wrap_long_string(text, max_width = 30)

@@ -1,8 +1,8 @@
 <% content_for :food_links do %>
-	<li><%= link_to "Случайный рецепт", advice_path %></li>
-	<li><%= link_to "Продукты", products_path %></li>
-	<li><%= link_to "Мои рецепты", courses_path %></li>
-	<li><%= link_to "Меню", menus_path %></li>
-	<li><%= link_to "Списки покупок", shopping_lists_path %></li>
+	<%= nav_link "Случайный рецепт", advice_path, "advices" %>
+	<%= nav_link "Продукты", products_path, "products" %>
+	<%= nav_link "Мои рецепты", courses_path, "courses" %>
+	<%= nav_link "Меню", menus_path, "menus" %>
+	<%= nav_link "Списки покупок", shopping_lists_path, "shopping_lists" %>
 <% end %>
 <%= render template: "layouts/food_links_menu_container" %>
