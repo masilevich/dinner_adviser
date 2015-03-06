@@ -1,0 +1,7 @@
+<% content_for :form_content do %>
+	<h2><%= yield(:title) %></h2>
+
+	<%= render layout: "layouts/form" do %>
+		<%= yield %>
+	<% end %>
+<% end %>

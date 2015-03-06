@@ -10,9 +10,9 @@ class Admin::AdminController < ApplicationController
 	def resolve_layout
 		case action_name
 		when "new" , "edit" , "show"
-			"admin_form_for_food_links_menu"
+			"admin_form_for_food_with_sidebar"
 		else 
-			"admin_food_links_menu"
+			"admin_layout_with_sidebar"
 		end
 	end
 

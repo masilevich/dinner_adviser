@@ -31,7 +31,7 @@ class CoursesController < ApplicationController
       flash.now[:danger] = 'Блюдо не добавлено'
       @products = current_user.products
       set_course_categories
-      render 'new', layout: "form_for_food_links_menu"
+      render 'new', layout: "form_for_food_with_sidebar"
     end
   end
 
@@ -64,7 +64,7 @@ class CoursesController < ApplicationController
       redirect_to courses_path
     else
       flash.now[:success] = 'Блюдо не изменено'
-      render 'edit', layout: "form_for_food_links_menu"
+      render 'edit', layout: "form_for_food_with_sidebar"
     end
   end
 

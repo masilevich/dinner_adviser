@@ -1,0 +1,16 @@
+<% content_for :content do %>
+
+<div class="row">
+	<div class="col-md-2">
+		<nav class="nav-sidebar">
+			<ul class="nav">
+				<%= yield(:sidebar_links) if content_for?(:sidebar_links) %>
+			</ul>
+		</nav>
+	</div>
+	<div class="col-md-10">
+		<%= content_for?(:form_content) ? yield(:form_content) : yield %>
+	</div>
+</div>
+
+<% end %>

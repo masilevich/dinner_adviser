@@ -20,7 +20,7 @@ class MenusController < ApplicationController
     else
       flash.now[:danger] = 'Меню не добавлено'
       set_menu_categories
-      render 'new', layout: "form_for_food_links_menu"
+      render 'new', layout: "form_for_food_with_sidebar"
     end
   end
 
@@ -60,7 +60,7 @@ class MenusController < ApplicationController
       redirect_to menus_path
     else
       flash.now[:success] = 'Меню не изменено'
-      render 'edit', layout: "form_for_food_links_menu"
+      render 'edit', layout: "form_for_food_with_sidebar"
     end
   end
 

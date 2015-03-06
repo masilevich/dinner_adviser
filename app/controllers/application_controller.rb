@@ -33,16 +33,16 @@ class ApplicationController < ActionController::Base
       when "products", "courses", "advices", "categories"
         case action_name
         when "new" , "edit" , "show"
-          "form_for_food_links_menu"
+          "form_for_food_with_sidebar"
         else 
-          "food_links_menu"
+          "layout_with_sidebar"
         end
       when "menus", "shopping_lists"
         case action_name
         when "show"
-          "form_for_food_links_menu"
+          "form_for_food_with_sidebar"
         else 
-          "food_links_menu"
+          "layout_with_sidebar"
         end
       else
         "application"

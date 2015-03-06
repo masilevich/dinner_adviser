@@ -20,7 +20,7 @@ class CategoriesController < ApplicationController
 			redirect_to polymorphic_path(type_class)
 		else
 			flash.now[:success] = "Вид #{@ru_type_pluralize} не изменен"
-			render 'edit', layout: "form_for_food_links_menu"
+			render 'edit', layout: "form_for_food_with_sidebar"
 		end
 	end
 

@@ -22,7 +22,7 @@
 			else
 				flash.now[:danger] = 'Блюдо не добавлено'
 				@common_products = Product.common
-				render 'new', layout: "form_for_food_links_menu"
+				render 'new', layout: "form_for_food_with_sidebar"
 			end
 		end
 
@@ -55,7 +55,7 @@
 			else
 				flash.now[:danger] = 'Блюдо не изменено'
 				@common_products = Product.common
-				render 'edit', layout: "form_for_food_links_menu"
+				render 'edit', layout: "form_for_food_with_sidebar"
 			end
 		end
 
