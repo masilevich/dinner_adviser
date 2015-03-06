@@ -38,6 +38,13 @@ module ApplicationHelper
     end
   end
 
+  def on_page_nav_link(link_text, link_path, link_action = nil)
+    class_name = (action_name == link_action) ? 'active' : ''    
+    content_tag(:li, :class => class_name) do
+      link_to link_text, controller: controller_name, action: link_action
+    end
+  end
+
   private
 
   def wrap_long_string(text, max_width = 30)

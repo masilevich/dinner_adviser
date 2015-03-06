@@ -4,11 +4,28 @@
 	<div class="col-md-2">
 		<nav class="nav-sidebar">
 			<ul class="nav">
-				<%= yield(:sidebar_links) if content_for?(:sidebar_links) %>
+				<%= yield(:sidebar_content) if content_for?(:sidebar_content) %>
 			</ul>
 		</nav>
 	</div>
 	<div class="col-md-10">
+
+		<ul class="nav nav-tabs">
+        <%= on_page_nav_link "Список", products_path, "index" %>
+        <%= on_page_nav_link "Создать новый", new_product_path, "new" %>
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Messages <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Inbox</a></li>
+                <li><a href="#">Drafts</a></li>
+                <li><a href="#">Sent Items</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Trash</a></li>
+            </ul>
+        </li>
+    </ul>
+    <br>
+
 		<%= content_for?(:form_content) ? yield(:form_content) : yield %>
 	</div>
 </div>

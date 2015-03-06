@@ -1,8 +1,8 @@
 <% content_for :content do %>
-<%= render layout: "layouts/form" do %>
-	<h2><%= yield(:title) %></h2>
-	<%= yield %>
-<% end %>	
-<% end %>
-<%= render template: "layouts/application" %>
+	<%= render layout: "layouts/form" do %>
+			<h2><%= yield(:title) %></h2>
+			<%= yield %>
+		<% end %>	
+	<% end %>
+	<%= render template: "layouts/application" %>
 </div>
