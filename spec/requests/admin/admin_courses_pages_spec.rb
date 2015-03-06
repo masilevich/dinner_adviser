@@ -5,7 +5,6 @@ require 'shared_food'
 describe "Admin::CoursesPages" do
 	include Warden::Test::Helpers
 	Warden.test_mode!
-	include_context "login user"
 	include_context "CRUD buttons and links names"
 	let(:create_button) { "Создать Блюдо" }
 	let(:save_button) { "Сохранить Блюдо" }

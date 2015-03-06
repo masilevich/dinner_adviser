@@ -2,10 +2,9 @@ require 'spec_helper'
 require 'shared_stuff'
 require 'shared_food'
 require 'import_common_shared_examples'
+require 'user_helper'
 
 describe "CoursesPages" do
-	include Warden::Test::Helpers
-	Warden.test_mode!
 
 	include_context "login user"
 	include_context "CRUD buttons and links names"

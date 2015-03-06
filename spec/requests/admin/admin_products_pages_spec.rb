@@ -4,7 +4,6 @@ require 'shared_stuff'
 describe "Admin::ProductsPages" do
 	include Warden::Test::Helpers
 	Warden.test_mode!
-	include_context "login user"
 	include_context "CRUD buttons and links names"
 	let(:create_button) { "Создать Продукт" }
 	let(:save_button) { "Сохранить Продукт" }

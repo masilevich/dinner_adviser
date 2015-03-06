@@ -1,10 +1,9 @@
 require 'spec_helper'
 require 'shared_stuff'
 require 'import_common_shared_examples'
+require 'user_helper'
 
 describe "ProductsPages" do
-	include Warden::Test::Helpers
-	Warden.test_mode!
 
 	include_context "login user"
 	include_context "CRUD buttons and links names"

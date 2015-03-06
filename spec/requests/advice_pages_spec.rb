@@ -1,16 +1,14 @@
 require 'spec_helper'
+require 'user_helper'
 
 describe "AdvicePages" do
-	include Warden::Test::Helpers
-	Warden.test_mode!
+	include_context "login user"
 
 	subject { page }
 
-	let(:user) { FactoryGirl.create(:confirmed_user) }
 	let!(:course) { FactoryGirl.create(:course, user: user) }
 	let!(:category1) { FactoryGirl.create(:course_category, user: user, name: "a") }
 	let!(:category2) { FactoryGirl.create(:course_category, user: user, name: "b") }
-	before {login_as(user, :scope => :user)}
 
 	describe "get advice" do
 		before {visit advice_path}

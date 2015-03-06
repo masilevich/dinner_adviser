@@ -1,14 +1,15 @@
 require 'spec_helper'
 require 'shared_stuff'
 require 'shared_food'
+require 'user_helper'
 
 describe "MenusPages" do
-	include Warden::Test::Helpers
+
 	include MenusHelper
-	Warden.test_mode!
+
 	include_context "login user"
 	include_context "CRUD buttons and links names"
-	include AsyncHelper
+
 
 	let(:create_button) { "Создать Меню" }
 	let(:save_button) { "Сохранить Меню" }

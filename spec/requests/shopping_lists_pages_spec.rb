@@ -1,10 +1,9 @@
 require 'spec_helper'
 require 'shared_stuff'
 require 'shared_food'
+require 'user_helper'
 
 describe "ShoppingListSPages" do
-	include Warden::Test::Helpers
-	Warden.test_mode!
 
 	include_context "login user"
 	include_context "CRUD buttons and links names"

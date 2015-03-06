@@ -1,15 +1,13 @@
 require 'spec_helper'
+require 'user_helper'
 
 describe "categories_pages" do
-	include Warden::Test::Helpers
-	Warden.test_mode!
+	include_context "login user"
 
 	subject { page }
 
 	CATEGORYTYPES = ["ProductCategory","MenuCategory","CourseCategory"]
 	RUTYPEPLURALIZE = {"ProductCategory" => "продуктов", "CourseCategory" => "блюд", "MenuCategory" => "меню"}
-	let(:user) { FactoryGirl.create(:confirmed_user) }
-	before {login_as(user, :scope => :user)}
 
 	CATEGORYTYPES.each do |type|
 	let(:create_button) { "Добавить" }

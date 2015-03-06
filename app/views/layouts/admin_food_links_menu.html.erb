@@ -1,5 +1,5 @@
 <% content_for :food_links do %>
-	<li><%= link_to "Базовые продукты", admin_products_path %></li>
-	<li><%= link_to "Типовые рецепты", admin_courses_path %></li>
+	<%= nav_link "Базовые продукты", admin_products_path, "products" %>
+	<%= nav_link "Типовые рецепты", admin_courses_path, "courses" %>
 <% end %>
 <%= render template: "layouts/food_links_menu_container" %>

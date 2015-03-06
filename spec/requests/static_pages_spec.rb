@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe "Static pages" do
-  include Warden::Test::Helpers
-  Warden.test_mode!
 
   subject { page }
 
@@ -22,49 +20,6 @@ describe "Static pages" do
     describe "for not signed-in users" do
       before {visit root_path}
       it { should have_link("Зарегистрироваться", href: new_user_registration_path) }
-    end
-
-    describe "for signed-in" do
-      let(:user) {FactoryGirl.create(:confirmed_user)}
-      describe "users" do
-        before do
-          login_as(user, :scope => :user)
-          visit root_path
-        end
-        after do
-          Warden.test_reset!
-        end
-
-        it { should_not have_link("Регистрация", href: new_user_registration_path) }
-        it { should_not have_link("Администрирование", href: admin_root_path) }
-
-        describe "food links" do
-          it { should have_link("Случайный рецепт", href: advice_path) }
-          it { should have_link("Продукты", href: products_path) }
-          it { should have_link("Мои рецепты", href: courses_path) }
-          it { should have_link("Меню", href: menus_path) }
-          it { should have_link("Списки покупок", href: shopping_lists_path) }
-        end
-      end
-      
-      
-      describe "admin" do
-        let(:admin) {FactoryGirl.create(:admin)}
-        before do
-          login_as(admin, :scope => :user)
-          visit root_path
-        end
-        after do
-          Warden.test_reset!
-        end
-
-        it { should have_link("Администрирование", href: admin_root_path) }
-        describe "common food links" do
-          before {click_link "Администрирование"}
-          it { should have_link("Базовые продукты", href: admin_products_path) }
-          it { should have_link("Типовые рецепты", href: admin_courses_path) }
-        end
-      end
     end
     
   end
@@ -86,16 +41,5 @@ describe "Static pages" do
     it_should_behave_like "all static pages"
   end
 
-  it "should have the right links on the layout" do
-    visit root_path
-    click_link "О нас"
-    expect(page).to have_title(full_title('О нас'))
-    click_link "Контакты"
-    expect(page).to have_title(full_title('Контакты'))
-    click_link "Главная"
-    page.first(:link, "Зарегистрироваться").click
-    expect(page).to have_title( full_title('Зарегистрироваться'))
-    click_link "Обеденный советник"
-    expect(page).to have_title( full_title(''))
-  end
+
 end

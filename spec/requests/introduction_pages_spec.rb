@@ -1,11 +1,10 @@
 require 'spec_helper'
 require 'shared_stuff'
 require 'import_common_shared_examples'
+require 'user_helper'
 
 describe "IntroductionPages" do
-	include Warden::Test::Helpers
-	Warden.test_mode!
-	after(:each) { Warden.test_reset! }
+
 	subject { page }
 
 	shared_examples_for "introduction first page" do
