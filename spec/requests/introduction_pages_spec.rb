@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'shared_stuff'
-require 'import_common_shared_examples'
+require 'requests/shared_examples/import_common_shared_examples'
 require 'user_helper'
 
 describe "IntroductionPages" do

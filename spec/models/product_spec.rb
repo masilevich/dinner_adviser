@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'shared_food'
-require 'common_shared_examples'
+require 'models/shared_examples/common_shared_examples'
 
 describe Product do
 	let(:user) { FactoryGirl.create(:user) }

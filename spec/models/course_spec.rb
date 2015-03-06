@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'common_shared_examples'
+require 'models/shared_examples/common_shared_examples'
 
 describe Course do
 	let(:user) { FactoryGirl.create(:user) }
