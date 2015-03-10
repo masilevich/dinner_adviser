@@ -1,4 +1,0 @@
-<%=form_tag("/#{@type.tableize}", method: :post, remote: true) do %>
-    <%= text_field_tag("#{@type.underscore}[name]", nil, placeholder: "Новый вид #{@ru_type_pluralize}") %>
-    <%= submit_tag("Добавить", class: "btn btn-lg btn-primary", remote: true) %>
-<% end %>
