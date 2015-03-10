@@ -1,0 +1,17 @@
+<% content_for :content do %>
+
+<div class="row">
+
+	<div class="col-md-2">
+		<%= render "layouts/sidebar" %>
+	</div>
+
+	<div class="col-md-10">
+		<%= render "layouts/on_page_menu" %>
+		<%= content_for?(:form_content) ? yield(:form_content) : yield %>
+	</div>
+
+</div>
+
+<% end %>
+<%= render template: "layouts/application" %>

@@ -1,0 +1,5 @@
+<nav class="nav-sidebar" id="sidebar">
+	<ul class="nav">
+		<%= yield(:sidebar_content) if content_for?(:sidebar_content) %>
+	</ul>
+</nav>

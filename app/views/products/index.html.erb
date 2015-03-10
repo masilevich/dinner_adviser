@@ -1,13 +1,5 @@
 <% provide(:title, 'Продукты') %>
 
-<section>
-			<%= link_to "Добавить", new_product_path, class: "btn btn-lg btn-primary"%>
-</section>
-
 <section id="products_lists">
 	<%= render 'products_lists' %>
 </section>
-
-<%= link_to "Виды продуктов", product_categories_path%>
-<p></p>
-<%= link_to "Импорт базовых продуктов", import_common_products_path%>

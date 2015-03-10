@@ -32,7 +32,7 @@ class ShoppingListsController < ApplicationController
 					redirect_to shopping_lists_path
 				else
 					flash.now[:danger] = 'Список покупок не добавлен'
-					render 'new', layout: "form_for_food_with_sidebar"
+					render 'new', layout: "main_form"
 				end
 			end
 			format.js

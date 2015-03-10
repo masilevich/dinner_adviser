@@ -1,0 +1,8 @@
+<% if show_on_page_menu? %>
+	<div id="on-page-menu">
+		<ul class="nav nav-tabs">
+			<%= render 'layouts/default_on_page_menu_links' %>
+			<%= render params[:controller] + '/on_page_menu_links' if File.exists?("app/views/"+params[:controller]+"/_on_page_menu_links.html.erb") %>
+		</ul>
+	</div>
+<% end %>

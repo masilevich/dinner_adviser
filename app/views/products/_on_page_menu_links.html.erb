@@ -1,0 +1,9 @@
+<li class="dropdown">
+	<a href="#" data-toggle="dropdown" class="dropdown-toggle">Виды продуктов <b class="caret"></b></a>
+	<ul class="dropdown-menu">
+		<%= nav_link "Список", product_categories_path, :action %>
+		<%= nav_link "Добавить новый", new_product_category_path, :action %>
+	</ul>
+</li>
+
+<%= nav_link "Импорт базовых продуктов", import_common_products_path, :action %>

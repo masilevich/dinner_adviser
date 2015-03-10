@@ -26,7 +26,7 @@ describe "CoursesPages" do
 
 		it { should have_link(c1.name, href: course_path(c1)) }
 
-		it { should have_link("Виды блюд", href: course_categories_path) }
+		it { should have_link("Список", href: course_categories_path) }
 		it { should have_link("Импорт типовых рецептов", href: import_common_courses_path) }
 
 		it { should have_content("Рецепты (#{user.courses.count})") }

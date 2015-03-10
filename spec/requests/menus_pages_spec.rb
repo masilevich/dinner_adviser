@@ -27,7 +27,7 @@ describe "MenusPages" do
 
 		it { should have_link(m1.date, href: menu_path(m1)) }
 
-		it { should have_link("Виды меню", href: menu_categories_path) }
+		it { should have_link("Список", href: menu_categories_path) }
 
 		it { should have_content("Меню (#{user.menus.count})") }
 

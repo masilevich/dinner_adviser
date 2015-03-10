@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <title><%= full_title(yield(:title)) %></title>
     <%= stylesheet_link_tag    "application", media: "all" %>
@@ -7,16 +8,24 @@
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>
   </head>
+
    <body>
     <%= render 'layouts/header' %>
+
     <div class="container">
-      
+
       <% flash.each do |key, value| %>
         <%= content_tag(:div, value, class: "alert alert-#{key}") %>
       <% end %>
-      <div id="content"><%= content_for?(:content) ? yield(:content) : yield %></div>
+
+      <div id="content">
+        <%= content_for?(:content) ? yield(:content) : yield %>
+      </div>
+
       <%= render 'layouts/footer' %>
-      <%#= render 'layouts/debug' %>
+
     </div>
+
   </body>
+  
 </html>

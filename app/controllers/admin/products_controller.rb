@@ -25,7 +25,7 @@
 						redirect_to admin_products_path
 					else
 						flash.now[:danger] = 'Продукт не добавлен'
-						render 'new', layout: "form_for_food_with_sidebar"
+						render 'new', layout: "admin_form"
 					end
 				end
 				format.js
@@ -59,7 +59,7 @@
 				redirect_to admin_products_path
 			else
 				flash.now[:danger] = 'Базовый продукт не изменен'
-				render 'edit', layout: "form_for_food_with_sidebar"
+				render 'edit', layout: "admin_form"
 			end
 		end
 

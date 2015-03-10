@@ -31,17 +31,31 @@ module ApplicationHelper
     end
   end
 
-  def nav_link(link_text, link_path, resource_name = nil)
-    class_name = (controller_name == resource_name) ? 'active' : ''    
-    content_tag(:li, :class => class_name) do
-      link_to link_text, link_path
+  def show_on_page_menu?
+    case controller_name
+    when "products", "courses", "menus", "shopping_lists", "categories"
+      true
     end
   end
 
-  def on_page_nav_link(link_text, link_path, link_action = nil)
-    class_name = (action_name == link_action) ? 'active' : ''    
+  def nav_link(name = nil, options = nil, active_scope = :controller)
+    case options
+    when String
+      controller =  Rails.application.routes.recognize_path(options)[:controller]
+      action =  Rails.application.routes.recognize_path(options)[:action]
+    when Hash
+      options.reverse_merge!(controller: controller_path, action: action_name)
+      controller = options[:controller]
+      action = options[:action]
+    end   
+    case active_scope
+    when :controller
+      class_name = (controller_path == controller) ? 'active' : ''
+    when :action
+      class_name = (controller_path == controller && action_name == action) ? 'active' : '' 
+    end
     content_tag(:li, :class => class_name) do
-      link_to link_text, controller: controller_name, action: link_action
+      link_to name, options
     end
   end
 

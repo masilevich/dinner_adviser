@@ -1,6 +1,21 @@
 require 'spec_helper'
 require 'user_helper'
 
+shared_examples "default on page menu" do |controller_path|
+	let(:index_label) {"Список"}
+	let(:new_label) {"Создать новый"}
+	it "should have links" do
+		expect(page).to have_link(index_label, href: controller_path)
+		expect(page).to have_link(new_label, href: "#{controller_path}/new")
+	end
+
+	it "should switch active link" do
+		expect(page).to have_selector('li.active', text: index_label)
+		click_link new_label
+		expect(page).to have_selector('li.active', text: new_label)
+	end
+end
+
 describe "ApplicationLayoutPages" do
 
 	subject { page }
@@ -55,6 +70,62 @@ describe "ApplicationLayoutPages" do
 				it { should_not have_link("Регистрация", href: new_user_registration_path) }
 				it { should_not have_link("Администрирование", href: admin_root_path) }
 			end
+
+			describe "on page menu" do
+
+				context "advice" do
+					before {visit advice_path}
+					specify { expect(page).to_not have_selector('div#on_page_menu') }
+				end
+
+				context "products pages" do
+					before {visit products_path}
+
+					it_should_behave_like "default on page menu", "/products"
+					it "should have links" do
+						expect(page).to have_link("Импорт базовых продуктов", 
+							href: import_common_products_path)
+						expect(page).to have_link("Список", href: product_categories_path)
+						expect(page).to have_link("Добавить новый", href: new_product_category_path)
+					end
+
+					it "should switch active link" do
+						click_link "Импорт базовых продуктов"
+						expect(page).to have_selector('li.active', text: "Импорт базовых продуктов")
+					end
+				end
+
+				context "courses pages" do
+					before {visit courses_path}
+					it_should_behave_like "default on page menu", "/courses"
+
+					it "should have links" do
+						expect(page).to have_link("Импорт типовых рецептов", 
+							href: import_common_courses_path)
+						expect(page).to have_link("Список", href: course_categories_path)
+						expect(page).to have_link("Добавить новый", href: new_course_category_path)
+					end
+
+					it "should switch active link" do
+						click_link "Импорт типовых рецептов"
+						expect(page).to have_selector('li.active', text: "Импорт типовых рецептов")
+					end
+				end
+
+				context "menus pages" do
+					before {visit menus_path}
+					it_should_behave_like "default on page menu", "/menus"
+					it "should have links" do
+						expect(page).to have_link("Список", href: menu_categories_path)
+						expect(page).to have_link("Добавить новый", href: new_menu_category_path)
+					end
+				end
+
+				context "shopping lists pages" do
+					before {visit shopping_lists_path}
+					it_should_behave_like "default on page menu", "/shopping_lists"
+				end
+			end
 		end
 
 		describe "admin" do
@@ -92,6 +163,18 @@ describe "ApplicationLayoutPages" do
 					expect(page).to have_selector('li.active', text: courses_menu_label)
 				end
 
+			end
+
+			describe "on page menu" do
+				context "products pages" do
+					before {visit admin_products_path}
+					it_should_behave_like "default on page menu", "/admin/products"
+				end
+
+				context "courses pages" do
+					before {visit admin_courses_path}
+					it_should_behave_like "default on page menu", "/admin/courses"
+				end
 			end
 		end
 	end

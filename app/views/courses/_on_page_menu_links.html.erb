@@ -1,0 +1,9 @@
+<li class="dropdown">
+	<a href="#" data-toggle="dropdown" class="dropdown-toggle">Виды блюд <b class="caret"></b></a>
+	<ul class="dropdown-menu">
+		<%= nav_link "Список", course_categories_path, :action %>
+		<%= nav_link "Добавить новый", new_course_category_path, :action %>
+	</ul>
+</li>
+
+<%= nav_link "Импорт типовых рецептов", import_common_courses_path, :action %>

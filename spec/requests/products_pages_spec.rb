@@ -133,7 +133,7 @@ describe "ProductsPages" do
 		it { should have_link(p1.name, href: product_path(p1)) }
 		it { should have_link(p2.name, href: product_path(p2)) }
 
-		it { should have_link("Виды продуктов", href: product_categories_path) }
+		it { should have_link("Список", href: product_categories_path) }
 		it { should have_link("Импорт базовых продуктов", href: import_common_products_path) }
 
 		describe "on all products" do

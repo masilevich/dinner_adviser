@@ -35,7 +35,7 @@ class ProductsController < ApplicationController
 				else
 					flash.now[:danger] = 'Продукт не добавлен'
 					set_product_categories
-					render 'new', layout: "form_for_food_with_sidebar"
+					render 'new', layout: "main_form"
 				end
 			end
 			format.js
@@ -104,7 +104,7 @@ class ProductsController < ApplicationController
 			redirect_to products_path
 		else
 			flash.now[:danger] = 'Продукт не изменен'
-			render 'edit', layout: "form_for_food_with_sidebar"
+			render 'edit', layout: "main_form"
 		end
 	end
 

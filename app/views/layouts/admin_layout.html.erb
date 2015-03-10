@@ -1,0 +1,5 @@
+<% content_for :sidebar_content do %>
+	<%= nav_link "Базовые продукты", admin_products_path %>
+	<%= nav_link "Типовые рецепты", admin_courses_path %>
+<% end %>
+<%= render template: "layouts/content_layout" %>
