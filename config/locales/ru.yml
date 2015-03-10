@@ -92,6 +92,14 @@ ru:
       shopping_list:
         name: *name
         category: *category
+      category:
+        name: *name
+      product_category:
+        name: *name
+      course_category:
+        name: *name
+      menu_category:
+        name: *name
     errors:
       <<: *errors
   unauthorized:

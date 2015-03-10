@@ -108,7 +108,7 @@ describe "Admin::ProductsPages" do
 			it { should have_content(product_name) }
 
 			it { should have_content("Базовый продукт изменен") }
-			it { should have_title(full_title('Базовые продукт')) }
+			it { should have_title(full_title('Базовые продукты')) }
 		end
 
 		describe "with invalid information" do

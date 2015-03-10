@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   load_and_authorize_resource
 	#before_action :set_category, only: [:edit, :update, :destroy]
 	before_action :set_type
-	before_action :set_ru_type_pluralize, only: [:edit, :update, :create, :index]
+	before_action :set_ru_type_pluralize, only: [:new, :edit, :update, :create, :index]
 
 
 	def index
@@ -19,27 +19,23 @@ class CategoriesController < ApplicationController
 			flash[:success] = "Вид #{@ru_type_pluralize} изменен"
 			redirect_to polymorphic_path(type_class)
 		else
-			flash.now[:success] = "Вид #{@ru_type_pluralize} не изменен"
+			flash.now[:danger] = "Вид #{@ru_type_pluralize} не изменен"
 			render 'edit', layout: "main_form"
 		end
 	end
 
+	def new
+		@category = categories.build()
+	end
+
 	def create
 		@category = categories.build(category_params)
-		save_result = @category.save
-		if save_result
-			@categories = categories
-		end
-		respond_to do |format|
-			format.html do
-				if save_result
-					flash[:success] = "Вид #{@ru_type_pluralize} добавлен"
-				else
-					flash[:danger] = "Вид #{@ru_type_pluralize} не добавлен"
-				end
-				redirect_to polymorphic_path(type_class)
-			end
-			format.js 
+		if @category.save
+			flash[:success] = "Вид #{@ru_type_pluralize} добавлен"
+			redirect_to polymorphic_path(type_class)
+		else
+			flash.now[:danger] = "Вид #{@ru_type_pluralize} не добавлен"
+			render 'new', layout: "main_form"
 		end
 	end
 
@@ -51,9 +47,9 @@ class CategoriesController < ApplicationController
 		respond_to do |format|
 			format.html do
 				if delete_result
-					flash[:success] = 'Вид #{@ru_type_pluralize} удален'
+					flash[:success] = "Вид #{@ru_type_pluralize} удален"
 				else
-					flash[:danger] = 'Вид #{@ru_type_pluralize} не удален'
+					flash[:danger] = "Вид #{@ru_type_pluralize} не удален"
 				end
 				redirect_to polymorphic_path(type_class)
 			end
@@ -83,13 +79,17 @@ class CategoriesController < ApplicationController
 		if @type == "Category"
 			current_user.categories
 		else
-			current_user.categories.send(type.tableize)
+			current_user.send(type.tableize)
 		end
 	end
 
 	def category_params
 		params.require(:"#{type.underscore}").permit(:name, :type)
 	end
+
+	Category.types.each do |type|
+		define_method(:"#{type.underscore}_params") { category_params }
+  end
 
 	def set_ru_type_pluralize
 		@ru_type_pluralize = case type

@@ -3,6 +3,9 @@ class User < ActiveRecord::Base
   has_many :products,  dependent: :destroy
   has_many :menus,  dependent: :destroy
   has_many :categories,  dependent: :destroy
+  has_many :product_categories
+  has_many :course_categories
+  has_many :menu_categories
   has_many :shopping_lists,  dependent: :destroy
 
 

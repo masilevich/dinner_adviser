@@ -10,11 +10,11 @@ describe "categories_pages" do
 	RUTYPEPLURALIZE = {"ProductCategory" => "продуктов", "CourseCategory" => "блюд", "MenuCategory" => "меню"}
 
 	CATEGORYTYPES.each do |type|
-	let(:create_button) { "Добавить" }
+	let(:create_button) { "Создать Категория" }
 	let(:save_button) { "Сохранить Категория" }
 
 		describe "creation" do
-			before {visit polymorphic_path(type.tableize)}
+			before {visit new_polymorphic_path(type.constantize)}
 
 			describe "with invalid information" do
 				it "should not create a #{type}" do
@@ -59,7 +59,6 @@ describe "categories_pages" do
 
 			it { should have_title(full_title("Виды #{RUTYPEPLURALIZE[type]}")) }
 
-			it { should have_button('Добавить') }
 			it { should have_link('удалить', href: polymorphic_path(c1)) }
 			it { should have_link(c1.name, href: edit_polymorphic_path(c1)) }
 			it { should have_link(c2.name, href: edit_polymorphic_path(c2)) }

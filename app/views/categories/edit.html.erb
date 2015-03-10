@@ -1,13 +1,2 @@
 <% provide(:title, "Изменить вид #{@ru_type_pluralize}") %>
-
-<%= semantic_form_for(@category) do |f| %>
-	<%= render 'shared/error_messages', object: f.object %>
-
-	<%=f.inputs do %>
-		<%=f.input :name %>
-	<% end %>
-
-	<%= f.actions do %>
-	  	<%= f.submit :class => "btn btn-lg btn-primary" %>
-	<% end %>
-<% end %>
+<%= render 'category_form' %>
