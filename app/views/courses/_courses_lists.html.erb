@@ -1,17 +1,13 @@
 <%= render layout: 'layouts/two_columns_lists' do %>
-	<% if @availabled_courses && @availabled_courses.any? %>
-		<% content_for :column1 do	%>
-			<% provide(:title1, "Можно приготовить (#{@availabled_courses.to_a.count})") %>	
-			<% provide(:section_id1, "courses_availabled") %>
-			<%= render 'shared/table_with_categories', items: @availabled_courses, class_name: "Course", table_partial: 'courses/courses_table'  %>
-		<% end %>
+	<% content_for :column1 do	%>
+		<% provide(:title1, "Можно приготовить (#{@availabled_courses.to_a.count})") %>	
+		<% provide(:section_id1, "courses_availabled") %>
+		<%= render 'shared/table_with_categories', items: @availabled_courses, class_name: "Course", table_partial: 'courses/courses_table'  %>
 	<% end %>
-	
-	<% if @courses && @courses.any? %>
-		<% content_for :column2 do	%>
-			<% provide(:title2, "Рецепты (#{@courses.count})") %>	
-			<% provide(:section_id2, "courses") %>
-			<%= render 'shared/table_with_categories', items: @courses, class_name: "Course", table_partial: 'courses/courses_table'  %>
-		<% end %>
+
+	<% content_for :column2 do	%>
+		<% provide(:title2, "Рецепты (#{@courses.count})") %>	
+		<% provide(:section_id2, "courses") %>
+		<%= render 'shared/table_with_categories', items: @courses, class_name: "Course", table_partial: 'courses/courses_table'  %>
 	<% end %>
 <% end %>

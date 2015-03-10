@@ -1,17 +1,13 @@
 <%= render layout: 'layouts/two_columns_lists' do %>
-	<% if @available_products && @available_products.any? %>
 		<% content_for :column1 do	%>
 			<% provide(:title1, "В наличии (#{@available_products.count})") %>	
 			<% provide(:section_id1, "products_availabled") %>
 			<%= render 'shared/table_with_categories', items: @available_products, class_name: "Product", table_partial: 'products/products_table'  %>
 		<% end %>
-	<% end %>
 	
-	<% if @products && @products.any? %>
 		<% content_for :column2 do	%>
 			<% provide(:title2, "Все (#{@products.count})") %>	
 			<% provide(:section_id2, "products") %>
 			<%= render 'shared/table_with_categories', items: @products, class_name: "Product", table_partial: 'products/products_table'  %>
 		<% end %>
-	<% end %>
 <% end %>

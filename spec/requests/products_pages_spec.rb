@@ -138,6 +138,7 @@ describe "ProductsPages" do
 
 		describe "on all products" do
 			it { should have_content("Все (#{user.products.count})") }
+			it { should have_content("В наличии (0)") }
 
 			it "should list each product" do
 				user.products.each do |product|

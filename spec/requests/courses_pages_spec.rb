@@ -30,6 +30,7 @@ describe "CoursesPages" do
 		it { should have_link("Импорт типовых рецептов", href: import_common_courses_path) }
 
 		it { should have_content("Рецепты (#{user.courses.count})") }
+		it { should have_content("Можно приготовить (0)") }
 
 		describe "on all courses" do
 			it "should list each course" do
