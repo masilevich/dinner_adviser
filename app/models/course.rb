@@ -19,7 +19,7 @@ class Course < ActiveRecord::Base
 	default_scope { order(name: :asc) }
 
 	scope :availabled, -> do
-		joins(:products).having("(COUNT(CASE WHEN products.available = ? then 1 ELSE null END)=0)",false)
+		select("courses.*, products.*").joins(:products).having("(COUNT(CASE WHEN products.available = ? then 1 ELSE null END)=0)",false)
 			.group("courses.id")
 	end
 
