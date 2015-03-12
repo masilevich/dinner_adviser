@@ -1,0 +1,16 @@
+$("#advice_course").html("<%= escape_javascript(render(partial: 'course_show')) %>")
+$("#random_course_select_form").html("<%= escape_javascript(render(partial: 'random_course_select_form')) %>")
+$(".select2").each((function(_this) {
+	return function(i, e) {
+		var options, select;
+		select = $(e);
+		options = {
+			placeholder: select.data('placeholder'),
+			allowClear: true,
+			containerCss: {
+				"display": "block"
+			}
+		};
+		return select.select2(options);
+	};
+})(this));
