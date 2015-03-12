@@ -3,7 +3,7 @@ ruby '2.2.0'
 
 gem 'rails', '4.1.4'
 gem 'bootstrap-sass', '~> 3.1.1'
-gem 'bcrypt-ruby'
+gem 'bcrypt'
 gem 'faker', '1.1.2'
 gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
@@ -30,7 +30,6 @@ end
 
 group :development do
   gem 'bullet'
-  gem 'hirb'
   gem 'better_errors'      # Web UI to debug exceptions. Go to /__better_errors to access the latest one
   gem 'binding_of_caller'  # Retrieve the binding of a method's caller in MRI Ruby >= 1.9.2
   gem 'rack-mini-profiler'
