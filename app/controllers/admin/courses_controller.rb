@@ -62,7 +62,7 @@
 		private
 
 		def set_common_courses
-			@courses = Course.common
+			@courses = Course.common.includes(:products)
 		end
 
 		def set_course

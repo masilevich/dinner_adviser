@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
-ruby '2.1.0'
+ruby '2.2.0'
 
 gem 'rails', '4.1.4'
 gem 'bootstrap-sass', '~> 3.1.1'
-gem 'bcrypt-ruby', '3.1.2'
+gem 'bcrypt-ruby'
 gem 'faker', '1.1.2'
 gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
@@ -21,7 +21,7 @@ gem 'i18n'
 gem 'select2-rails'
 
 group :development, :test do
-  gem 'sqlite3', '1.3.8'
+  gem 'sqlite3'
   gem "rspec-rails", '~> 2.14.0.rc1'
   gem 'spork-rails', '4.0.0'
   gem 'childprocess', '0.3.6'

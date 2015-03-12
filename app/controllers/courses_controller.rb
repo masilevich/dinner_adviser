@@ -80,7 +80,7 @@ class CoursesController < ApplicationController
     else
       @course_ids.delete(@course.id)
     end
-    @courses_in_menu = Course.where(id: @course_ids)
+    @courses_in_menu = Course.where(id: @course_ids).includes(:products)
 
   end
 
@@ -116,7 +116,7 @@ class CoursesController < ApplicationController
   end
 
   def set_available_courses
-    @availabled_courses = courses.availabled
+    @availabled_courses = courses.availabled.includes(:products)
   end
 
   def course_params
