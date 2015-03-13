@@ -19,7 +19,7 @@ class Course < ActiveRecord::Base
 	default_scope { order(name: :asc) }
 
 	scope :availabled, -> do
-		select('courses.*').joins(:products).group('courses.id').having("COUNT(products.id) > 0")
+		select('courses.*').joins(:products).group('courses.id').having("COUNT(products.id) > 0").reorder('')
 	end
 
 end
