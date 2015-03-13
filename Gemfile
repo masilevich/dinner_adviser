@@ -33,6 +33,7 @@ group :development do
   gem 'better_errors'      # Web UI to debug exceptions. Go to /__better_errors to access the latest one
   gem 'binding_of_caller'  # Retrieve the binding of a method's caller in MRI Ruby >= 1.9.2
   gem 'rack-mini-profiler'
+  gem 'hirb'
 end
 
 group :test do
