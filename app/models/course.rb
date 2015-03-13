@@ -19,7 +19,9 @@ class Course < ActiveRecord::Base
 	default_scope { order(name: :asc) }
 
 	scope :availabled, -> do
-		select('courses.*').joins(:products).group('courses.id').having("COUNT(products.id) > 0").reorder('')
+		select('courses.*').joins(:products).group('courses.id')
+			.having('(SUM(CASE WHEN products.available = ? then 1 ELSE 0 END)=0)',false)
+
 	end
 
 end
